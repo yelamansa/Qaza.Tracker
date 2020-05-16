@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Qaza tracker</string>
+    <string name="calculation_first_header">Қаза намаздарыңыздың санын нақты білу үшін төменге өзіңіз жайлы ақпаратты сәйкесінше мұқият еңгізіңіз</string>
+    <string name="calculation_second_header">Сіз жайлы ақпарат тек есептеу үшін ғана қолданылады және сақталмайды</string>
 </resources>
