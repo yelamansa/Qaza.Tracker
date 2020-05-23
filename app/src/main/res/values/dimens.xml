@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="view_large_padding">16dp</dimen>
-    <dimen name="view_huge_margin">32dp</dimen>
+    <dimen name="padding_slarge">10dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_slarge">10dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_huge">32dp</dimen>
 </resources>
