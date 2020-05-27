@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import kz.qazatracker.R
 import java.lang.NumberFormatException
 
-private const val DEFAULT_COUNTER_VALUE = 12
+private const val DEFAULT_COUNTER_VALUE = -1
 private const val DEFAULT_MIN_COUNTER_VALUE = 0
 private const val DEFAULT_MAX_COUNTER_VALUE = 30
 
@@ -42,7 +42,9 @@ class DefaultCounterWidget(
         counter = attributes.getInt(R.styleable.DefaultCounterWidget_counter, DEFAULT_COUNTER_VALUE)
         minCounterValue = attributes.getInt(R.styleable.DefaultCounterWidget_min_counter_value, DEFAULT_MIN_COUNTER_VALUE)
         maxCounterValue = attributes.getInt(R.styleable.DefaultCounterWidget_max_counter_value, DEFAULT_MAX_COUNTER_VALUE)
-        counterEditText.setText("$counter")
+        if (counter != DEFAULT_COUNTER_VALUE) {
+            counterEditText.setText("$counter")
+        }
         attributes.recycle()
 
         setupCounterEditText()
@@ -50,11 +52,13 @@ class DefaultCounterWidget(
             if (counter >= maxCounterValue) return@setOnClickListener
 
             counterEditText.setText("${++counter}")
+            counterEditText.setSelection(counterEditText.text.length)
         }
         minusButton.setOnClickListener {
             if (counter <= minCounterValue) return@setOnClickListener
 
             counterEditText.setText("${--counter}")
+            counterEditText.setSelection(counterEditText.text.length)
         }
     }
 
@@ -83,5 +87,8 @@ class DefaultCounterWidget(
 
             }
         })
+        counterEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) { counterEditText.setSelection(counterEditText.text.length) }
+        }
     }
 }

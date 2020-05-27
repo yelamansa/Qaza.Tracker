@@ -176,7 +176,7 @@
         app:counter="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/days_in_sapar_text_view"
-        app:max_counter_value="12"
+        app:max_counter_value="1000000"
         app:min_counter_value="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
