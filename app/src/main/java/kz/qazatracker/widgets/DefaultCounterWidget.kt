@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import kz.qazatracker.R
-import java.lang.NumberFormatException
 
 private const val DEFAULT_COUNTER_VALUE = -1
 private const val DEFAULT_MIN_COUNTER_VALUE = 0

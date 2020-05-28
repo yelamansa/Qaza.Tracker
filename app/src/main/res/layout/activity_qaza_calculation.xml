@@ -76,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gender_radio_group" />
 
-    <TextView
+    <kz.qazatracker.widgets.DatePickerTextView
         android:id="@+id/birth_date_text_view"
         style="@style/calculationFormDate"
         android:layout_width="0dp"
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/birth_date_text_view" />
 
-    <TextView
+    <kz.qazatracker.widgets.DatePickerTextView
         android:id="@+id/baligat_date_text_view"
         style="@style/calculationFormDate"
         android:layout_width="0dp"
@@ -134,7 +134,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
 
-    <TextView
+    <kz.qazatracker.widgets.DatePickerTextView
         android:id="@+id/solat_start_date_text_view"
         style="@style/calculationFormDate"
         android:layout_width="0dp"
@@ -148,7 +148,7 @@
         tools:text="28 мамыр 2020" />
 
     <CheckBox
-        android:id="@+id/solat_start_today_date_text_view"
+        android:id="@+id/solat_start_today_date_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
@@ -166,7 +166,7 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solat_start_today_date_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/solat_start_today_date_checkbox" />
 
     <kz.qazatracker.widgets.DefaultCounterWidget
         android:id="@+id/sapar_input_container"
