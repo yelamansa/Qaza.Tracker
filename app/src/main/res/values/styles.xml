@@ -9,7 +9,7 @@
     </style>
 
     <style name="calculationFormDate" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/secondary_text_color</item>
         <item name="android:layout_marginTop">@dimen/margin_medium</item>
     </style>

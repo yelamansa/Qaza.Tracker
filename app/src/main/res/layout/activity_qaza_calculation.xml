@@ -1,182 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:paddingHorizontal="@dimen/margin_huge"
-    tools:context=".QazaCalculationActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/first_header_text_view"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_huge"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:text="@string/calculation_first_header"
-        android:textAlignment="center"
-        android:textColor="#4F4F4F"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@android:color/white"
+        android:paddingHorizontal="@dimen/margin_huge"
+        tools:context=".QazaCalculationActivity">
 
-    <TextView
-        android:id="@+id/second_header_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:text="@string/calculation_second_header"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/first_header_text_view" />
+        <TextView
+            android:id="@+id/first_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_huge"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:text="@string/calculation_first_header"
+            android:textAlignment="center"
+            android:textColor="#4F4F4F"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/gender_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_huge"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/second_header_text_view">
+        <TextView
+            android:id="@+id/second_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:text="@string/calculation_second_header"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_header_text_view" />
 
-        <RadioButton
-            android:id="@+id/male_radio_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/male" />
+        <RadioGroup
+            android:id="@+id/gender_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_huge"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/second_header_text_view">
 
-        <RadioButton
-            android:id="@+id/female_radio_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/female" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/male_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/male"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/birth_date_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
-        android:text="@string/birth_date"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gender_radio_group" />
+            <RadioButton
+                android:id="@+id/female_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/female"
+                android:textSize="14sp" />
+        </RadioGroup>
 
-    <kz.qazatracker.widgets.DatePickerTextView
-        android:id="@+id/birth_date_text_view"
-        style="@style/calculationFormDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_date_text_view"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:paddingVertical="@dimen/padding_slarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/birth_date_title_text_view"
-        tools:text="28 мамыр 2020" />
+        <TextView
+            android:id="@+id/birth_date_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="@string/birth_date"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gender_radio_group" />
 
-    <TextView
-        android:id="@+id/baligat_date_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:text="@string/baligat_date"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/birth_date_text_view" />
+        <kz.qazatracker.widgets.DatePickerTextView
+            android:id="@+id/birth_date_text_view"
+            style="@style/calculationFormDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_date_text_view"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingVertical="@dimen/padding_slarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birth_date_title_text_view"
+            tools:text="28 мамыр 2020" />
 
-    <kz.qazatracker.widgets.DatePickerTextView
-        android:id="@+id/baligat_date_text_view"
-        style="@style/calculationFormDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_date_text_view"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:paddingVertical="@dimen/padding_slarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/baligat_date_title_text_view"
-        tools:text="28 мамыр 2020" />
+        <TextView
+            android:id="@+id/baligat_date_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/baligat_date"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birth_date_text_view" />
 
-    <CheckBox
-        android:id="@+id/baligat_date_unknown_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_slarge"
-        android:text="@string/unknown"
-        android:textColor="@color/black_gray_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/baligat_date_text_view" />
+        <kz.qazatracker.widgets.DatePickerTextView
+            android:id="@+id/baligat_date_text_view"
+            style="@style/calculationFormDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_date_text_view"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingVertical="@dimen/padding_slarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/baligat_date_title_text_view"
+            tools:text="28 мамыр 2020" />
 
-    <TextView
-        android:id="@+id/solat_start_date_title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:text="@string/solat_start_date"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
+        <CheckBox
+            android:id="@+id/baligat_date_unknown_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_slarge"
+            android:text="@string/unknown"
+            android:textSize="15sp"
+            android:textColor="@color/black_gray_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/baligat_date_text_view" />
 
-    <kz.qazatracker.widgets.DatePickerTextView
-        android:id="@+id/solat_start_date_text_view"
-        style="@style/calculationFormDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_date_text_view"
-        android:paddingHorizontal="@dimen/padding_large"
-        android:paddingVertical="@dimen/padding_slarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solat_start_date_title_text_view"
-        tools:text="28 мамыр 2020" />
+        <TextView
+            android:id="@+id/solat_start_date_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/solat_start_date"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
 
-    <CheckBox
-        android:id="@+id/solat_start_today_date_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:text="@string/from_today"
-        android:textColor="@color/black_gray_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solat_start_date_text_view" />
+        <kz.qazatracker.widgets.DatePickerTextView
+            android:id="@+id/solat_start_date_text_view"
+            style="@style/calculationFormDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_date_text_view"
+            android:paddingHorizontal="@dimen/padding_large"
+            android:paddingVertical="@dimen/padding_slarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/solat_start_date_title_text_view"
+            tools:text="28 мамыр 2020" />
 
-    <TextView
-        android:id="@+id/days_in_sapar_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:text="@string/days_in_sapar"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solat_start_today_date_checkbox" />
+        <CheckBox
+            android:id="@+id/solat_start_today_date_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/from_today"
+            android:textSize="15sp"
+            android:textColor="@color/black_gray_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/solat_start_date_text_view" />
 
-    <kz.qazatracker.widgets.DefaultCounterWidget
-        android:id="@+id/sapar_input_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        app:counter="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/days_in_sapar_text_view"
-        app:max_counter_value="1000000"
-        app:min_counter_value="0" />
+        <TextView
+            android:id="@+id/days_in_sapar_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/days_in_sapar"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/solat_start_today_date_checkbox" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <kz.qazatracker.widgets.DefaultCounterWidget
+            android:id="@+id/sapar_input_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            app:counter="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/days_in_sapar_text_view"
+            app:max_counter_value="1000000"
+            app:min_counter_value="0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
