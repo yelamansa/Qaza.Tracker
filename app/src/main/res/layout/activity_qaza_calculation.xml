@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:paddingHorizontal="@dimen/margin_huge"
+        android:paddingBottom="@dimen/margin_huge"
         tools:context=".QazaCalculationActivity">
 
         <TextView
@@ -17,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_huge"
+            android:fontFamily="@font/open_sans"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_large"
             android:text="@string/calculation_first_header"
             android:textAlignment="center"
             android:textColor="#4F4F4F"
@@ -32,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_large"
+            android:fontFamily="@font/open_sans_semibold"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/padding_large"
             android:text="@string/calculation_second_header"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -59,16 +60,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:checked="true"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/male"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/female_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/female"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </RadioGroup>
 
         <TextView
@@ -76,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_large"
+            android:fontFamily="@font/open_sans"
             android:text="@string/birth_date"
             android:textColor="@android:color/black"
             android:textSize="15sp"
@@ -100,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans"
             android:text="@string/baligat_date"
             android:textColor="@android:color/black"
             android:textSize="15sp"
@@ -124,9 +129,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_slarge"
+            android:fontFamily="@font/open_sans"
             android:text="@string/unknown"
-            android:textSize="15sp"
             android:textColor="@color/black_gray_color"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/baligat_date_text_view" />
 
@@ -135,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans"
             android:text="@string/solat_start_date"
             android:textColor="@android:color/black"
             android:textSize="15sp"
@@ -159,9 +166,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
+            android:fontFamily="@font/open_sans"
             android:text="@string/from_today"
-            android:textSize="15sp"
             android:textColor="@color/black_gray_color"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/solat_start_date_text_view" />
 
@@ -170,6 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans"
             android:text="@string/days_in_sapar"
             android:textColor="@android:color/black"
             android:textSize="15sp"
@@ -181,6 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_medium"
+            android:layout_marginBottom="@dimen/margin_large"
             app:counter="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/days_in_sapar_text_view"
