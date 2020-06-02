@@ -197,5 +197,75 @@
             app:max_counter_value="1000000"
             app:min_counter_value="0" />
 
+        <TextView
+            android:id="@+id/haiz_days_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/days_haiz"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sapar_input_container"
+            tools:visibility="visible" />
+
+        <kz.qazatracker.widgets.DefaultCounterWidget
+            android:id="@+id/hayz_input_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:visibility="gone"
+            app:counter="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/haiz_days_text_view"
+            app:max_counter_value="10"
+            app:min_counter_value="3"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/born_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/born_count"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hayz_input_container"
+            tools:visibility="visible" />
+
+        <kz.qazatracker.widgets.DefaultCounterWidget
+            android:id="@+id/born_count_input_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:visibility="gone"
+            app:counter="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/born_count_text_view"
+            app:max_counter_value="30"
+            app:min_counter_value="0"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/calculate_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_huge"
+            android:background="@color/color_primary"
+            android:text="@string/calculate"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/born_count_input_container" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
