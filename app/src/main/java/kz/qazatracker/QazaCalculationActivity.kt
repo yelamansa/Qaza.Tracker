@@ -38,11 +38,9 @@ class QazaCalculationActivity : AppCompatActivity() {
         solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
             solatStartDateTextView.isClickable = isChecked.not()
         }
-        handleGenderChange()
     }
 
     private fun initViews() {
-        genderTabLayout = findViewById(R.id.gender_tab_layout)
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
@@ -53,9 +51,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
-
-        genderTabLayout.addTab(genderTabLayout.newTab().setText("Ер адам"))
-        genderTabLayout.addTab(genderTabLayout.newTab().setText("Әйел адам"))
+        initGenderSwitcherView()
         collectFemaleViews()
     }
 
@@ -68,7 +64,10 @@ class QazaCalculationActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleGenderChange() {
+    private fun initGenderSwitcherView() {
+        genderTabLayout = findViewById(R.id.gender_tab_layout)
+        genderTabLayout.addTab(genderTabLayout.newTab().setText(resources.getString(R.string.male)))
+        genderTabLayout.addTab(genderTabLayout.newTab().setText(resources.getString(R.string.female)))
         genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 

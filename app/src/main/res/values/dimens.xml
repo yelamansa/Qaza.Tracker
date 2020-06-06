@@ -7,6 +7,7 @@
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_slarge">10dp</dimen>
     <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_shuge">24dp</dimen>
     <dimen name="margin_huge">32dp</dimen>
     <dimen name="default_stroke_width">1dp</dimen>
 </resources>

@@ -14,10 +14,28 @@
         tools:context=".QazaCalculationActivity">
 
         <TextView
-            android:id="@+id/first_header_text_view"
+            android:paddingLeft="-1dp"
+            android:paddingStart="-1dp"
+            android:textSize="15sp"
+            android:textColor="@color/color_primary"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/back"
+            android:drawableStart="@drawable/ic_left_arrow"
+            android:drawablePadding="@dimen/padding_medium"
+            android:drawableLeft="@drawable/ic_left_arrow"
+            android:id="@+id/back_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_huge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/open_sans_semibold"/>
+
+        <TextView
+            android:id="@+id/first_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_shuge"
             android:fontFamily="@font/open_sans"
             android:gravity="center"
             android:text="@string/calculation_first_header"
@@ -26,7 +44,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/back_image_view" />
 
         <TextView
             android:id="@+id/second_header_text_view"
@@ -53,12 +71,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/second_header_text_view"
             app:tabIndicator="@drawable/tab_layout_selected_bg"
-            app:tabIndicatorGravity="stretch"
             app:tabIndicatorColor="@color/color_primary"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@android:color/white"
+            app:tabIndicatorGravity="stretch"
             app:tabMinWidth="130dp"
+            app:tabMode="scrollable"
             app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/TabTextAppearance" />
 
         <TextView
