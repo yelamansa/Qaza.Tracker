@@ -4,31 +4,33 @@
     android:background="@drawable/sapar_container_border"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/padding_medium"
-    >
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingHorizontal="@dimen/padding_medium">
 
     <ImageButton
         android:id="@+id/minus_button"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:background="@android:color/white"
         android:src="@drawable/ic_minus" />
 
     <EditText
-        android:inputType="number"
         android:id="@+id/counter_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_huge"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="number"
         android:textColor="@color/black_gray_color"
         android:textSize="18sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/plus_button"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:background="@android:color/white"
         android:src="@drawable/ic_plus" />
 

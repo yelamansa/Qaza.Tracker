@@ -17,7 +17,7 @@ private const val DEFAULT_MAX_COUNTER_VALUE = 30
 class DefaultCounterWidget(
     context: Context,
     attributeSet: AttributeSet
-): LinearLayout(context, attributeSet) {
+) : LinearLayout(context, attributeSet) {
 
     private var minusButton: ImageButton
     private var plusButton: ImageButton
@@ -31,7 +31,7 @@ class DefaultCounterWidget(
         View.inflate(context, R.layout.number_input_view, this)
 
         minusButton = findViewById(R.id.minus_button)
-        plusButton= findViewById(R.id.plus_button)
+        plusButton = findViewById(R.id.plus_button)
         counterEditText = findViewById(R.id.counter_edit_text)
 
         val attributes = context.obtainStyledAttributes(
@@ -39,8 +39,14 @@ class DefaultCounterWidget(
             R.styleable.DefaultCounterWidget
         )
         counter = attributes.getInt(R.styleable.DefaultCounterWidget_counter, DEFAULT_COUNTER_VALUE)
-        minCounterValue = attributes.getInt(R.styleable.DefaultCounterWidget_min_counter_value, DEFAULT_MIN_COUNTER_VALUE)
-        maxCounterValue = attributes.getInt(R.styleable.DefaultCounterWidget_max_counter_value, DEFAULT_MAX_COUNTER_VALUE)
+        minCounterValue = attributes.getInt(
+            R.styleable.DefaultCounterWidget_min_counter_value,
+            DEFAULT_MIN_COUNTER_VALUE
+        )
+        maxCounterValue = attributes.getInt(
+            R.styleable.DefaultCounterWidget_max_counter_value,
+            DEFAULT_MAX_COUNTER_VALUE
+        )
         if (counter != DEFAULT_COUNTER_VALUE) {
             counterEditText.setText("$counter")
         }
@@ -61,6 +67,10 @@ class DefaultCounterWidget(
         }
     }
 
+    override fun clearFocus() {
+        counterEditText.clearFocus()
+    }
+
     fun getCounter(): Int = counter
 
     private fun setupCounterEditText() {
@@ -72,6 +82,16 @@ class DefaultCounterWidget(
                     val value: String = s?.toString() ?: return
 
                     counter = value.toInt()
+                    if (counter > maxCounterValue) {
+                        counter = maxCounterValue
+                        counterEditText.setText("$counter")
+                        moveCursorToEnd()
+                    }
+                    if (counter < minCounterValue) {
+                        counter = minCounterValue
+                        counterEditText.setText("$counter")
+                        moveCursorToEnd()
+                    }
                 } catch (nfe: NumberFormatException) {
                     counter = 0
                     counterEditText.setText("$counter")
@@ -87,7 +107,13 @@ class DefaultCounterWidget(
             }
         })
         counterEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) { counterEditText.setSelection(counterEditText.text.length) }
+            if (hasFocus) {
+                moveCursorToEnd()
+            }
         }
+    }
+
+    private fun moveCursorToEnd() {
+        counterEditText.setSelection(counterEditText.text.length)
     }
 }

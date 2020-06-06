@@ -28,6 +28,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var bornCountInputContainer: DefaultCounterWidget
 
     private lateinit var femaleViews: MutableList<View>
+    private lateinit var inputViews: MutableList<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
         initGenderSwitcherView()
         collectFemaleViews()
+        collectAllInputViews()
     }
 
     private fun collectFemaleViews() {
@@ -65,6 +67,14 @@ class QazaCalculationActivity : AppCompatActivity() {
             add(hayzDaysTextView)
             add(hayzInputContainer)
             add(bornCountTextView)
+            add(bornCountInputContainer)
+        }
+    }
+
+    private fun collectAllInputViews() {
+        inputViews = mutableListOf<View>().apply {
+            add(saparDaysInputContainer)
+            add(hayzInputContainer)
             add(bornCountInputContainer)
         }
     }
@@ -83,10 +93,12 @@ class QazaCalculationActivity : AppCompatActivity() {
 
                 when (tab.position) {
                     0 -> {
-                        femaleViews.forEach { it.visibility = GONE }
+                        femaleViews.forEach { it.hide() }
+                        inputViews.forEach { it.clearFocus()}
                     }
                     1 -> {
-                        femaleViews.forEach { it.visibility = VISIBLE }
+                        femaleViews.forEach { it.show() }
+                        inputViews.forEach { it.clearFocus()}
                     }
                 }
             }

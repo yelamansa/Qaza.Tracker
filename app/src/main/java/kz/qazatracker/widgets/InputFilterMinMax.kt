@@ -21,7 +21,7 @@ class InputFilterMinMax(
             if (isInRange(min, max, input)) return null
         } catch (nfe: NumberFormatException) { }
 
-        return ""
+        return dest.toString() + source.toString()
     }
 
     private fun isInRange(a: Int, b: Int, c: Int): Boolean {
