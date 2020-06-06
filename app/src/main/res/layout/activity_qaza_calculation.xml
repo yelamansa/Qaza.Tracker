@@ -43,36 +43,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/first_header_text_view" />
 
-        <RadioGroup
-            android:id="@+id/gender_radio_group"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/gender_tab_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_marginTop="@dimen/margin_huge"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:background="@drawable/tab_layout_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/second_header_text_view">
-
-            <RadioButton
-                android:id="@+id/male_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:checked="true"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/male"
-                android:textSize="15sp" />
-
-            <RadioButton
-                android:id="@+id/female_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/female"
-                android:textSize="15sp" />
-        </RadioGroup>
+            app:layout_constraintTop_toBottomOf="@id/second_header_text_view"
+            app:tabIndicator="@drawable/tab_layout_selected_bg"
+            app:tabIndicatorGravity="stretch"
+            app:tabIndicatorColor="@color/color_primary"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabMinWidth="130dp"
+            app:tabRippleColor="@null"
+            app:tabTextAppearance="@style/TabTextAppearance" />
 
         <TextView
             android:id="@+id/birth_date_title_text_view"
@@ -84,7 +71,7 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gender_radio_group" />
+            app:layout_constraintTop_toBottomOf="@id/gender_tab_layout" />
 
         <kz.qazatracker.widgets.DatePickerTextView
             android:id="@+id/birth_date_text_view"
@@ -129,10 +116,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_slarge"
-            android:paddingStart="@dimen/padding_medium"
-            android:paddingLeft="@dimen/padding_medium"
             android:button="@drawable/checkbox_selector"
             android:fontFamily="@font/open_sans"
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingLeft="@dimen/padding_medium"
             android:text="@string/unknown"
             android:textColor="@color/black_gray_color"
             android:textSize="15sp"
@@ -169,10 +156,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:paddingStart="@dimen/padding_medium"
-            android:paddingLeft="@dimen/padding_medium"
             android:button="@drawable/checkbox_selector"
             android:fontFamily="@font/open_sans"
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingLeft="@dimen/padding_medium"
             android:text="@string/from_today"
             android:textColor="@color/black_gray_color"
             android:textSize="15sp"

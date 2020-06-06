@@ -1,23 +1,23 @@
 package kz.qazatracker
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.CheckBox
-import android.widget.RadioButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.widgets.DefaultCounterWidget
 
 class QazaCalculationActivity : AppCompatActivity() {
 
+    private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: TextView
     private lateinit var baligatDateTextView: TextView
     private lateinit var solatStartDateTextView: TextView
     private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
-    private lateinit var genderRadioButton: RadioButton
     private lateinit var saparDaysInputContainer: DefaultCounterWidget
     private lateinit var hayzDaysTextView: TextView
     private lateinit var hayzInputContainer: DefaultCounterWidget
@@ -42,18 +42,20 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        genderTabLayout = findViewById(R.id.gender_tab_layout)
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
         baligatDateUnknownCheckbox = findViewById(R.id.baligat_date_unknown_checkbox)
         solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
-        genderRadioButton = findViewById(R.id.male_radio_button)
         saparDaysInputContainer = findViewById(R.id.sapar_input_container)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
 
+        genderTabLayout.addTab(genderTabLayout.newTab().setText("Ер адам"))
+        genderTabLayout.addTab(genderTabLayout.newTab().setText("Әйел адам"))
         collectFemaleViews()
     }
 
@@ -67,12 +69,23 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun handleGenderChange() {
-        genderRadioButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                femaleViews.forEach { it.visibility = GONE }
-            } else {
-                femaleViews.forEach { it.visibility = VISIBLE }
+        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab == null) return
+
+                when (tab.position) {
+                    0 -> {
+                        femaleViews.forEach { it.visibility = GONE }
+                    }
+                    1 -> {
+                        femaleViews.forEach { it.visibility = VISIBLE }
+                    }
+                }
             }
-        }
+        })
     }
 }
