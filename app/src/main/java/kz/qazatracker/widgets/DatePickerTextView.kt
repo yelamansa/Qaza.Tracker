@@ -28,7 +28,9 @@ class DatePickerTextView(
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH)
-            )
+            ).apply {
+                datePicker.maxDate = System.currentTimeMillis()
+            }
             dateDialog?.show()
         }
     }
