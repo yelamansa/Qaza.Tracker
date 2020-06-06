@@ -14,22 +14,22 @@
         tools:context=".QazaCalculationActivity">
 
         <TextView
-            android:paddingLeft="-1dp"
-            android:paddingStart="-1dp"
-            android:textSize="15sp"
-            android:textColor="@color/color_primary"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/back"
-            android:drawableStart="@drawable/ic_left_arrow"
-            android:drawablePadding="@dimen/padding_medium"
-            android:drawableLeft="@drawable/ic_left_arrow"
             android:id="@+id/back_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_huge"
+            android:drawableStart="@drawable/ic_left_arrow"
+            android:drawableLeft="@drawable/ic_left_arrow"
+            android:drawablePadding="@dimen/padding_medium"
+            android:fontFamily="@font/open_sans_semibold"
+            android:padding="@dimen/padding_medium"
+            android:paddingStart="-1dp"
+            android:paddingLeft="-1dp"
+            android:text="@string/back"
+            android:textColor="@color/color_primary"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:fontFamily="@font/open_sans_semibold"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/first_header_text_view"
@@ -145,6 +145,21 @@
             app:layout_constraintTop_toBottomOf="@id/baligat_date_text_view" />
 
         <TextView
+            android:id="@+id/baligat_date_unknown_attention_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:drawableStart="@drawable/ic_attention"
+            android:drawableLeft="@drawable/ic_attention"
+            android:drawablePadding="@dimen/padding_medium"
+            android:text="@string/baligat_date_unknown_attention"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox"
+            tools:visibility="visible" />
+
+        <TextView
             android:id="@+id/solat_start_date_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -154,7 +169,7 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
+            app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_attention_text_view" />
 
         <kz.qazatracker.widgets.DatePickerTextView
             android:id="@+id/solat_start_date_text_view"
