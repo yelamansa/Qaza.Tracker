@@ -14,11 +14,13 @@ import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
 import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 const val UNKNOWN_DATE = -1L
 const val UNKNOWN_COUNT = -1
 
 private const val MALE_TAB_POSITION = 1
+private const val YEAR_OF_BALIGAT = 12
 
 class QazaCalculationActivity : AppCompatActivity() {
 
@@ -72,6 +74,12 @@ class QazaCalculationActivity : AppCompatActivity() {
         initGenderSwitcherView()
         collectFemaleViews()
         collectAllInputViews()
+
+        val calendarDate = Calendar.getInstance()
+        val twelveYears = calendarDate[Calendar.YEAR] - YEAR_OF_BALIGAT
+        calendarDate[Calendar.YEAR] = twelveYears
+
+        birthDateTextView.setDateInMillis(calendarDate.timeInMillis)
 
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()

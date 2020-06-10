@@ -15,22 +15,15 @@ class DatePickerTextView(
 ) : AppCompatTextView(context, attributeSet), DatePickerDialog.OnDateSetListener {
 
     private val dateAndTime: Calendar = Calendar.getInstance()
-    private var dateDialog: Dialog? = null
+    private var dateDialog: DatePickerDialog? = null
 
     init {
         setDate()
+        initDialog()
+
         setOnClickListener {
             if (dateDialog?.isShowing == true) return@setOnClickListener
 
-            dateDialog = DatePickerDialog(
-                context,
-                this,
-                dateAndTime.get(Calendar.YEAR),
-                dateAndTime.get(Calendar.MONTH),
-                dateAndTime.get(Calendar.DAY_OF_MONTH)
-            ).apply {
-                datePicker.maxDate = System.currentTimeMillis()
-            }
             dateDialog?.show()
         }
     }
@@ -44,11 +37,29 @@ class DatePickerTextView(
 
     fun getTimeInMillis(): Long = dateAndTime.timeInMillis
 
+    fun setDateInMillis(timeInMillis: Long) {
+        dateDialog?.datePicker?.maxDate = timeInMillis
+        dateAndTime.timeInMillis = timeInMillis
+        setDate()
+    }
+
     private fun setDate() {
         text = DateUtils.formatDateTime(
             context,
             dateAndTime.timeInMillis,
             DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
         )
+    }
+
+    private fun initDialog() {
+        dateDialog = DatePickerDialog(
+            context,
+            this,
+            dateAndTime.get(Calendar.YEAR),
+            dateAndTime.get(Calendar.MONTH),
+            dateAndTime.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            datePicker.maxDate = dateAndTime.timeInMillis
+        }
     }
 }
