@@ -42,7 +42,7 @@ class DatePickerTextView(
         setDate()
     }
 
-    public fun getTimeInMillis(): Long = dateAndTime.timeInMillis
+    fun getTimeInMillis(): Long = dateAndTime.timeInMillis
 
     private fun setDate() {
         text = DateUtils.formatDateTime(

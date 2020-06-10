@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/margin_huge"
         android:paddingBottom="@dimen/margin_huge"
-        tools:context=".QazaCalculationActivity">
+        tools:context=".calculation.presentation.QazaCalculationActivity">
 
         <TextView
             android:id="@+id/back_image_view"
