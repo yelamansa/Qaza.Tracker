@@ -15,4 +15,7 @@
     <string name="calculate">Есептеу</string>
     <string name="back">Кері</string>
     <string name="baligat_date_unknown_attention">Егер балиғат жасқа толған нақты уақытыныңызды білмесеңіз, автоматты түрде 12 жас есепке алынады</string>
+    <string name="baligat_not_valid">Балиғатқа толған жасты қайта тексеріңіз. Балиғатқа толу жасы 8 ден кем болмау керек.</string>
+    <string name="ok">Жақсы</string>
+    <string name="exception">Қате</string>
 </resources>

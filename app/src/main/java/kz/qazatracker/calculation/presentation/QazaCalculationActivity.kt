@@ -1,5 +1,6 @@
 package kz.qazatracker.calculation.presentation
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,7 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
+import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.calculation.presentation.model.CalculationData
+import kz.qazatracker.calculation.presentation.model.ExceptionData
+import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
@@ -18,9 +22,9 @@ import java.util.*
 
 const val UNKNOWN_DATE = -1L
 const val UNKNOWN_COUNT = -1
+const val YEAR_OF_BALIGAT = 12
 
 private const val MALE_TAB_POSITION = 1
-private const val YEAR_OF_BALIGAT = 12
 
 class QazaCalculationActivity : AppCompatActivity() {
 
@@ -48,6 +52,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_qaza_calculation)
 
         initViews()
+        observeViewModelLiveData()
 
         baligatDateUnknownCheckbox.setOnCheckedChangeListener { _, isChecked ->
             baligatDateTextView.isClickable = isChecked.not()
@@ -75,15 +80,35 @@ class QazaCalculationActivity : AppCompatActivity() {
         collectFemaleViews()
         collectAllInputViews()
 
-        val calendarDate = Calendar.getInstance()
-        val twelveYears = calendarDate[Calendar.YEAR] - YEAR_OF_BALIGAT
-        calendarDate[Calendar.YEAR] = twelveYears
-
-        birthDateTextView.setDateInMillis(calendarDate.timeInMillis)
+        birthDateTextView.setDateInMillis(getDefaultBirthDateInMillis())
 
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()
         }
+    }
+
+    private fun observeViewModelLiveData() {
+        calculationViewModel.getExceptionLiveData()
+            .observe(this, EventObserver { handleExceptions(it) })
+    }
+
+    private fun handleExceptions(exceptionData: ExceptionData) {
+        when (exceptionData) {
+            is BaligatAgeNotValid -> {
+                showMessageDialog(R.string.exception, R.string.baligat_not_valid)
+            }
+        }
+    }
+
+    private fun showMessageDialog(
+        title: Int,
+        message: Int
+    ) {
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton(R.string.ok) { _, _ -> }
+        }.show()
     }
 
     private fun onCalculationButtonClicked() {
@@ -95,7 +120,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         }
         val solatStartDate = solatStartDateTextView.getTimeInMillis()
         val saparDays = saparDaysInputContainer.getCounter()
-        val hayzDays =  if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
+        val hayzDays = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
             UNKNOWN_COUNT
@@ -171,5 +196,13 @@ class QazaCalculationActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun getDefaultBirthDateInMillis(): Long {
+        val defaultDateCalendar = Calendar.getInstance()
+        val twelveYears = defaultDateCalendar[Calendar.YEAR] - YEAR_OF_BALIGAT
+        defaultDateCalendar[Calendar.YEAR] = twelveYears
+
+        return defaultDateCalendar.timeInMillis
     }
 }
