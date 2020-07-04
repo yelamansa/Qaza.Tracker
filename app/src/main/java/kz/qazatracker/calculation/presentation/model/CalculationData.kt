@@ -1,9 +1,11 @@
 package kz.qazatracker.calculation.presentation.model
 
+import java.util.*
+
 data class CalculationData(
-    val birthDateInMillis: Long,
-    val baligatDateInMillis: Long,
-    val solatStartDateInMillis: Long,
+    val birthDate: Calendar,
+    val baligatDate: Calendar?,
+    val solatStartDate: Calendar,
     val saparDays: Int,
     val hayzDays: Int,
     val bornCount: Int

@@ -20,9 +20,8 @@ import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
-const val UNKNOWN_DATE = -1L
 const val UNKNOWN_COUNT = -1
-const val YEAR_OF_BALIGAT = 12
+const val DEFAULT_BALIGAT_OLD = 12
 
 private const val MALE_TAB_POSITION = 1
 
@@ -112,20 +111,20 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun onCalculationButtonClicked() {
-        val birthDate = birthDateTextView.getTimeInMillis()
-        val baligatDate = if (baligatDateUnknownCheckbox.isChecked) {
-            UNKNOWN_DATE
+        val birthDate: Calendar = birthDateTextView.getCalendarDate()
+        val baligatDate: Calendar? = if (baligatDateUnknownCheckbox.isChecked) {
+            null
         } else {
-            baligatDateTextView.getTimeInMillis()
+            baligatDateTextView.getCalendarDate()
         }
-        val solatStartDate = solatStartDateTextView.getTimeInMillis()
-        val saparDays = saparDaysInputContainer.getCounter()
-        val hayzDays = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
+        val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
+        val saparDays: Int = saparDaysInputContainer.getCounter()
+        val hayzDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
             UNKNOWN_COUNT
         }
-        val bornCount = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
+        val bornCount: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             bornCountInputContainer.getCounter()
         } else {
             UNKNOWN_COUNT
@@ -200,7 +199,7 @@ class QazaCalculationActivity : AppCompatActivity() {
 
     private fun getDefaultBirthDateInMillis(): Long {
         val defaultDateCalendar = Calendar.getInstance()
-        val twelveYears = defaultDateCalendar[Calendar.YEAR] - YEAR_OF_BALIGAT
+        val twelveYears = defaultDateCalendar[Calendar.YEAR] - DEFAULT_BALIGAT_OLD
         defaultDateCalendar[Calendar.YEAR] = twelveYears
 
         return defaultDateCalendar.timeInMillis
