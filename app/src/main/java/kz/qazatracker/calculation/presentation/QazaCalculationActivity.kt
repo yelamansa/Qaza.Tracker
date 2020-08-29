@@ -112,7 +112,7 @@ class QazaCalculationActivity : AppCompatActivity() {
 
     private fun onCalculationButtonClicked() {
         val birthDate: Calendar = birthDateTextView.getCalendarDate()
-        val baligatDate: Calendar? = if (baligatDateUnknownCheckbox.isChecked) {
+        val baligatStartDate: Calendar? = if (baligatDateUnknownCheckbox.isChecked) {
             null
         } else {
             baligatDateTextView.getCalendarDate()
@@ -132,7 +132,7 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         val calculationData = CalculationData(
             birthDate,
-            baligatDate,
+            baligatStartDate,
             solatStartDate,
             saparDays,
             hayzDays,

@@ -9,6 +9,7 @@ import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
 import kz.qazatracker.utils.Event
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 private const val MIN_BALIGAT_OLD = 8
 
@@ -29,13 +30,16 @@ class CalculationViewModel: ViewModel() {
     fun getExceptionLiveData(): LiveData<Event<ExceptionData>> = exceptionLiveDate
 
     private fun calculate(data: CalculationData) {
-        //qaza namaz kunderi = namaz bastagan kun - baligatka tolgan zhas
-//        val qazaDateInMillis: Long = data.solatStartDate - data.baligatDate
-        Log.d("QAZA", "calculate")
+        val baligatStartDate: Calendar = getCorrectBaligatDate(data.birthDate, data.baligatStartDate)
+        clearCalendarHours(baligatStartDate)
+        clearCalendarHours(data.solatStartDate)
+        val qazaDaysInMillis: Long = data.solatStartDate.timeInMillis - baligatStartDate.timeInMillis
+        val qazaDays: Long = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis)
+        Log.d("QQQ", "Qaza days is: $qazaDays")
     }
 
     private fun validate(calculationData: CalculationData) {
-        validateBaligatAge(calculationData.birthDate, calculationData.baligatDate)
+        validateBaligatAge(calculationData.birthDate, calculationData.baligatStartDate)
     }
 
     /**
@@ -65,16 +69,22 @@ class CalculationViewModel: ViewModel() {
      */
     private fun getCorrectBaligatDate(
         birthDate: Calendar,
-        baligatDate: Calendar?
+        baligatStartDate: Calendar?
     ): Calendar {
-        val tempBaligatDate: Calendar = birthDate
-        if (baligatDate == null) {
-            val baligatYear = birthDate.get(Calendar.YEAR) + DEFAULT_BALIGAT_OLD
-            tempBaligatDate.set(Calendar.YEAR, baligatYear)
+        val tempBaligatStartDate: Calendar = birthDate.clone() as Calendar
+        if (baligatStartDate != null) return baligatStartDate
 
-            return tempBaligatDate
-        }
+        val birthYear: Int = birthDate.get(Calendar.YEAR)
+        val baligatStartYear:Int = birthYear + DEFAULT_BALIGAT_OLD
+        tempBaligatStartDate.set(Calendar.YEAR, baligatStartYear)
 
-        return baligatDate
+        return tempBaligatStartDate
+    }
+
+    private fun clearCalendarHours(calendar: Calendar) {
+        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MINUTE, 0)
     }
 }
