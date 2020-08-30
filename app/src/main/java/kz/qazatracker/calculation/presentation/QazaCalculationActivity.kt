@@ -27,6 +27,7 @@ private const val MALE_TAB_POSITION = 1
 
 class QazaCalculationActivity : AppCompatActivity() {
 
+    private lateinit var backTextView: TextView
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
     private lateinit var baligatDateTextView: DatePickerTextView
@@ -63,6 +64,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        backTextView = findViewById(R.id.back_text_view)
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
@@ -83,6 +85,9 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()
+        }
+        backTextView.setOnClickListener {
+            finish()
         }
     }
 

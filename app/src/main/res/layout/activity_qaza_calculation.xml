@@ -16,7 +16,7 @@
         tools:context=".calculation.presentation.QazaCalculationActivity">
 
         <TextView
-            android:id="@+id/back_image_view"
+            android:id="@+id/back_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_huge"
@@ -46,7 +46,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_image_view" />
+            app:layout_constraintTop_toBottomOf="@+id/back_text_view" />
 
         <TextView
             android:id="@+id/second_header_text_view"
