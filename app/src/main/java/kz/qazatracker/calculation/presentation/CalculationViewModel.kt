@@ -12,11 +12,11 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val MIN_BALIGAT_OLD = 8
+private const val MIN_QAZA_DAYS = 1;
 
 class CalculationViewModel: ViewModel() {
 
     private var isValid = true
-
     private val exceptionLiveDate = MutableLiveData<Event<ExceptionData>>()
 
     fun saveCalculationData(calculationData: CalculationData) {
@@ -35,11 +35,25 @@ class CalculationViewModel: ViewModel() {
         clearCalendarHours(data.solatStartDate)
         val qazaDaysInMillis: Long = data.solatStartDate.timeInMillis - baligatStartDate.timeInMillis
         val qazaDays: Long = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis)
+        val qazaDaysIsValid: Boolean = validateQazaDays(qazaDays)
+
+        if (qazaDaysIsValid.not()) return
+
         Log.d("QQQ", "Qaza days is: $qazaDays")
     }
 
     private fun validate(calculationData: CalculationData) {
         validateBaligatAge(calculationData.birthDate, calculationData.baligatStartDate)
+    }
+
+    private fun validateQazaDays(qazaDays: Long): Boolean {
+        if (qazaDays < MIN_QAZA_DAYS) {
+            exceptionLiveDate.value = Event(BaligatAgeNotValid)
+
+            return false
+        }
+
+        return true
     }
 
     /**
