@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="color_primary">#4DCA81</color>
+    <color name="color_primary_dark">#3700B3</color>
+    <color name="color_accent">#03DAC5</color>
+    <color name="secondary_text_color">#BDBDBD</color>
+    <color name="black_gray_color">#4F4F4F</color>
+
+    <color name="bg_date_text_view">#FFF6F7F9</color>
+    <color name="sapar_container_border_stroke_color">#E0E0E0</color>
+    <color name="inactive_tab_layout_bg">#F6F7F9</color>
 </resources>
