@@ -2,9 +2,13 @@
   <dictionary name="elaman">
     <words>
       <w>baligat</w>
+      <w>fajr</w>
+      <w>isha</w>
+      <w>magrib</w>
       <w>qaza</w>
       <w>qazatracker</w>
       <w>solat</w>
+      <w>zuhr</w>
     </words>
   </dictionary>
 </component>

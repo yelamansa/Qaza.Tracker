@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.Toast
 import kz.qazatracker.R
 import kz.qazatracker.calculation.presentation.QazaCalculationRouter
+import kz.qazatracker.qaza_input.presentation.QazaInputRouter
 
 class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -32,8 +33,9 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.calculate_button -> {
-                //Переход в экран ввода дней каза
-                Toast.makeText(this, "Переход в экран ввода дней каза", Toast.LENGTH_SHORT).show()
+                startActivity(
+                    QazaInputRouter().createIntent(this)
+                )
             }
             R.id.help_calculate_button -> {
                 startActivity(
