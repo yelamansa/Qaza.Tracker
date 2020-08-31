@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".qaza_input.presentation.QazaInputActivity">
+
+    <TextView
+        android:id="@+id/qaza_input_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Қаза намаздарыңызды енгізіңіз"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/solat_fajr_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Таң"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fajr_counter_widget" />
+
+
+    <TextView
+        android:id="@+id/solat_zuhr_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Бесін"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/zuhr_counter_widget" />
+
+    <TextView
+        android:id="@+id/solat_asr_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Аср"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/asr_counter_widget" />
+
+    <TextView
+        android:id="@+id/solat_magrib_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Шам"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/magrib_counter_widget" />
+
+    <TextView
+        android:id="@+id/solat_isha_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Құптан"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/isha_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/fajr_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_fajr_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/qaza_input_title_text_view" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/zuhr_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_zuhr_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/fajr_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/asr_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_asr_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/zuhr_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/magrib_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_magrib_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/asr_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/isha_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_isha_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/magrib_counter_widget" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:text="Сақтау"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
