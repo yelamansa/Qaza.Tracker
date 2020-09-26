@@ -8,44 +8,107 @@
     tools:context=".startscreen.StartScreenActivity">
 
     <TextView
-        android:id="@+id/start_screen_title_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/start_screen_salam_text_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Қаза намаздарыңыздың санын білесіз бе?"
-        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/activity_start_screen_salam"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/start_screen_app_description_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/start_screen_app_description_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/activity_start_screen_app_description"
+        android:textAlignment="center"
+        android:textColor="@color/black_gray_color"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/guideline_50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/start_screen_question_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/activity_start_screen_do_you_qaza_count"
+        android:textAlignment="center"
+        android:textColor="@color/black_gray_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/calculate_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_screen_app_description_text_view" />
 
     <Button
-        android:text="Иә"
-        android:layout_marginTop="20dp"
         android:id="@+id/calculate_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="6dp"
+        android:padding="10dp"
+        android:text="@string/activity_start_screen_no_help"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/help_calculate_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_screen_title_text_view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:text="Жоқ,маған есептеуге көмектесіңіз"
-        android:layout_marginTop="20dp"
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/help_calculate_button"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        android:text="@string/activity_start_screen_yes"
+        android:textAllCaps="false"
+        android:textColor="@color/color_primary"
+        android:textSize="15sp"
+        app:backgroundTint="@android:color/transparent"
+        app:cornerRadius="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calculate_button" />
+        app:rippleColor="@color/color_primary"
+        app:strokeColor="@color/color_primary"
+        app:strokeWidth="1dp" />
 
-    <Button
-        android:text="Серверден қалпына келтіру"
-        android:layout_marginTop="20dp"
-        android:id="@+id/restore_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/start_screen_salam_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/help_calculate_button" />
+        app:srcCompat="@drawable/image_man" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
