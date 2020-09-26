@@ -13,7 +13,6 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var calculateButton: Button
     private lateinit var helpCalculateButton: Button
-    private lateinit var restoreButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +23,8 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
     private fun initButtons() {
         calculateButton = findViewById(R.id.calculate_button)
         helpCalculateButton = findViewById(R.id.help_calculate_button)
-        restoreButton = findViewById(R.id.restore_button)
         calculateButton.setOnClickListener(this)
         helpCalculateButton.setOnClickListener(this)
-        restoreButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -41,10 +38,6 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(
                     QazaCalculationRouter().createIntent(this)
                 )
-            }
-            R.id.restore_button -> {
-                //Переход в авторизацию
-                Toast.makeText(this, "Переход в авторизацию", Toast.LENGTH_SHORT).show()
             }
         }
     }
