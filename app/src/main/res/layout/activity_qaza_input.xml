@@ -34,6 +34,14 @@
         app:layout_constraintTop_toTopOf="@+id/zuhr_counter_widget" />
 
     <TextView
+        android:id="@+id/solat_zuhr_sapar_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сапар"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/zuhr_sapar_counter_widget" />
+
+    <TextView
         android:id="@+id/solat_asr_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +70,7 @@
         android:id="@+id/fajr_counter_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/solat_fajr_title_text_view"
         app:layout_constraintTop_toBottomOf="@+id/qaza_input_title_text_view" />
@@ -72,24 +80,34 @@
         android:id="@+id/zuhr_counter_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/solat_zuhr_title_text_view"
         app:layout_constraintTop_toBottomOf="@+id/fajr_counter_widget" />
 
     <kz.qazatracker.widgets.DefaultCounterWidget
         app:counter="0"
-        android:id="@+id/asr_counter_widget"
+        android:id="@+id/zuhr_sapar_counter_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/solat_asr_title_text_view"
         app:layout_constraintTop_toBottomOf="@+id/zuhr_counter_widget" />
 
     <kz.qazatracker.widgets.DefaultCounterWidget
         app:counter="0"
-        android:id="@+id/magrib_counter_widget"
+        android:id="@+id/asr_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_asr_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/zuhr_sapar_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/asr_sapar_counter_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -99,19 +117,49 @@
 
     <kz.qazatracker.widgets.DefaultCounterWidget
         app:counter="0"
+        android:id="@+id/magrib_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_magrib_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/asr_sapar_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
         android:id="@+id/isha_counter_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/solat_isha_title_text_view"
         app:layout_constraintTop_toBottomOf="@+id/magrib_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/isha_sapar_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_isha_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/isha_counter_widget" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
+        android:id="@+id/utir_counter_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_isha_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/isha_sapar_counter_widget" />
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="20dp"
         android:text="Сақтау"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
