@@ -2,11 +2,13 @@ package kz.qazatracker.calculation.presentation
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
 import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
@@ -27,7 +29,6 @@ private const val MALE_TAB_POSITION = 1
 
 class QazaCalculationActivity : AppCompatActivity() {
 
-    private lateinit var backTextView: TextView
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
     private lateinit var baligatDateTextView: DatePickerTextView
@@ -64,7 +65,6 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        backTextView = findViewById(R.id.back_text_view)
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
@@ -77,6 +77,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
         calculateButton = findViewById(R.id.calculate_button)
+        initActionBar()
         initGenderSwitcherView()
         collectFemaleViews()
         collectAllInputViews()
@@ -86,9 +87,20 @@ class QazaCalculationActivity : AppCompatActivity() {
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()
         }
-        backTextView.setOnClickListener {
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
             finish()
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initActionBar() {
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun observeViewModelLiveData() {

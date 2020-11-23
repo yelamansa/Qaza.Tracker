@@ -11,27 +11,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_huge"
         android:paddingBottom="@dimen/margin_huge"
         tools:context=".calculation.presentation.QazaCalculationActivity">
 
-        <TextView
-            android:id="@+id/back_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:drawableStart="@drawable/ic_left_arrow"
-            android:drawableLeft="@drawable/ic_left_arrow"
-            android:drawablePadding="@dimen/padding_medium"
-            android:fontFamily="@font/open_sans_semibold"
-            android:padding="@dimen/padding_medium"
-            android:paddingStart="-1dp"
-            android:paddingLeft="-1dp"
-            android:text="@string/back"
-            android:textColor="@color/color_primary"
-            android:textSize="15sp"
+        <androidx.appcompat.widget.Toolbar
+            app:title="Қаза намазды есептеу"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="@color/color_primary"
+            android:id="@+id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"/>
 
         <TextView
             android:id="@+id/first_header_text_view"
@@ -46,7 +38,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
             android:id="@+id/second_header_text_view"
