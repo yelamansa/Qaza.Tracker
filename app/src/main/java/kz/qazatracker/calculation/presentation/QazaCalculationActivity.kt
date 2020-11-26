@@ -35,12 +35,12 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var solatStartDateTextView: DatePickerTextView
     private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
-    private lateinit var saparDaysInputContainer: DefaultCounterWidget
     private lateinit var hayzDaysTextView: TextView
     private lateinit var hayzInputContainer: DefaultCounterWidget
     private lateinit var bornCountTextView: TextView
     private lateinit var bornCountInputContainer: DefaultCounterWidget
     private lateinit var calculateButton: Button
+    private var unknownBaligatDateDialog: AlertDialog? = null
 
     private lateinit var femaleViews: MutableList<View>
     private lateinit var inputViews: MutableList<View>
@@ -57,9 +57,15 @@ class QazaCalculationActivity : AppCompatActivity() {
         baligatDateUnknownCheckbox.setOnCheckedChangeListener { _, isChecked ->
             baligatDateTextView.isClickable = isChecked.not()
             if (isChecked) {
-
+                if (unknownBaligatDateDialog == null) {
+                    unknownBaligatDateDialog = createDialog(
+                        message = "Егер балиғат жасқа толған уақытын білмесеңіз, автоматты түрде 12 жас есепке алынады"
+                    ).show()
+                } else {
+                    unknownBaligatDateDialog?.show()
+                }
             } else {
-
+                unknownBaligatDateDialog?.dismiss()
             }
         }
         solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
@@ -73,7 +79,6 @@ class QazaCalculationActivity : AppCompatActivity() {
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
         baligatDateUnknownCheckbox = findViewById(R.id.baligat_date_unknown_checkbox)
         solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
-        saparDaysInputContainer = findViewById(R.id.sapar_input_container)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)
@@ -137,7 +142,6 @@ class QazaCalculationActivity : AppCompatActivity() {
             baligatDateTextView.getCalendarDate()
         }
         val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
-        val saparDays: Int = saparDaysInputContainer.getCounter()
         val hayzDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
@@ -153,7 +157,6 @@ class QazaCalculationActivity : AppCompatActivity() {
             birthDate,
             baligatStartDate,
             solatStartDate,
-            saparDays,
             hayzDays,
             bornCount
         )
@@ -172,7 +175,6 @@ class QazaCalculationActivity : AppCompatActivity() {
 
     private fun collectAllInputViews() {
         inputViews = mutableListOf<View>().apply {
-            add(saparDaysInputContainer)
             add(hayzInputContainer)
             add(bornCountInputContainer)
         }
@@ -223,4 +225,12 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         return defaultDateCalendar.timeInMillis
     }
+
+    private fun createDialog(
+        title: String? = null,
+        message: String? = null
+    ) = AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(R.string.ok) { dialog, _ ->  dialog.dismiss()}
 }

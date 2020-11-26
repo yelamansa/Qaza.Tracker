@@ -61,8 +61,9 @@
         android:id="@+id/baligat_date_unknown_checkbox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:button="@drawable/checkbox_selector"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:buttonTint="@color/color_primary"
         android:fontFamily="@font/open_sans"
         android:paddingStart="@dimen/padding_medium"
         android:paddingEnd="@dimen/padding_medium"
@@ -103,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:button="@drawable/checkbox_selector"
+        app:buttonTint="@color/color_primary"
         android:fontFamily="@font/open_sans"
         android:paddingStart="@dimen/padding_medium"
         android:paddingLeft="@dimen/padding_medium"
@@ -114,29 +115,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/solat_start_date_text_view"
         app:layout_constraintTop_toTopOf="@+id/solat_start_date_text_view" />
-
-    <TextView
-        android:id="@+id/days_in_sapar_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/days_in_sapar"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solat_start_today_date_checkbox" />
-
-    <kz.qazatracker.widgets.DefaultCounterWidget
-        android:id="@+id/sapar_input_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_large"
-        app:counter="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/days_in_sapar_text_view"
-        app:max_counter_value="1000000"
-        app:min_counter_value="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
