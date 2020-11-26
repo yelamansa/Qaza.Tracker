@@ -32,7 +32,6 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
     private lateinit var baligatDateTextView: DatePickerTextView
-    private lateinit var baligatDateAttentionTextView: TextView
     private lateinit var solatStartDateTextView: DatePickerTextView
     private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
@@ -57,7 +56,11 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         baligatDateUnknownCheckbox.setOnCheckedChangeListener { _, isChecked ->
             baligatDateTextView.isClickable = isChecked.not()
-            if (isChecked) baligatDateAttentionTextView.show() else baligatDateAttentionTextView.hide()
+            if (isChecked) {
+
+            } else {
+
+            }
         }
         solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
             solatStartDateTextView.isClickable = isChecked.not()
@@ -69,7 +72,6 @@ class QazaCalculationActivity : AppCompatActivity() {
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
         baligatDateUnknownCheckbox = findViewById(R.id.baligat_date_unknown_checkbox)
-        baligatDateAttentionTextView = findViewById(R.id.baligat_date_unknown_attention_text_view)
         solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
         saparDaysInputContainer = findViewById(R.id.sapar_input_container)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
