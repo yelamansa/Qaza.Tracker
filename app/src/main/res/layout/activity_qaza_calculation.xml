@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@android:color/white">
+    android:background="#F1F0F0"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,23 +26,13 @@
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/gender_tab_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:background="@drawable/tab_layout_bg"
+        <include
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:tabIndicator="@drawable/tab_layout_selected_bg"
-            app:tabIndicatorColor="@color/color_primary"
-            app:tabIndicatorGravity="stretch"
-            app:tabMinWidth="130dp"
-            app:tabMode="scrollable"
-            app:tabRippleColor="@null"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TabTextAppearance" />
+            android:id="@+id/gender_tab_layout_card_view"
+            layout="@layout/layout_gender"
+            />
 
         <TextView
             android:id="@+id/birth_date_title_text_view"
@@ -53,7 +44,8 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gender_tab_layout" />
+            app:layout_constraintTop_toBottomOf="@id/gender_tab_layout_card_view"
+            />
 
         <kz.qazatracker.widgets.DatePickerTextView
             android:id="@+id/birth_date_text_view"
