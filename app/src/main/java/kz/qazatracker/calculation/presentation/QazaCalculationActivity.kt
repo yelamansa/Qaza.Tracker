@@ -59,7 +59,7 @@ class QazaCalculationActivity : AppCompatActivity() {
             if (isChecked) {
                 if (unknownBaligatDateDialog == null) {
                     unknownBaligatDateDialog = createDialog(
-                        message = "Егер балиғат жасқа толған уақытын білмесеңіз, автоматты түрде 12 жас есепке алынады"
+                        message = "Егер балиғатқа толған уақытты білмесеңіз, балиғат жасы 12 деп есепке алынады"
                     ).show()
                 } else {
                     unknownBaligatDateDialog?.show()
