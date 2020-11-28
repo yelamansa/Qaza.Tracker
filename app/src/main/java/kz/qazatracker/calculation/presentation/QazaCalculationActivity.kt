@@ -40,9 +40,9 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var bornCountTextView: TextView
     private lateinit var bornCountInputContainer: DefaultCounterWidget
     private lateinit var calculateButton: Button
+    private lateinit var femailContainer: View
     private var unknownBaligatDateDialog: AlertDialog? = null
 
-    private lateinit var femaleViews: MutableList<View>
     private lateinit var inputViews: MutableList<View>
 
     private val calculationViewModel: CalculationViewModel by viewModel()
@@ -84,9 +84,9 @@ class QazaCalculationActivity : AppCompatActivity() {
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
         calculateButton = findViewById(R.id.calculate_button)
+        femailContainer = findViewById(R.id.femail_container)
         initActionBar()
         initGenderSwitcherView()
-        collectFemaleViews()
         collectAllInputViews()
 
         birthDateTextView.setDateInMillis(getDefaultBirthDateInMillis())
@@ -164,15 +164,6 @@ class QazaCalculationActivity : AppCompatActivity() {
         calculationViewModel.saveCalculationData(calculationData)
     }
 
-    private fun collectFemaleViews() {
-        femaleViews = mutableListOf<View>().apply {
-            add(hayzDaysTextView)
-            add(hayzInputContainer)
-            add(bornCountTextView)
-            add(bornCountInputContainer)
-        }
-    }
-
     private fun collectAllInputViews() {
         inputViews = mutableListOf<View>().apply {
             add(hayzInputContainer)
@@ -206,11 +197,11 @@ class QazaCalculationActivity : AppCompatActivity() {
 
                 when (tab.position) {
                     0 -> {
-                        femaleViews.forEach { it.hide() }
+                        femailContainer.hide()
                         inputViews.forEach { it.clearFocus() }
                     }
                     1 -> {
-                        femaleViews.forEach { it.show() }
+                        femailContainer.show()
                         inputViews.forEach { it.clearFocus() }
                     }
                 }

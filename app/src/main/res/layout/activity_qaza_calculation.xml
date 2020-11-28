@@ -36,66 +36,17 @@
             layout="@layout/layout_select_date"
             />
 
-        <TextView
-            android:id="@+id/haiz_days_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/days_haiz"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_container"
-            tools:visibility="visible" />
-
-        <kz.qazatracker.widgets.DefaultCounterWidget
-            android:id="@+id/hayz_input_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_large"
-            android:visibility="gone"
-            app:counter="3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/haiz_days_text_view"
-            app:max_counter_value="10"
-            app:min_counter_value="3"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/born_count_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/born_count"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hayz_input_container"
-            tools:visibility="visible" />
-
-        <kz.qazatracker.widgets.DefaultCounterWidget
-            android:id="@+id/born_count_input_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_large"
-            android:visibility="gone"
-            app:counter="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/born_count_text_view"
-            app:max_counter_value="30"
-            app:min_counter_value="0"
-            tools:visibility="visible" />
+        <include
+            android:id="@+id/femail_container"
+            layout="@layout/layout_femail"
+            />
 
         <Button
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
             android:id="@+id/calculate_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@drawable/rounded_btn"
             android:text="@string/calculate"
             android:textAllCaps="false"
@@ -103,7 +54,7 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/born_count_input_container" />
+            app:layout_constraintTop_toBottomOf="@+id/femail_container" />
 
         <TextView
             android:id="@+id/second_header_text_view"
@@ -117,7 +68,7 @@
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_large"
             app:layout_constraintTop_toBottomOf="@id/calculate_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
