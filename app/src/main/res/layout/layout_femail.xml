@@ -53,12 +53,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginBottom="16dp"
         app:counter="0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/born_count_text_view"
         app:max_counter_value="30"
-        app:min_counter_value="0"
-        />
+        app:min_counter_value="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
