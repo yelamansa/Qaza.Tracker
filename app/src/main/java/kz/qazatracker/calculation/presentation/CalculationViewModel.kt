@@ -12,7 +12,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val MIN_BALIGAT_OLD = 8
-private const val MIN_QAZA_DAYS = 1;
+private const val MAX_BALIGAT_OLD = 15
+private const val MIN_QAZA_DAYS = 1
 
 class CalculationViewModel: ViewModel() {
 
@@ -66,7 +67,7 @@ class CalculationViewModel: ViewModel() {
         val correctBaligatDate: Calendar = getCorrectBaligatDate(birthDate, baligatDate)
 
         val ageDifference: Int = correctBaligatDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
-        if (ageDifference < MIN_BALIGAT_OLD) {
+        if (ageDifference < MIN_BALIGAT_OLD || ageDifference > MAX_BALIGAT_OLD) {
             exceptionLiveDate.value = Event(BaligatAgeNotValid)
             isValid = false
 
