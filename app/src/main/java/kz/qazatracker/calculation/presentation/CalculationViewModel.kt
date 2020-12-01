@@ -1,12 +1,14 @@
 package kz.qazatracker.calculation.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
+import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
+import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.qaza_input.data.QazaData
 import kz.qazatracker.utils.Event
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -15,10 +17,13 @@ private const val MIN_BALIGAT_OLD = 8
 private const val MAX_BALIGAT_OLD = 15
 private const val MIN_QAZA_DAYS = 1
 
-class CalculationViewModel: ViewModel() {
+class CalculationViewModel(
+    private val qazaDataSource: QazaDataSource
+): ViewModel() {
 
     private var isValid = true
-    private val exceptionLiveDate = MutableLiveData<Event<ExceptionData>>()
+    private val exceptionLiveData = MutableLiveData<Event<ExceptionData>>()
+    private val navigationLiveData = MutableLiveData<Event<QalqulationNavigation>>()
 
     fun saveCalculationData(calculationData: CalculationData) {
         validate(calculationData)
@@ -28,28 +33,38 @@ class CalculationViewModel: ViewModel() {
         }
     }
 
-    fun getExceptionLiveData(): LiveData<Event<ExceptionData>> = exceptionLiveDate
+    fun getExceptionLiveData(): LiveData<Event<ExceptionData>> = exceptionLiveData
+
+    fun getNavigationLiveData(): LiveData<Event<QalqulationNavigation>> = navigationLiveData
 
     private fun calculate(data: CalculationData) {
         val baligatStartDate: Calendar = getCorrectBaligatDate(data.birthDate, data.baligatStartDate)
         clearCalendarHours(baligatStartDate)
         clearCalendarHours(data.solatStartDate)
         val qazaDaysInMillis: Long = data.solatStartDate.timeInMillis - baligatStartDate.timeInMillis
-        val qazaDays: Long = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis)
+        val qazaDays: Int = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis).toInt()
         val qazaDaysIsValid: Boolean = validateQazaDays(qazaDays)
-
         if (qazaDaysIsValid.not()) return
 
-        Log.d("QQQ", "Qaza days is: $qazaDays")
+        qazaDataSource.saveQaza(
+            QazaData(
+                fajr = qazaDays,
+                zuhr = qazaDays,
+                asr = qazaDays,
+                magrib = qazaDays,
+                isha = qazaDays
+            )
+        )
+        navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
     }
 
     private fun validate(calculationData: CalculationData) {
         validateBaligatAge(calculationData.birthDate, calculationData.baligatStartDate)
     }
 
-    private fun validateQazaDays(qazaDays: Long): Boolean {
+    private fun validateQazaDays(qazaDays: Int): Boolean {
         if (qazaDays < MIN_QAZA_DAYS) {
-            exceptionLiveDate.value = Event(BaligatAgeNotValid)
+            exceptionLiveData.value = Event(BaligatAgeNotValid)
 
             return false
         }
@@ -68,7 +83,7 @@ class CalculationViewModel: ViewModel() {
 
         val ageDifference: Int = correctBaligatDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
         if (ageDifference < MIN_BALIGAT_OLD || ageDifference > MAX_BALIGAT_OLD) {
-            exceptionLiveDate.value = Event(BaligatAgeNotValid)
+            exceptionLiveData.value = Event(BaligatAgeNotValid)
             isValid = false
 
             return

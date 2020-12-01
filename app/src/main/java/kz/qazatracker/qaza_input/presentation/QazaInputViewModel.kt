@@ -1,12 +1,21 @@
 package kz.qazatracker.qaza_input.presentation
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
 
-class QazaInputViewModel: ViewModel() {
+class QazaInputViewModel(
+    private val qazaDataSource: QazaDataSource
+): ViewModel() {
+
+    private val navigationLiveData = MutableLiveData<QazaInputNavigation>()
+
+    fun getNavigationLiveData(): LiveData<QazaInputNavigation> = navigationLiveData
 
     fun saveQaza(qazaData: QazaData) {
-        Log.d("QQQ", "Qaza data: $qazaData")
+        qazaDataSource.saveQaza(qazaData)
+        navigationLiveData.value = QazaInputNavigation.Main
     }
 }

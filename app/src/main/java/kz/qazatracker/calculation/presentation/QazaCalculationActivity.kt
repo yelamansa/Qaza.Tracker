@@ -14,6 +14,8 @@ import kz.qazatracker.R
 import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
+import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
+import kz.qazatracker.qaza_input.presentation.QazaInputRouter
 import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
@@ -113,12 +115,23 @@ class QazaCalculationActivity : AppCompatActivity() {
     private fun observeViewModelLiveData() {
         calculationViewModel.getExceptionLiveData()
             .observe(this, EventObserver { handleExceptions(it) })
+        calculationViewModel.getNavigationLiveData()
+            .observe(this, EventObserver { handleNavigation(it) })
     }
 
     private fun handleExceptions(exceptionData: ExceptionData) {
         when (exceptionData) {
             is BaligatAgeNotValid -> {
                 showMessageDialog(R.string.exception, R.string.baligat_not_valid)
+            }
+        }
+    }
+
+    private fun handleNavigation(navigation: QalqulationNavigation) {
+        when(navigation) {
+            is QalqulationNavigation.QazaInput -> {
+                val intent = QazaInputRouter().createIntent(this)
+                startActivity(intent)
             }
         }
     }
