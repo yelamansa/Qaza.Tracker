@@ -10,12 +10,18 @@ class QazaInputViewModel(
     private val qazaDataSource: QazaDataSource
 ): ViewModel() {
 
-    private val navigationLiveData = MutableLiveData<QazaInputNavigation>()
+    private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
 
-    fun getNavigationLiveData(): LiveData<QazaInputNavigation> = navigationLiveData
+    init {
+       qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
+           qazaDataSource.getQaza()
+       )
+    }
+
+    fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
 
     fun saveQaza(qazaData: QazaData) {
         qazaDataSource.saveQaza(qazaData)
-        navigationLiveData.value = QazaInputNavigation.Main
+        qazaInputViewLiveData.value = QazaInputView.NavigationToMain
     }
 }

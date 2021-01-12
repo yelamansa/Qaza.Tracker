@@ -22,6 +22,7 @@ class DefaultCounterWidget(
     private var minusButton: ImageButton
     private var plusButton: ImageButton
     private var counterEditText: EditText
+    private lateinit var textWatcher: TextWatcher
 
     private var counter: Int = 0
     private var minCounterValue: Int = 0
@@ -33,6 +34,7 @@ class DefaultCounterWidget(
         minusButton = findViewById(R.id.minus_button)
         plusButton = findViewById(R.id.plus_button)
         counterEditText = findViewById(R.id.counter_edit_text)
+        initTextWatcher()
 
         val attributes = context.obtainStyledAttributes(
             attributeSet,
@@ -73,9 +75,28 @@ class DefaultCounterWidget(
 
     fun getCounter(): Int = counter
 
+    fun setCounter(count: Int) {
+        counterEditText.removeTextChangedListener(textWatcher)
+        counterEditText.setText("$count")
+        counterEditText.addTextChangedListener(textWatcher)
+    }
+
     private fun setupCounterEditText() {
         counterEditText.filters = arrayOf(InputFilterMinMax(minCounterValue, maxCounterValue))
-        counterEditText.addTextChangedListener(object : TextWatcher {
+        counterEditText.addTextChangedListener(textWatcher)
+        counterEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                moveCursorToEnd()
+            }
+        }
+    }
+
+    private fun moveCursorToEnd() {
+        counterEditText.setSelection(counterEditText.text.length)
+    }
+
+    private fun initTextWatcher() {
+        textWatcher = object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
                 try {
@@ -105,15 +126,6 @@ class DefaultCounterWidget(
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
             }
-        })
-        counterEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                moveCursorToEnd()
-            }
         }
-    }
-
-    private fun moveCursorToEnd() {
-        counterEditText.setSelection(counterEditText.text.length)
     }
 }
