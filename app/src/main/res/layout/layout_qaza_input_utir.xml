@@ -10,7 +10,7 @@
         android:id="@+id/layout_qaza_input_utir_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Бесін"
+        android:text="Үтір уәжіп"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/layout_qaza_input_utir_counter"
         app:layout_constraintEnd_toStartOf="@id/layout_qaza_input_utir_counter"

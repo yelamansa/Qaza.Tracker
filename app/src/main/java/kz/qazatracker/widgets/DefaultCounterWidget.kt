@@ -12,7 +12,7 @@ import kz.qazatracker.R
 
 private const val DEFAULT_COUNTER_VALUE = -1
 private const val DEFAULT_MIN_COUNTER_VALUE = 0
-private const val DEFAULT_MAX_COUNTER_VALUE = 30
+private const val DEFAULT_MAX_COUNTER_VALUE = 10000000
 
 class DefaultCounterWidget(
     context: Context,

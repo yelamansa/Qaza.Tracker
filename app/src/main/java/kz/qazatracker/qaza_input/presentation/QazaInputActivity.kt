@@ -26,7 +26,7 @@ class QazaInputActivity : AppCompatActivity() {
 
     private fun initViews() {
         fajrCounterWidget = findViewById(R.id.layout_qaza_input_fajr_counter)
-        zuhrCounterWidget = findViewById(R.id.layout_qaza_input_zuhr_counter)
+        zuhrCounterWidget = findViewById(R.id.layout_qaza_input_utir_counter)
         asrCounterWidget = findViewById(R.id.layout_qaza_input_asr_counter)
         magribCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
 //        ishaCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
