@@ -82,7 +82,6 @@
             app:layout_constraintTop_toBottomOf="@id/activity_qaza_input_utir_container"
             />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

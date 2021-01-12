@@ -5,5 +5,6 @@ data class QazaData(
     val zuhr: Int,
     val asr: Int,
     val magrib: Int,
-    val isha: Int
+    val isha: Int,
+    val utir: Int
 )
