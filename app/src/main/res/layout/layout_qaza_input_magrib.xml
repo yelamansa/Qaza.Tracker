@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/layout_qaza_input_isha_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Шам"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_qaza_input_isha_counter"
+        app:layout_constraintEnd_toStartOf="@id/layout_qaza_input_isha_counter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layout_qaza_input_isha_counter" />
+
+    <kz.qazatracker.widgets.DefaultCounterWidget
+        android:id="@+id/layout_qaza_input_isha_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_qaza_input_isha_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:min_counter_value="0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,4 +23,5 @@
     <string name="activity_start_screen_do_you_qaza_count">Сіз қаза намаздарыңыздың нақты санын білесіз бе?</string>
     <string name="activity_start_screen_app_description">Бұл қолданба сіздің қаза намаздарыңызды есептеуге көмектеседі</string>
     <string name="activity_start_screen_salam">Әссәләмуғалейкум!</string>
+    <string name="save">Сақтау</string>
 </resources>

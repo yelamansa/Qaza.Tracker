@@ -25,11 +25,11 @@ class QazaInputActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        fajrCounterWidget = findViewById(R.id.fajr_counter_widget)
-        zuhrCounterWidget = findViewById(R.id.zuhr_counter_widget)
-        asrCounterWidget = findViewById(R.id.asr_counter_widget)
-        magribCounterWidget = findViewById(R.id.magrib_counter_widget)
-        ishaCounterWidget = findViewById(R.id.isha_counter_widget)
+        fajrCounterWidget = findViewById(R.id.layout_qaza_input_fajr_counter)
+        zuhrCounterWidget = findViewById(R.id.layout_qaza_input_zuhr_counter)
+        asrCounterWidget = findViewById(R.id.layout_qaza_input_asr_counter)
+        magribCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
+//        ishaCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
             qazaInputViewModel.saveQaza(
@@ -38,7 +38,8 @@ class QazaInputActivity : AppCompatActivity() {
                     zuhr = zuhrCounterWidget.getCounter(),
                     asr = asrCounterWidget.getCounter(),
                     magrib = magribCounterWidget.getCounter(),
-                    isha = ishaCounterWidget.getCounter()
+                    isha = 9
+//                    isha = ishaCounterWidget.getCounter()
                 )
             )
         }
