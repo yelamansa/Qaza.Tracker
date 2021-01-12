@@ -1,12 +1,14 @@
 package kz.qazatracker.qaza_input.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import kz.qazatracker.R
 import kz.qazatracker.qaza_input.data.QazaData
 import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class QazaInputActivity : AppCompatActivity() {
 
@@ -23,6 +25,12 @@ class QazaInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qaza_input)
         initViews()
+        setUpToolbar()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun initViews() {
@@ -45,5 +53,12 @@ class QazaInputActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    private fun setUpToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayShowHomeEnabled(true);
     }
 }

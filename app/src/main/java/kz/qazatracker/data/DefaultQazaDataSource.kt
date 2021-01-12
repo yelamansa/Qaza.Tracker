@@ -33,7 +33,8 @@ class DefaultQazaDataSource(
             zuhr,
             asr,
             magrib,
-            isha
+            isha,
+            0
         )
     }
 }

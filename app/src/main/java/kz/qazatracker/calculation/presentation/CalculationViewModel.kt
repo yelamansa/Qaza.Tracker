@@ -52,7 +52,8 @@ class CalculationViewModel(
                 zuhr = qazaDays,
                 asr = qazaDays,
                 magrib = qazaDays,
-                isha = qazaDays
+                isha = qazaDays,
+                utir = 0
             )
         )
         navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
