@@ -76,6 +76,7 @@ class DefaultCounterWidget(
     fun getCounter(): Int = counter
 
     fun setCounter(count: Int) {
+        counter = count
         counterEditText.removeTextChangedListener(textWatcher)
         counterEditText.setText("$count")
         counterEditText.addTextChangedListener(textWatcher)
