@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import kz.qazatracker.R
+import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_input.data.QazaData
 import kz.qazatracker.qaza_input.presentation.QazaInputView.QazaInputPreFilled
 import kz.qazatracker.widgets.DefaultCounterWidget
@@ -84,7 +85,7 @@ class QazaInputActivity : AppCompatActivity() {
     private fun handleQazaInputView(qazaInputView: QazaInputView) {
         when(qazaInputView) {
             is QazaInputView.NavigationToMain -> {
-
+                startActivity(MainRouter().createIntent(this))
             }
             is QazaInputPreFilled -> {
                 val qazaData = qazaInputView.qazaData

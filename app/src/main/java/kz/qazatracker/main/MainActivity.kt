@@ -1,7 +1,8 @@
-package kz.qazatracker
+package kz.qazatracker.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kz.qazatracker.R
 
 class MainActivity : AppCompatActivity() {
 
