@@ -8,6 +8,7 @@ private const val ZUHR_KEY = "zuhr"
 private const val ASR_KEY = "asr"
 private const val MAGRIB_KEY = "magrib"
 private const val ISHA_KEY = "isha"
+private const val UTIR_KEY = "utir"
 
 class DefaultQazaDataSource(
     private val sharedPreferences: SharedPreferences
@@ -19,6 +20,7 @@ class DefaultQazaDataSource(
         sharedPreferences.edit().putInt(ASR_KEY, qazaData.asr).apply()
         sharedPreferences.edit().putInt(MAGRIB_KEY, qazaData.magrib).apply()
         sharedPreferences.edit().putInt(ISHA_KEY, qazaData.isha).apply()
+        sharedPreferences.edit().putInt(UTIR_KEY, qazaData.utir).apply()
     }
 
     override fun getQaza(): QazaData {
@@ -27,6 +29,7 @@ class DefaultQazaDataSource(
         val asr = sharedPreferences.getInt(ASR_KEY, 0)
         val magrib = sharedPreferences.getInt(MAGRIB_KEY, 0)
         val isha = sharedPreferences.getInt(ISHA_KEY, 0)
+        val utir = sharedPreferences.getInt(UTIR_KEY, 0)
 
         return QazaData(
             fajr,
@@ -34,7 +37,7 @@ class DefaultQazaDataSource(
             asr,
             magrib,
             isha,
-            0
+            utir
         )
     }
 }
