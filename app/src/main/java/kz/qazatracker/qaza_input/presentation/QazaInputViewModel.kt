@@ -12,8 +12,8 @@ class QazaInputViewModel(
 
     private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
 
-    fun onCreate(isQazaCorrection: Boolean) {
-        if (isQazaCorrection) {
+    fun onCreate(qazaInputState: QazaInputState) {
+        if (qazaInputState == QazaInputState.Correction) {
             qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
                 qazaDataSource.getQaza()
             )

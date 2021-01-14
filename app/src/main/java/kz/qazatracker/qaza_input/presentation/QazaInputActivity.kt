@@ -12,6 +12,7 @@ import kz.qazatracker.qaza_input.presentation.QazaInputView.QazaInputPreFilled
 import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.android.viewmodel.ext.android.viewModel
 
+private const val MIN_COUNTER_VALUE = -1000000
 
 class QazaInputActivity : AppCompatActivity() {
 
@@ -21,16 +22,18 @@ class QazaInputActivity : AppCompatActivity() {
     private lateinit var magribCounterWidget: DefaultCounterWidget
     private lateinit var ishaCounterWidget: DefaultCounterWidget
     private lateinit var utirCounterWidget: DefaultCounterWidget
+    private lateinit var qazaInputState: QazaInputState
 
     private val qazaInputViewModel: QazaInputViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qaza_input)
+        qazaInputState = intent?.getParcelableExtra(QAZA_INPUT_STATE) ?: QazaInputState.Start
         initViews()
         setUpToolbar()
         observeViewModel()
-        qazaInputViewModel.onCreate(intent?.getBooleanExtra(IS_QAZA_CORRECTION, false) ?: false)
+        qazaInputViewModel.onCreate(qazaInputState)
     }
 
     override fun onDestroy() {
@@ -50,6 +53,17 @@ class QazaInputActivity : AppCompatActivity() {
         magribCounterWidget = findViewById(R.id.layout_qaza_input_magrib_counter)
         ishaCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
         utirCounterWidget = findViewById(R.id.layout_qaza_input_utir_counter)
+
+        when(qazaInputState) {
+            is QazaInputState.Reduction -> {
+                fajrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+                zuhrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+                asrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+                magribCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+                ishaCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+                utirCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
+            }
+        }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
             qazaInputViewModel.saveQaza(

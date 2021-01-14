@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import kz.qazatracker.R
 import kz.qazatracker.qaza_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_input.presentation.QazaInputState
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        val intent = QazaInputRouter().createIntent(this)
+        val intent = QazaInputRouter().createIntent(this, QazaInputState.Reduction)
         startActivity(intent)
 
         return true

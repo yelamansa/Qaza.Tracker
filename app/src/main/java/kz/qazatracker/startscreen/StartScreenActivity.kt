@@ -7,6 +7,7 @@ import android.widget.Button
 import kz.qazatracker.R
 import kz.qazatracker.calculation.presentation.QazaCalculationRouter
 import kz.qazatracker.qaza_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_input.presentation.QazaInputState
 
 class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -35,7 +36,7 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.qaza_input_button -> {
                 startActivity(
-                   QazaInputRouter().createIntent(this)
+                   QazaInputRouter().createIntent(this, QazaInputState.Start)
                 )
             }
         }

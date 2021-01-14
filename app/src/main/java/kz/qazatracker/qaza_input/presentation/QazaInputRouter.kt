@@ -3,16 +3,16 @@ package kz.qazatracker.qaza_input.presentation
 import android.content.Context
 import android.content.Intent
 
-const val IS_QAZA_CORRECTION = "is_qaza_correction"
+const val QAZA_INPUT_STATE = "qaza_input_state"
 
 class QazaInputRouter {
 
     fun createIntent(
         context: Context,
-        isQazaCorrection: Boolean = false
+        qazaInputState: QazaInputState
     ) = Intent(
         context, QazaInputActivity::class.java
     ).apply {
-        putExtra(IS_QAZA_CORRECTION, isQazaCorrection)
+        putExtra(QAZA_INPUT_STATE, qazaInputState)
     }
 }

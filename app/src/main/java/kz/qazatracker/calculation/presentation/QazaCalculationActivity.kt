@@ -16,6 +16,7 @@ import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
 import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
 import kz.qazatracker.qaza_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_input.presentation.QazaInputState
 import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
@@ -130,7 +131,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     private fun handleNavigation(navigation: QalqulationNavigation) {
         when(navigation) {
             is QalqulationNavigation.QazaInput -> {
-                val intent = QazaInputRouter().createIntent(this, true)
+                val intent = QazaInputRouter().createIntent(this, QazaInputState.Correction)
                 startActivity(intent)
             }
         }

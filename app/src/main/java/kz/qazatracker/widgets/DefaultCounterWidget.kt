@@ -82,6 +82,20 @@ class DefaultCounterWidget(
         counterEditText.addTextChangedListener(textWatcher)
     }
 
+    fun setMinCounterValue(value: Int) {
+        minCounterValue = value
+        updateCounterWidget()
+    }
+
+    fun setMaxCounterValue(value: Int) {
+        maxCounterValue = value
+        updateCounterWidget()
+    }
+
+    private fun updateCounterWidget() {
+        counterEditText.filters = arrayOf(InputFilterMinMax(minCounterValue, maxCounterValue))
+    }
+
     private fun setupCounterEditText() {
         counterEditText.filters = arrayOf(InputFilterMinMax(minCounterValue, maxCounterValue))
         counterEditText.addTextChangedListener(textWatcher)
