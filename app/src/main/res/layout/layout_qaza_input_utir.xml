@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="@+id/layout_qaza_input_utir_counter" />
 
     <kz.qazatracker.widgets.DefaultCounterWidget
+        app:counter="0"
         android:id="@+id/layout_qaza_input_utir_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

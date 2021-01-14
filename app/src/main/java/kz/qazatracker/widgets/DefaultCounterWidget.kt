@@ -55,18 +55,7 @@ class DefaultCounterWidget(
         attributes.recycle()
 
         setupCounterEditText()
-        plusButton.setOnClickListener {
-            if (counter >= maxCounterValue) return@setOnClickListener
-
-            counterEditText.setText("${++counter}")
-            counterEditText.setSelection(counterEditText.text.length)
-        }
-        minusButton.setOnClickListener {
-            if (counter <= minCounterValue) return@setOnClickListener
-
-            counterEditText.setText("${--counter}")
-            counterEditText.setSelection(counterEditText.text.length)
-        }
+        setClickListeners()
     }
 
     override fun clearFocus() {
@@ -90,6 +79,21 @@ class DefaultCounterWidget(
     fun setMaxCounterValue(value: Int) {
         maxCounterValue = value
         updateCounterWidget()
+    }
+
+    private fun setClickListeners() {
+        plusButton.setOnClickListener {
+            if (counter >= maxCounterValue) return@setOnClickListener
+
+            counterEditText.setText("${++counter}")
+            counterEditText.setSelection(counterEditText.text.length)
+        }
+        minusButton.setOnClickListener {
+            if (counter <= minCounterValue) return@setOnClickListener
+
+            counterEditText.setText("${--counter}")
+            counterEditText.setSelection(counterEditText.text.length)
+        }
     }
 
     private fun updateCounterWidget() {
