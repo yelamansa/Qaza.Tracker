@@ -30,6 +30,7 @@ class QazaInputActivity : AppCompatActivity() {
         initViews()
         setUpToolbar()
         observeViewModel()
+        qazaInputViewModel.onCreate(intent?.getBooleanExtra(IS_QAZA_CORRECTION, false) ?: false)
     }
 
     override fun onDestroy() {

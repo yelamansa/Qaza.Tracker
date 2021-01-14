@@ -12,10 +12,12 @@ class QazaInputViewModel(
 
     private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
 
-    init {
-       qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
-           qazaDataSource.getQaza()
-       )
+    fun onCreate(isQazaCorrection: Boolean) {
+        if (isQazaCorrection) {
+            qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
+                qazaDataSource.getQaza()
+            )
+        }
     }
 
     fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData

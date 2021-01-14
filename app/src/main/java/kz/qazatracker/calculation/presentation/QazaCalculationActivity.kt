@@ -130,7 +130,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     private fun handleNavigation(navigation: QalqulationNavigation) {
         when(navigation) {
             is QalqulationNavigation.QazaInput -> {
-                val intent = QazaInputRouter().createIntent(this)
+                val intent = QazaInputRouter().createIntent(this, true)
                 startActivity(intent)
             }
         }
