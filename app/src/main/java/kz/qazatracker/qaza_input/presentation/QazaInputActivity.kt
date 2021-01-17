@@ -67,13 +67,13 @@ class QazaInputActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
             qazaInputViewModel.saveQaza(
-                QazaData(
-                    fajr = fajrCounterWidget.getCounter(),
-                    zuhr = zuhrCounterWidget.getCounter(),
-                    asr = asrCounterWidget.getCounter(),
-                    magrib = magribCounterWidget.getCounter(),
-                    isha = ishaCounterWidget.getCounter(),
-                    utir = utirCounterWidget.getCounter()
+                listOf(
+                    QazaData.Fajr(fajrCounterWidget.getCounter()),
+                    QazaData.Zuhr(zuhrCounterWidget.getCounter()),
+                    QazaData.Asr(asrCounterWidget.getCounter()),
+                    QazaData.Magrib(magribCounterWidget.getCounter()),
+                    QazaData.Isha(ishaCounterWidget.getCounter()),
+                    QazaData.Utir(utirCounterWidget.getCounter())
                 )
             )
         }
@@ -103,13 +103,16 @@ class QazaInputActivity : AppCompatActivity() {
                 startActivity(MainRouter().createIntent(this))
             }
             is QazaInputPreFilled -> {
-                val qazaData = qazaInputView.qazaData
-                fajrCounterWidget.setCounter(qazaData.fajr)
-                zuhrCounterWidget.setCounter(qazaData.zuhr)
-                asrCounterWidget.setCounter(qazaData.asr)
-                magribCounterWidget.setCounter(qazaData.magrib)
-                ishaCounterWidget.setCounter(qazaData.isha)
-                utirCounterWidget.setCounter(qazaData.utir)
+                qazaInputView.qazaDataList.forEach {qazaData ->
+                    when(qazaData) {
+                        is QazaData.Fajr -> fajrCounterWidget.setCounter(qazaData.solatCount)
+                        is QazaData.Zuhr -> zuhrCounterWidget.setCounter(qazaData.solatCount)
+                        is QazaData.Asr -> asrCounterWidget.setCounter(qazaData.solatCount)
+                        is QazaData.Magrib -> magribCounterWidget.setCounter(qazaData.solatCount)
+                        is QazaData.Isha -> ishaCounterWidget.setCounter(qazaData.solatCount)
+                        is QazaData.Utir -> utirCounterWidget.setCounter(qazaData.solatCount)
+                    }
+                }
             }
         }
     }

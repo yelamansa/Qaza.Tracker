@@ -4,6 +4,7 @@ import android.app.Activity
 import kz.qazatracker.calculation.presentation.CalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.main.MainViewModel
 import kz.qazatracker.qaza_input.presentation.QazaInputViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
@@ -23,6 +24,12 @@ val applicationModule: Module = module {
 
     viewModel {
         QazaInputViewModel(
+            qazaDataSource = get()
+        )
+    }
+
+    viewModel {
+        MainViewModel(
             qazaDataSource = get()
         )
     }

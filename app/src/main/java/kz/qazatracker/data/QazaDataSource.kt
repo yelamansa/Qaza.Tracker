@@ -4,7 +4,9 @@ import kz.qazatracker.qaza_input.data.QazaData
 
 interface QazaDataSource {
 
-    fun saveQaza(qazaData: QazaData)
+    fun saveQazaList(qazaDataList: List<QazaData>)
 
-    fun getQaza(): QazaData
+    fun getQazaList(): List<QazaData>
+
+    fun getQaza(solatKey: String): QazaData
 }

@@ -15,15 +15,15 @@ class QazaInputViewModel(
     fun onCreate(qazaInputState: QazaInputState) {
         if (qazaInputState == QazaInputState.Correction) {
             qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
-                qazaDataSource.getQaza()
+                qazaDataSource.getQazaList()
             )
         }
     }
 
     fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
 
-    fun saveQaza(qazaData: QazaData) {
-        qazaDataSource.saveQaza(qazaData)
+    fun saveQaza(qazaDataList: List<QazaData>) {
+        qazaDataSource.saveQazaList(qazaDataList)
         qazaInputViewLiveData.value = QazaInputView.NavigationToMain
     }
 }
