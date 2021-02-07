@@ -1,11 +1,10 @@
 package kz.qazatracker.di
 
 import android.app.Activity
-import androidx.lifecycle.SavedStateHandle
 import kz.qazatracker.calculation.presentation.CalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.main.MainViewModel
+import kz.qazatracker.main.ProgressViewModel
 import kz.qazatracker.qaza_input.presentation.QazaInputState
 import kz.qazatracker.qaza_input.presentation.QazaInputViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -32,7 +31,7 @@ val applicationModule: Module = module {
     }
 
     viewModel {
-        MainViewModel(
+        ProgressViewModel(
             qazaDataSource = get()
         )
     }

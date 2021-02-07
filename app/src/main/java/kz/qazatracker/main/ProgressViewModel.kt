@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
 
-class MainViewModel(
+class ProgressViewModel(
     private val qazaDataSource: QazaDataSource
 ) : ViewModel() {
 
