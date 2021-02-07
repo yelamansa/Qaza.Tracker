@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/main_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="16dp"
+            android:max="25"
+            android:progressDrawable="@drawable/circle_progress_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_remain_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="15 \n қалды"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
+            app:layout_constraintEnd_toEndOf="@id/main_progress_bar"
+            app:layout_constraintStart_toStartOf="@id/main_progress_bar"
+            app:layout_constraintTop_toTopOf="@id/main_progress_bar" />
+
+        <TextView
+            android:id="@+id/completed_qaza_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            app:layout_constraintBottom_toTopOf="@id/total_prayed_qaza_text_view"
+            app:layout_constraintStart_toEndOf="@id/main_progress_bar"
+            tools:text="Аяқталғыны: 78%" />
+
+        <TextView
+            android:id="@+id/total_prayed_qaza_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
+            app:layout_constraintStart_toEndOf="@id/main_progress_bar"
+            app:layout_constraintTop_toTopOf="@id/main_progress_bar"
+            tools:text="Барлық оқылғандар: 45" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/qaza_progress_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:orientation="horizontal"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_progress_bar"
+            tools:listitem="@layout/layout_item_qaza_progress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
