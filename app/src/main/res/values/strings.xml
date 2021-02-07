@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Qaza tracker</string>
     <string name="calculation_first_header">Қаза намаздың санын нақты білу үшін төменге өзіңіз жайлы ақпаратты сәйкесінше мұқият еңгізіңіз</string>
-    <string name="calculation_second_header">Сіз жайлы ақпарат тек есептеу үшін ғана қолданылады және сақталмайды</string>
+    <string name="calculation_second_header">*Сіз жайлы ақпарат тек есептеуге қолданылады және сақталмайды</string>
     <string name="male">Ер адам</string>
     <string name="female">Әйел адам</string>
     <string name="birth_date">Туған күн</string>
     <string name="baligat_date">Балиғатқа толған уақыт</string>
     <string name="unknown">Білмеймін</string>
     <string name="solat_start_date">Намаз бастаған уақыт</string>
-    <string name="from_today">Бүгіннен бастап</string>
+    <string name="from_today">Бүгіннен</string>
     <string name="days_in_sapar">Сапарда болған күндер</string>
     <string name="days_haiz">Ай сайын етеккір келу ұзақтығы (күн)</string>
     <string name="born_count">Намаз бастағанға дейін босану саны</string>
@@ -23,4 +23,5 @@
     <string name="activity_start_screen_do_you_qaza_count">Сіз қаза намаздарыңыздың нақты санын білесіз бе?</string>
     <string name="activity_start_screen_app_description">Бұл қолданба сіздің қаза намаздарыңызды есептеуге көмектеседі</string>
     <string name="activity_start_screen_salam">Әссәләмуғалейкум!</string>
+    <string name="save">Сақтау</string>
 </resources>

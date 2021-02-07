@@ -2,22 +2,27 @@ package kz.qazatracker.calculation.presentation
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
 import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
+import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
+import kz.qazatracker.qaza_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_input.presentation.QazaInputState
 import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
 import kz.qazatracker.widgets.DefaultCounterWidget
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 const val UNKNOWN_COUNT = -1
@@ -27,22 +32,20 @@ private const val MALE_TAB_POSITION = 1
 
 class QazaCalculationActivity : AppCompatActivity() {
 
-    private lateinit var backTextView: TextView
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
     private lateinit var baligatDateTextView: DatePickerTextView
-    private lateinit var baligatDateAttentionTextView: TextView
     private lateinit var solatStartDateTextView: DatePickerTextView
     private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
-    private lateinit var saparDaysInputContainer: DefaultCounterWidget
     private lateinit var hayzDaysTextView: TextView
     private lateinit var hayzInputContainer: DefaultCounterWidget
     private lateinit var bornCountTextView: TextView
     private lateinit var bornCountInputContainer: DefaultCounterWidget
     private lateinit var calculateButton: Button
+    private lateinit var femailContainer: View
+    private var unknownBaligatDateDialog: AlertDialog? = null
 
-    private lateinit var femaleViews: MutableList<View>
     private lateinit var inputViews: MutableList<View>
 
     private val calculationViewModel: CalculationViewModel by viewModel()
@@ -56,7 +59,17 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         baligatDateUnknownCheckbox.setOnCheckedChangeListener { _, isChecked ->
             baligatDateTextView.isClickable = isChecked.not()
-            if (isChecked) baligatDateAttentionTextView.show() else baligatDateAttentionTextView.hide()
+            if (isChecked) {
+                if (unknownBaligatDateDialog == null) {
+                    unknownBaligatDateDialog = createDialog(
+                        message = "Егер балиғатқа толған уақытты білмесеңіз, балиғат жасы 12 деп есепке алынады"
+                    ).show()
+                } else {
+                    unknownBaligatDateDialog?.show()
+                }
+            } else {
+                unknownBaligatDateDialog?.dismiss()
+            }
         }
         solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
             solatStartDateTextView.isClickable = isChecked.not()
@@ -64,21 +77,19 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        backTextView = findViewById(R.id.back_text_view)
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatDateTextView = findViewById(R.id.baligat_date_text_view)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
         baligatDateUnknownCheckbox = findViewById(R.id.baligat_date_unknown_checkbox)
-        baligatDateAttentionTextView = findViewById(R.id.baligat_date_unknown_attention_text_view)
         solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
-        saparDaysInputContainer = findViewById(R.id.sapar_input_container)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
         calculateButton = findViewById(R.id.calculate_button)
+        femailContainer = findViewById(R.id.femail_container)
+        initActionBar()
         initGenderSwitcherView()
-        collectFemaleViews()
         collectAllInputViews()
 
         birthDateTextView.setDateInMillis(getDefaultBirthDateInMillis())
@@ -86,20 +97,42 @@ class QazaCalculationActivity : AppCompatActivity() {
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()
         }
-        backTextView.setOnClickListener {
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
             finish()
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initActionBar() {
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun observeViewModelLiveData() {
         calculationViewModel.getExceptionLiveData()
             .observe(this, EventObserver { handleExceptions(it) })
+        calculationViewModel.getNavigationLiveData()
+            .observe(this, EventObserver { handleNavigation(it) })
     }
 
     private fun handleExceptions(exceptionData: ExceptionData) {
         when (exceptionData) {
             is BaligatAgeNotValid -> {
                 showMessageDialog(R.string.exception, R.string.baligat_not_valid)
+            }
+        }
+    }
+
+    private fun handleNavigation(navigation: QalqulationNavigation) {
+        when(navigation) {
+            is QalqulationNavigation.QazaInput -> {
+                val intent = QazaInputRouter().createIntent(this, QazaInputState.Correction)
+                startActivity(intent)
             }
         }
     }
@@ -123,7 +156,6 @@ class QazaCalculationActivity : AppCompatActivity() {
             baligatDateTextView.getCalendarDate()
         }
         val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
-        val saparDays: Int = saparDaysInputContainer.getCounter()
         val hayzDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
@@ -139,7 +171,6 @@ class QazaCalculationActivity : AppCompatActivity() {
             birthDate,
             baligatStartDate,
             solatStartDate,
-            saparDays,
             hayzDays,
             bornCount
         )
@@ -147,18 +178,8 @@ class QazaCalculationActivity : AppCompatActivity() {
         calculationViewModel.saveCalculationData(calculationData)
     }
 
-    private fun collectFemaleViews() {
-        femaleViews = mutableListOf<View>().apply {
-            add(hayzDaysTextView)
-            add(hayzInputContainer)
-            add(bornCountTextView)
-            add(bornCountInputContainer)
-        }
-    }
-
     private fun collectAllInputViews() {
         inputViews = mutableListOf<View>().apply {
-            add(saparDaysInputContainer)
             add(hayzInputContainer)
             add(bornCountInputContainer)
         }
@@ -190,11 +211,11 @@ class QazaCalculationActivity : AppCompatActivity() {
 
                 when (tab.position) {
                     0 -> {
-                        femaleViews.forEach { it.hide() }
+                        femailContainer.hide()
                         inputViews.forEach { it.clearFocus() }
                     }
                     1 -> {
-                        femaleViews.forEach { it.show() }
+                        femailContainer.show()
                         inputViews.forEach { it.clearFocus() }
                     }
                 }
@@ -209,4 +230,12 @@ class QazaCalculationActivity : AppCompatActivity() {
 
         return defaultDateCalendar.timeInMillis
     }
+
+    private fun createDialog(
+        title: String? = null,
+        message: String? = null
+    ) = AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(R.string.ok) { dialog, _ ->  dialog.dismiss()}
 }

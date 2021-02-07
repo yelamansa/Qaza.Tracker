@@ -1,12 +1,41 @@
 package kz.qazatracker.qaza_input.presentation
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
 
-class QazaInputViewModel: ViewModel() {
+class QazaInputViewModel(
+    private val qazaInputState: QazaInputState,
+    private val qazaDataSource: QazaDataSource
+): ViewModel() {
 
-    fun saveQaza(qazaData: QazaData) {
-        Log.d("QQQ", "Qaza data: $qazaData")
+    private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
+
+    init {
+        when(qazaInputState) {
+            QazaInputState.Correction -> {
+                qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
+                    qazaDataSource.getQazaList()
+                )
+            }
+            is QazaInputState.Reduction -> {
+                qazaInputViewLiveData.value = QazaInputView.QazaInputMinValues(
+                    qazaDataSource.getQazaList()
+                )
+            }
+        }
+    }
+
+    fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
+
+    fun saveQaza(inputQazaDataList: List<QazaData>) {
+        val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
+        actualQazaList.forEachIndexed { i, element ->
+            element.solatCount += inputQazaDataList[i].solatCount
+        }
+        qazaDataSource.saveQazaList(actualQazaList)
+        qazaInputViewLiveData.value = QazaInputView.NavigationToMain
     }
 }

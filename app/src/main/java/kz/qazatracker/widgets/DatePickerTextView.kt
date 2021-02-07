@@ -6,6 +6,8 @@ import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import kz.qazatracker.R
 import java.util.*
 
 class DatePickerTextView(
@@ -32,6 +34,7 @@ class DatePickerTextView(
         calendarDate[Calendar.MONTH] = month
         calendarDate[Calendar.DAY_OF_MONTH] = dayOfMonth
         setDate()
+        setTextColor(ContextCompat.getColor(context, R.color.black_gray_color))
     }
 
     fun getTimeInMillis(): Long = calendarDate.timeInMillis
