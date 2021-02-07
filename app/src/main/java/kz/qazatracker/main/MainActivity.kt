@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.qaza_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_input.presentation.QazaInputState
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 

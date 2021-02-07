@@ -7,16 +7,24 @@ import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
 
 class QazaInputViewModel(
+    private val qazaInputState: QazaInputState,
     private val qazaDataSource: QazaDataSource
 ): ViewModel() {
 
     private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
 
-    fun onCreate(qazaInputState: QazaInputState) {
-        if (qazaInputState == QazaInputState.Correction) {
-            qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
-                qazaDataSource.getQazaList()
-            )
+    init {
+        when(qazaInputState) {
+            QazaInputState.Correction -> {
+                qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
+                    qazaDataSource.getQazaList()
+                )
+            }
+            is QazaInputState.Reduction -> {
+                qazaInputViewLiveData.value = QazaInputView.QazaInputMinValues(
+                    qazaDataSource.getQazaList()
+                )
+            }
         }
     }
 

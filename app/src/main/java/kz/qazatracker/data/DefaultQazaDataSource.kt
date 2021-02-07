@@ -30,7 +30,7 @@ class DefaultQazaDataSource(
             MAGRIB_KEY -> QazaData.Magrib(sharedPreferences.getInt(solatKey, 0))
             ISHA_KEY -> QazaData.Isha(sharedPreferences.getInt(solatKey, 0))
             UTIR_KEY -> QazaData.Utir(sharedPreferences.getInt(solatKey, 0))
-            else -> QazaData.UndefinedQazaData
+            else -> QazaData.Undefined
         }
     }
 }

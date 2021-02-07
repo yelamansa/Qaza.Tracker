@@ -8,11 +8,10 @@ import androidx.lifecycle.Observer
 import kz.qazatracker.R
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_input.data.QazaData
-import kz.qazatracker.qaza_input.presentation.QazaInputView.QazaInputPreFilled
 import kz.qazatracker.widgets.DefaultCounterWidget
-import org.koin.android.viewmodel.ext.android.viewModel
-
-private const val MIN_COUNTER_VALUE = -1000000
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.DefinitionParameters
+import org.koin.core.parameter.parametersOf
 
 class QazaInputActivity : AppCompatActivity() {
 
@@ -22,18 +21,17 @@ class QazaInputActivity : AppCompatActivity() {
     private lateinit var magribCounterWidget: DefaultCounterWidget
     private lateinit var ishaCounterWidget: DefaultCounterWidget
     private lateinit var utirCounterWidget: DefaultCounterWidget
-    private lateinit var qazaInputState: QazaInputState
 
-    private val qazaInputViewModel: QazaInputViewModel by viewModel()
+    private val qazaInputViewModel: QazaInputViewModel by viewModel {
+        getViewModelParams()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qaza_input)
-        qazaInputState = intent?.getParcelableExtra(QAZA_INPUT_STATE) ?: QazaInputState.Start
         initViews()
         setUpToolbar()
         observeViewModel()
-        qazaInputViewModel.onCreate(qazaInputState)
     }
 
     override fun onDestroy() {
@@ -53,17 +51,6 @@ class QazaInputActivity : AppCompatActivity() {
         magribCounterWidget = findViewById(R.id.layout_qaza_input_magrib_counter)
         ishaCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
         utirCounterWidget = findViewById(R.id.layout_qaza_input_utir_counter)
-
-        when(qazaInputState) {
-            is QazaInputState.Reduction -> {
-                fajrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-                zuhrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-                asrCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-                magribCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-                ishaCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-                utirCounterWidget.setMinCounterValue(MIN_COUNTER_VALUE)
-            }
-        }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
             qazaInputViewModel.saveQaza(
@@ -98,13 +85,13 @@ class QazaInputActivity : AppCompatActivity() {
     }
 
     private fun handleQazaInputView(qazaInputView: QazaInputView) {
-        when(qazaInputView) {
+        when (qazaInputView) {
             is QazaInputView.NavigationToMain -> {
                 startActivity(MainRouter().createIntent(this))
             }
-            is QazaInputPreFilled -> {
-                qazaInputView.qazaDataList.forEach {qazaData ->
-                    when(qazaData) {
+            is QazaInputView.QazaInputPreFilled -> {
+                qazaInputView.qazaDataList.forEach { qazaData ->
+                    when (qazaData) {
                         is QazaData.Fajr -> fajrCounterWidget.setCounter(qazaData.solatCount)
                         is QazaData.Zuhr -> zuhrCounterWidget.setCounter(qazaData.solatCount)
                         is QazaData.Asr -> asrCounterWidget.setCounter(qazaData.solatCount)
@@ -114,6 +101,21 @@ class QazaInputActivity : AppCompatActivity() {
                     }
                 }
             }
+            is QazaInputView.QazaInputMinValues -> {
+                qazaInputView.qazaDataList.forEach { qazaData ->
+                    when (qazaData) {
+                        is QazaData.Fajr -> fajrCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                        is QazaData.Zuhr -> zuhrCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                        is QazaData.Asr -> asrCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                        is QazaData.Magrib -> magribCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                        is QazaData.Isha -> ishaCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                        is QazaData.Utir -> utirCounterWidget.setMinCounterValue(-qazaData.solatCount)
+                    }
+                }
+            }
         }
     }
+
+    private fun getViewModelParams(): DefinitionParameters =
+        parametersOf(intent.getParcelableExtra(QAZA_INPUT_STATE))
 }

@@ -22,7 +22,7 @@ import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
 import kz.qazatracker.widgets.DefaultCounterWidget
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 const val UNKNOWN_COUNT = -1
