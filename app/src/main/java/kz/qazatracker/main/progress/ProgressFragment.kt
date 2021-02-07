@@ -44,7 +44,6 @@ class ProgressFragment : Fragment() {
             totalPrayedQazaTextView = findViewById(R.id.total_prayed_qaza_text_view)
             totalRemainTextView = findViewById(R.id.total_remain_text_view)
             mainProgressBar = findViewById(R.id.main_progress_bar)
-            mainProgressBar.progress = 6
             qazaProgressRecyclerView = findViewById(R.id.qaza_progress_recycler_view)
             qazaProgressRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -66,6 +65,7 @@ class ProgressFragment : Fragment() {
                 completedQazaTextView.text = "Аяқталды: %.2f".format(qazaProgressData.completedPercent).plus("%")
                 totalPrayedQazaTextView.text = "Барлық оқылғандар: ${qazaProgressData.totalPreyedCount}"
                 totalRemainTextView.text = "Қалды \n ${qazaProgressData.totalRemainCount}"
+                mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
             }
         )
     }
