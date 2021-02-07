@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/gender_container">
+
+    <TextView
+        android:id="@+id/birth_date_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/birth_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <kz.qazatracker.widgets.DatePickerTextView
+        android:id="@+id/birth_date_text_view"
+        style="@style/calculationFormDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_date_text_view"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingVertical="@dimen/padding_slarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/birth_date_title_text_view"
+        tools:text="28 мамыр 2020" />
+
+    <TextView
+        android:id="@+id/baligat_date_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_shuge"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/baligat_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/birth_date_text_view" />
+
+    <kz.qazatracker.widgets.DatePickerTextView
+        android:id="@+id/baligat_date_text_view"
+        style="@style/calculationFormDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_date_text_view"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingVertical="@dimen/padding_slarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/baligat_date_title_text_view"
+        tools:text="28 мамыр 2020" />
+
+    <CheckBox
+        android:id="@+id/baligat_date_unknown_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:buttonTint="@color/color_primary"
+        android:fontFamily="@font/open_sans"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:text="@string/unknown"
+        android:textColor="@color/black_gray_color"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/baligat_date_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/baligat_date_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/baligat_date_title_text_view" />
+
+    <TextView
+        android:id="@+id/solat_start_date_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_shuge"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/solat_start_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
+
+    <kz.qazatracker.widgets.DatePickerTextView
+        android:id="@+id/solat_start_date_text_view"
+        style="@style/calculationFormDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_date_text_view"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingVertical="@dimen/padding_slarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/solat_start_date_title_text_view"
+        tools:text="28 мамыр 2020" />
+
+    <CheckBox
+        android:id="@+id/solat_start_today_date_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        app:buttonTint="@color/color_primary"
+        android:fontFamily="@font/open_sans"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingLeft="@dimen/padding_medium"
+        android:text="@string/from_today"
+        android:textColor="@color/black_gray_color"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/solat_start_date_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/solat_start_date_text_view"
+        app:layout_constraintTop_toTopOf="@+id/solat_start_date_text_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
