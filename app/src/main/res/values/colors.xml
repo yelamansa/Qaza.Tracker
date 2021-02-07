@@ -6,6 +6,7 @@
     <color name="color_accent">#03DAC5</color>
     <color name="secondary_text_color">#BDBDBD</color>
     <color name="black_gray_color">#4F4F4F</color>
+    <color name="color_white">@android:color/white</color>
 
     <color name="bg_date_text_view">#FFF6F7F9</color>
     <color name="sapar_container_border_stroke_color">#E0E0E0</color>

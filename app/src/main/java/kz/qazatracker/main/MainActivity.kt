@@ -1,19 +1,21 @@
 package kz.qazatracker.main
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
+import kz.qazatracker.main.progress.ProgressFragment
 import kz.qazatracker.main.settings.SettingsFragment
 import kz.qazatracker.qaza_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_input.presentation.QazaInputState
 
-class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,20 +24,43 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         initViews()
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        val intent = QazaInputRouter().createIntent(this, QazaInputState.Reduction)
-        startActivity(intent)
-
-        return true
-    }
-
     private fun initToolbar() {
         toolbar = findViewById(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.activity_main_toolbar_menu)
-        toolbar.setOnMenuItemClickListener(this)
     }
 
     private fun initViews() {
+        replaceToProgress()
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view)
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_progress -> {
+                    replaceToProgress()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_add -> {
+                    val intent = QazaInputRouter().createIntent(this, QazaInputState.Reduction)
+                    startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_settings -> {
+                    replaceToSettings()
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> return@setOnNavigationItemSelectedListener false
+            }
+        }
+    }
+
+    private fun replaceToProgress() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<ProgressFragment>(R.id.activity_main_fragment_container)
+        }
+    }
+
+    private fun replaceToSettings() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace<SettingsFragment>(R.id.activity_main_fragment_container)
