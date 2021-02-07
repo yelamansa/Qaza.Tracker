@@ -63,7 +63,7 @@ class ProgressFragment : Fragment() {
             Observer { qazaProgressData ->
                 completedQazaTextView.text = "Аяқталды: %.2f".format(qazaProgressData.completedPercent).plus("%")
                 totalPrayedQazaTextView.text = "Барлық оқылғандар: ${qazaProgressData.totalPreyedCount}"
-                totalRemainTextView.text = "Қалды \n ${qazaProgressData.totalRemainCount}"
+                totalRemainTextView.text = "Қалды\n${qazaProgressData.totalRemainCount}"
                 mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
             }
         )
