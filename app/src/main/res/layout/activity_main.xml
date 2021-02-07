@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:orientation="horizontal"
             android:id="@+id/qaza_progress_recycler_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
