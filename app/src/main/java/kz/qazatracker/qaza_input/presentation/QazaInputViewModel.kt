@@ -30,8 +30,12 @@ class QazaInputViewModel(
 
     fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
 
-    fun saveQaza(qazaDataList: List<QazaData>) {
-        qazaDataSource.saveQazaList(qazaDataList)
+    fun saveQaza(inputQazaDataList: List<QazaData>) {
+        val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
+        actualQazaList.forEachIndexed { i, element ->
+            element.solatCount += inputQazaDataList[i].solatCount
+        }
+        qazaDataSource.saveQazaList(actualQazaList)
         qazaInputViewLiveData.value = QazaInputView.NavigationToMain
     }
 }

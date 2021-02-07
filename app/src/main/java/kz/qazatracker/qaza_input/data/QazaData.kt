@@ -19,7 +19,7 @@ const val UTIR_NAME = "Үтір"
 sealed class QazaData(
     val solatKey: String,
     val solatName: String,
-    val solatCount: Int
+    var solatCount: Int
 ): Parcelable {
 
     @Parcelize
