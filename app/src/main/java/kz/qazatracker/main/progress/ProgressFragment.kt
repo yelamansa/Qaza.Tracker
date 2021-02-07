@@ -11,8 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
-import kz.qazatracker.main.ProgressViewModel
-import kz.qazatracker.main.QazaProgressAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProgressFragment : Fragment() {
@@ -50,7 +48,8 @@ class ProgressFragment : Fragment() {
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            qazaProgressAdapter = QazaProgressAdapter()
+            qazaProgressAdapter =
+                QazaProgressAdapter()
             qazaProgressRecyclerView.adapter = qazaProgressAdapter
         }
     }

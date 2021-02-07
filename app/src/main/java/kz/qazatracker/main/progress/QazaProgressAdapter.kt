@@ -1,4 +1,4 @@
-package kz.qazatracker.main
+package kz.qazatracker.main.progress
 
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +16,11 @@ class QazaProgressAdapter : RecyclerView.Adapter<QazaProgressViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): QazaProgressViewHolder = QazaProgressViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.layout_item_qaza_progress, parent, false)
-    )
+    ): QazaProgressViewHolder =
+        QazaProgressViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.layout_item_qaza_progress, parent, false)
+        )
 
     override fun getItemCount(): Int = qazaProgressList.size
 
@@ -47,6 +49,6 @@ class QazaProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     ) {
         progressTextView.text = "${qazaProgressData.solatCount}"
         solatName.text = qazaProgressData.solatName
-        progressBar.progress = 40
+        progressBar.progress = 100 - qazaProgressData.getTotalCompletedQazaPercent().toInt()
     }
 }

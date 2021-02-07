@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
+import kotlin.math.abs
 
 class QazaInputViewModel(
     private val qazaInputState: QazaInputState,
@@ -44,9 +45,17 @@ class QazaInputViewModel(
         var totalPreyedCount: Int = qazaDataSource.getTotalPrayedCount()
         inputQazaDataList.forEach { qazaData ->
             if (qazaData.solatCount < 0) {
-                totalPreyedCount += (-1) * qazaData.solatCount
+                totalPreyedCount += abs(qazaData.solatCount)
+                updateSolatTotalPrayedCount(qazaData)
             }
         }
         qazaDataSource.saveTotalPreyedCount(totalPreyedCount)
+    }
+
+    private fun updateSolatTotalPrayedCount(qazaData: QazaData) {
+        val actualPrayedCount = qazaDataSource.getTotalPrayedCount(qazaData.solatKey)
+        qazaDataSource.saveTotalPrayedCount(
+            qazaData.solatKey, actualPrayedCount + abs(qazaData.solatCount)
+        )
     }
 }

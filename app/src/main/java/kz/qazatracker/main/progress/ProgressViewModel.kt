@@ -1,4 +1,4 @@
-package kz.qazatracker.main
+package kz.qazatracker.main.progress
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +16,7 @@ class ProgressViewModel(
         val qazaDataList = qazaDataSource.getQazaList()
         qazaLiveData.value = qazaDataList
         val qazaProgressData = QazaProgressData(
-            completedPercent = qazaDataSource.getCompletedQazaPercent(),
+            completedPercent = qazaDataSource.getTotalCompletedQazaPercent(),
             totalPreyedCount = qazaDataSource.getTotalPrayedCount(),
             totalRemainCount = qazaDataSource.getTotalRemainCount()
         )

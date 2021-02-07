@@ -3,12 +3,28 @@ package kz.qazatracker.data
 import android.content.SharedPreferences
 import kz.qazatracker.qaza_input.data.*
 
-private const val COMPLETED_QAZA_PERCENT_KEY = "completed_qaza_percent"
-private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_preyed_qaza_count"
+private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_prayed_qaza_count"
+private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 
 class DefaultQazaDataSource(
     private val sharedPreferences: SharedPreferences
-): QazaDataSource {
+) : QazaDataSource {
+
+    private val fajr: QazaData
+    private val zuhr: QazaData
+    private val asr: QazaData
+    private val magrib: QazaData
+    private val isha: QazaData
+    private val utir: QazaData
+
+    init {
+        fajr = getQaza(FAJR_KEY)
+        zuhr = getQaza(ZUHR_KEY)
+        asr = getQaza(ASR_KEY)
+        magrib = getQaza(MAGRIB_KEY)
+        isha = getQaza(ISHA_KEY)
+        utir = getQaza(UTIR_KEY)
+    }
 
     override fun saveQazaList(qazaDataList: List<QazaData>) {
         for (qazaData: QazaData in qazaDataList) {
@@ -17,35 +33,73 @@ class DefaultQazaDataSource(
     }
 
     override fun getQazaList(): List<QazaData> = listOf(
-        getQaza(FAJR_KEY),
-        getQaza(ZUHR_KEY),
-        getQaza(ASR_KEY),
-        getQaza(MAGRIB_KEY),
-        getQaza(ISHA_KEY),
-        getQaza(UTIR_KEY)
+        fajr,
+        zuhr,
+        asr,
+        magrib,
+        isha,
+        utir
     )
 
     override fun getQaza(solatKey: String): QazaData {
-        return  when(solatKey) {
-            FAJR_KEY -> QazaData.Fajr(sharedPreferences.getInt(solatKey, 0))
-            ZUHR_KEY -> QazaData.Zuhr(sharedPreferences.getInt(solatKey, 0))
-            ASR_KEY -> QazaData.Asr(sharedPreferences.getInt(solatKey, 0))
-            MAGRIB_KEY -> QazaData.Magrib(sharedPreferences.getInt(solatKey, 0))
-            ISHA_KEY -> QazaData.Isha(sharedPreferences.getInt(solatKey, 0))
-            UTIR_KEY -> QazaData.Utir(sharedPreferences.getInt(solatKey, 0))
+        return when (solatKey) {
+            FAJR_KEY -> QazaData.Fajr(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
+            ZUHR_KEY -> QazaData.Zuhr(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
+            ASR_KEY -> QazaData.Asr(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
+            MAGRIB_KEY -> QazaData.Magrib(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
+            ISHA_KEY -> QazaData.Isha(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
+            UTIR_KEY -> QazaData.Utir(
+                count = sharedPreferences.getInt(solatKey, 0),
+                totalCount = getTotalPrayedCount(solatKey)
+            )
             else -> QazaData.Undefined
         }
     }
 
-    override fun getCompletedQazaPercent(): Float {
-       return (getTotalPrayedCount().toFloat() * 100) / (getTotalPrayedCount().toFloat() + getTotalRemainCount().toFloat())
+    override fun getTotalCompletedQazaPercent(): Float {
+        val totalCount = getTotalPrayedCount() + getTotalRemainCount()
+
+        if (totalCount == 0) return 0f
+
+        return (getTotalPrayedCount().toFloat() * 100) / totalCount
     }
 
     override fun getTotalPrayedCount(): Int =
         sharedPreferences.getInt(TOTAL_PREYED_QAZA_COUNT_KEY, 0)
 
-    override fun saveTotalPreyedCount(count: Int) {
+    override fun getTotalPrayedCount(
+        solatKey: String
+    ): Int = sharedPreferences.getInt(PRAYED_QAZA_COUNT_COUNT_FORMAT.format(solatKey), 0)
+
+    override fun saveTotalPreyedCount(
+        count: Int
+    ) {
         sharedPreferences.edit().putInt(TOTAL_PREYED_QAZA_COUNT_KEY, count).apply()
+    }
+
+    override fun saveTotalPrayedCount(
+        solatKey: String,
+        count: Int
+    ) {
+        sharedPreferences.edit().putInt(
+            PRAYED_QAZA_COUNT_COUNT_FORMAT.format(solatKey),
+            count
+        ).apply()
     }
 
     override fun getTotalRemainCount(): Int {

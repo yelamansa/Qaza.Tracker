@@ -10,11 +10,15 @@ interface QazaDataSource {
 
     fun getQaza(solatKey: String): QazaData
 
-    fun getCompletedQazaPercent(): Float
+    fun getTotalCompletedQazaPercent(): Float
 
     fun getTotalPrayedCount(): Int
 
+    fun getTotalPrayedCount(solatKey: String): Int
+
     fun saveTotalPreyedCount(count: Int)
+
+    fun saveTotalPrayedCount(solatKey: String, count: Int)
 
     fun getTotalRemainCount(): Int
 }

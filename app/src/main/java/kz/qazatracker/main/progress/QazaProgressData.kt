@@ -1,4 +1,4 @@
-package kz.qazatracker.main
+package kz.qazatracker.main.progress
 
 data class QazaProgressData(
     val completedPercent: Float,
