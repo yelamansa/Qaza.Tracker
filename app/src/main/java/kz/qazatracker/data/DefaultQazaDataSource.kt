@@ -3,6 +3,9 @@ package kz.qazatracker.data
 import android.content.SharedPreferences
 import kz.qazatracker.qaza_input.data.*
 
+private const val COMPLETED_QAZA_PERCENT_KEY = "completed_qaza_percent"
+private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_preyed_qaza_count"
+
 class DefaultQazaDataSource(
     private val sharedPreferences: SharedPreferences
 ): QazaDataSource {
@@ -32,5 +35,25 @@ class DefaultQazaDataSource(
             UTIR_KEY -> QazaData.Utir(sharedPreferences.getInt(solatKey, 0))
             else -> QazaData.Undefined
         }
+    }
+
+    override fun getCompletedQazaPercent(): Float {
+       return (getTotalPrayedCount().toFloat() * 100) / (getTotalPrayedCount().toFloat() + getTotalRemainCount().toFloat())
+    }
+
+    override fun getTotalPrayedCount(): Int =
+        sharedPreferences.getInt(TOTAL_PREYED_QAZA_COUNT_KEY, 0)
+
+    override fun saveTotalPreyedCount(count: Int) {
+        sharedPreferences.edit().putInt(TOTAL_PREYED_QAZA_COUNT_KEY, count).apply()
+    }
+
+    override fun getTotalRemainCount(): Int {
+        var count = 0
+        getQazaList().forEach {
+            count += it.solatCount
+        }
+
+        return count
     }
 }

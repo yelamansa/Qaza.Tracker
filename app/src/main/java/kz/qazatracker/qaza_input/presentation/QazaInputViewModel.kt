@@ -31,11 +31,22 @@ class QazaInputViewModel(
     fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
 
     fun saveQaza(inputQazaDataList: List<QazaData>) {
+        updateTotalPreyedCount(inputQazaDataList)
         val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
         actualQazaList.forEachIndexed { i, element ->
             element.solatCount += inputQazaDataList[i].solatCount
         }
         qazaDataSource.saveQazaList(actualQazaList)
         qazaInputViewLiveData.value = QazaInputView.NavigationToMain
+    }
+
+    private fun updateTotalPreyedCount(inputQazaDataList: List<QazaData>) {
+        var totalPreyedCount: Int = qazaDataSource.getTotalPrayedCount()
+        inputQazaDataList.forEach { qazaData ->
+            if (qazaData.solatCount < 0) {
+                totalPreyedCount += (-1) * qazaData.solatCount
+            }
+        }
+        qazaDataSource.saveTotalPreyedCount(totalPreyedCount)
     }
 }

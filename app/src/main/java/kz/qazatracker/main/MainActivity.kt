@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     private lateinit var mainProgressBar: ProgressBar
     private lateinit var qazaProgressRecyclerView: RecyclerView
     private lateinit var qazaProgressAdapter: QazaProgressAdapter
+    private lateinit var completedQazaTextView: TextView
+    private lateinit var totalPrayedQazaTextView: TextView
+    private lateinit var totalRemainTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +59,22 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         )
         qazaProgressAdapter = QazaProgressAdapter()
         qazaProgressRecyclerView.adapter = qazaProgressAdapter
+        completedQazaTextView = findViewById(R.id.completed_qaza_text_view)
+        totalPrayedQazaTextView = findViewById(R.id.total_prayed_qaza_text_view)
+        totalRemainTextView = findViewById(R.id.total_remain_text_view)
     }
 
     private fun observeViewModel() {
         mainViewModel.getQazaLiveData().observe(
             this,
         Observer { qazaDataList ->  qazaProgressAdapter.setList(qazaDataList)})
+        mainViewModel.getQazaProgressLiveData().observe(
+            this,
+            Observer { qazaProgressData ->
+                    completedQazaTextView.text = "Аяқталды: %.2f".format(qazaProgressData.completedPercent).plus("%")
+                    totalPrayedQazaTextView.text = "Барлық оқылғандар: ${qazaProgressData.totalPreyedCount}"
+                    totalRemainTextView.text = "Қалды \n ${qazaProgressData.totalRemainCount}"
+            }
+        )
     }
 }
