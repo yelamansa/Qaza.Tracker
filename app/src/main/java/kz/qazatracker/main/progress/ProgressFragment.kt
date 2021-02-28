@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
+import kz.qazatracker.widgets.CounterWidgetCallback
+import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProgressFragment : Fragment() {
@@ -21,6 +23,8 @@ class ProgressFragment : Fragment() {
     private lateinit var completedQazaTextView: TextView
     private lateinit var totalPrayedQazaTextView: TextView
     private lateinit var totalRemainTextView: TextView
+    private lateinit var solatCounterView: DefaultCounterWidget
+    private lateinit var calculatedTimeTextView: TextView
     private val progressViewModel: ProgressViewModel by viewModel()
 
     override fun onCreateView(
@@ -43,6 +47,8 @@ class ProgressFragment : Fragment() {
             totalRemainTextView = findViewById(R.id.total_remain_text_view)
             mainProgressBar = findViewById(R.id.main_progress_bar)
             qazaProgressRecyclerView = findViewById(R.id.qaza_progress_recycler_view)
+            solatCounterView = findViewById(R.id.solat_counter_view)
+            calculatedTimeTextView = findViewById(R.id.calculated_time_text_view)
             qazaProgressRecyclerView.layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL,
@@ -51,6 +57,12 @@ class ProgressFragment : Fragment() {
             qazaProgressAdapter =
                 QazaProgressAdapter()
             qazaProgressRecyclerView.adapter = qazaProgressAdapter
+            solatCounterView.setCounterCallback(object : CounterWidgetCallback {
+                override fun onCounterChanged(value: Int) {
+                  calculateSolatTime(value)
+                }
+            })
+            calculateSolatTime(solatCounterView.getCounter())
         }
     }
 
@@ -67,5 +79,15 @@ class ProgressFragment : Fragment() {
                 mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
             }
         )
+        progressViewModel.getCalculatedRemainTime().observe(
+            viewLifecycleOwner,
+            Observer { calculatedRemainTime ->
+                calculatedTimeTextView.text = calculatedRemainTime
+            }
+        )
+    }
+
+    private fun calculateSolatTime(solatCountPerDay: Int) {
+        progressViewModel.calculateRemainDate(solatCountPerDay)
     }
 }

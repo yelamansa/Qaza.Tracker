@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <ProgressBar
             android:id="@+id/main_progress_bar"
@@ -20,21 +23,23 @@
             android:max="100"
             android:progressDrawable="@drawable/circle_progress_bar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/total_remain_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:text="15"
             android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
             app:layout_constraintEnd_toEndOf="@id/main_progress_bar"
             app:layout_constraintStart_toStartOf="@id/main_progress_bar"
-            app:layout_constraintTop_toTopOf="@id/main_progress_bar" />
+            app:layout_constraintTop_toTopOf="@id/main_progress_bar"
+            />
 
         <TextView
             android:id="@+id/completed_qaza_text_view"
@@ -44,7 +49,8 @@
             android:layout_marginLeft="32dp"
             app:layout_constraintBottom_toTopOf="@id/total_prayed_qaza_text_view"
             app:layout_constraintStart_toEndOf="@id/main_progress_bar"
-            tools:text="Аяқталғыны: 78%" />
+            tools:text="Аяқталғыны: 78%"
+            />
 
         <TextView
             android:id="@+id/total_prayed_qaza_text_view"
@@ -55,7 +61,8 @@
             app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
             app:layout_constraintStart_toEndOf="@id/main_progress_bar"
             app:layout_constraintTop_toTopOf="@id/main_progress_bar"
-            tools:text="Барлық оқылғандар: 45" />
+            tools:text="Барлық оқылғандар: 45"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/qaza_progress_recycler_view"
@@ -68,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_progress_bar"
-            tools:listitem="@layout/layout_item_qaza_progress" />
+            />
 
         <TextView
             android:id="@+id/textView"
@@ -78,12 +85,13 @@
             android:text="Егер күніне"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/counter_view"
+            app:layout_constraintEnd_toEndOf="@+id/solat_counter_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qaza_progress_recycler_view" />
+            app:layout_constraintTop_toBottomOf="@id/qaza_progress_recycler_view"
+            />
 
         <kz.qazatracker.widgets.DefaultCounterWidget
-            android:id="@+id/counter_view"
+            android:id="@+id/solat_counter_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -91,7 +99,8 @@
             android:layout_marginTop="@dimen/margin_large"
             app:counter="5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView" />
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -101,9 +110,10 @@
             android:text="намаз оқысаңыз"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/counter_view"
+            app:layout_constraintEnd_toEndOf="@+id/solat_counter_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/counter_view" />
+            app:layout_constraintTop_toBottomOf="@id/solat_counter_view"
+            />
 
         <TextView
             android:id="@+id/calculated_time_text_view"
@@ -114,15 +124,16 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text=" 1 жыл 6 ай 25 күн \n уақытыңызды алады"
             android:textAlignment="center"
             android:textColor="@color/color_primary"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/counter_view"
+            app:layout_constraintBottom_toBottomOf="@id/solat_counter_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/counter_view"
-            app:layout_constraintTop_toTopOf="@id/counter_view" />
+            app:layout_constraintStart_toEndOf="@id/solat_counter_view"
+            app:layout_constraintTop_toTopOf="@id/solat_counter_view"
+            tools:text="25 күнуақытыңызды алады"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

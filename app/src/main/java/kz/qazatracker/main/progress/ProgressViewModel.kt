@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_input.data.QazaData
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 class ProgressViewModel(
     private val qazaDataSource: QazaDataSource
@@ -11,6 +13,7 @@ class ProgressViewModel(
 
     private val qazaLiveData = MutableLiveData<List<QazaData>>()
     private val qazaProgressLiveData = MutableLiveData<QazaProgressData>()
+    private val calculatedRemainTimeLiveData = MutableLiveData<String>()
 
     fun onCreate() {
         val qazaDataList = qazaDataSource.getQazaList()
@@ -26,4 +29,12 @@ class ProgressViewModel(
     fun getQazaLiveData() = qazaLiveData
 
     fun getQazaProgressLiveData() = qazaProgressLiveData
+
+    fun getCalculatedRemainTime() = calculatedRemainTimeLiveData
+
+    fun calculateRemainDate(solatCountPerDay: Int) {
+        val totalRemainSolatCount = qazaDataSource.getTotalRemainCount()
+        val day = ceil(totalRemainSolatCount / solatCountPerDay.toDouble())
+        calculatedRemainTimeLiveData.value = "${day.roundToInt()} күнде толық оқып боласыз"
+    }
 }

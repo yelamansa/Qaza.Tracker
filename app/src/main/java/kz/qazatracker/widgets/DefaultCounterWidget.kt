@@ -19,6 +19,7 @@ class DefaultCounterWidget(
     attributeSet: AttributeSet
 ) : LinearLayout(context, attributeSet) {
 
+    private var counterWidgetCallback: CounterWidgetCallback? = null
     private var minusButton: ImageButton
     private var plusButton: ImageButton
     private var counterEditText: EditText
@@ -60,6 +61,10 @@ class DefaultCounterWidget(
 
     override fun clearFocus() {
         counterEditText.clearFocus()
+    }
+
+    fun setCounterCallback(counterWidgetCallback: CounterWidgetCallback) {
+        this.counterWidgetCallback = counterWidgetCallback
     }
 
     fun getCounter(): Int = counter
@@ -132,6 +137,7 @@ class DefaultCounterWidget(
                         counterEditText.setText("$counter")
                         moveCursorToEnd()
                     }
+                    counterWidgetCallback?.onCounterChanged(counter)
                 } catch (nfe: NumberFormatException) {
                     counter = 0
                     counterEditText.setText("$counter")
@@ -147,4 +153,9 @@ class DefaultCounterWidget(
             }
         }
     }
+}
+
+interface CounterWidgetCallback {
+
+    fun onCounterChanged(value: Int)
 }
