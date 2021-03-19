@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.widgets.CounterWidgetCallback
-import kz.qazatracker.widgets.DefaultCounterWidget
+import kz.qazatracker.widgets.CounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProgressFragment : Fragment() {
@@ -23,7 +23,7 @@ class ProgressFragment : Fragment() {
     private lateinit var completedQazaTextView: TextView
     private lateinit var totalPrayedQazaTextView: TextView
     private lateinit var totalRemainTextView: TextView
-    private lateinit var solatCounterView: DefaultCounterWidget
+    private lateinit var solatCounterView: CounterWidget
     private lateinit var calculatedTimeTextView: TextView
     private val progressViewModel: ProgressViewModel by viewModel()
 

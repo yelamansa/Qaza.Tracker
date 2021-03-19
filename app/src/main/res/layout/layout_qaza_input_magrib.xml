@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/layout_qaza_input_magrib_counter" />
 
-    <kz.qazatracker.widgets.DefaultCounterWidget
+    <kz.qazatracker.widgets.CounterWidget
         app:counter="0"
         android:id="@+id/layout_qaza_input_magrib_counter"
         android:layout_width="wrap_content"

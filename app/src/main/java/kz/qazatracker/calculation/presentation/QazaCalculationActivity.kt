@@ -21,7 +21,7 @@ import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
-import kz.qazatracker.widgets.DefaultCounterWidget
+import kz.qazatracker.widgets.CounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -39,9 +39,9 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
     private lateinit var hayzDaysTextView: TextView
-    private lateinit var hayzInputContainer: DefaultCounterWidget
+    private lateinit var hayzInputContainer: CounterWidget
     private lateinit var bornCountTextView: TextView
-    private lateinit var bornCountInputContainer: DefaultCounterWidget
+    private lateinit var bornCountInputContainer: CounterWidget
     private lateinit var calculateButton: Button
     private lateinit var femailContainer: View
     private var unknownBaligatDateDialog: AlertDialog? = null

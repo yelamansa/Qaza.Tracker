@@ -90,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@id/qaza_progress_recycler_view"
             />
 
-        <kz.qazatracker.widgets.DefaultCounterWidget
+        <kz.qazatracker.widgets.CounterWidget
             android:id="@+id/solat_counter_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

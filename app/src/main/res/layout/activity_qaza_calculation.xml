@@ -37,6 +37,11 @@
             />
 
         <include
+            android:id="@+id/sapar_container"
+            layout="@layout/layout_input_sapar_solat"
+            />
+
+        <include
             android:id="@+id/femail_container"
             layout="@layout/layout_femail"
             />

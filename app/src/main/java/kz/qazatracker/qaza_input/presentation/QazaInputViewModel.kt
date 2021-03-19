@@ -10,26 +10,33 @@ import kotlin.math.abs
 class QazaInputViewModel(
     private val qazaInputState: QazaInputState,
     private val qazaDataSource: QazaDataSource
-): ViewModel() {
+) : ViewModel() {
 
-    private val qazaInputViewLiveData = MutableLiveData<QazaInputView>()
+    private val qazaViewDataListLiveData = MutableLiveData<List<QazaData>>()
+    private val qazaInputNavigationLiveData = MutableLiveData<QazaInputNavigation>()
 
     init {
-        when(qazaInputState) {
-            QazaInputState.Correction -> {
-                qazaInputViewLiveData.value = QazaInputView.QazaInputPreFilled(
-                    qazaDataSource.getQazaList()
-                )
+        when (qazaInputState) {
+            QazaInputState.Reduction -> {
+                qazaViewDataListLiveData.value = qazaDataSource.getQazaList().map {
+                    it.also {
+                        it.minSolatCount = -it.solatCount
+                        it.minSaparSolatCount = -it.saparSolatCount
+                    }
+                }
             }
-            is QazaInputState.Reduction -> {
-                qazaInputViewLiveData.value = QazaInputView.QazaInputMinValues(
-                    qazaDataSource.getQazaList()
-                )
+            QazaInputState.Correction,
+            QazaInputState.Start,
+            QazaInputState.None -> {
+                qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
         }
     }
 
-    fun getQazaInputViewLiveData(): LiveData<QazaInputView> = qazaInputViewLiveData
+    fun getQazaDataListLiveData(): LiveData<List<QazaData>> = qazaViewDataListLiveData
+
+    fun getQazaInputNavigationLiveData(): LiveData<QazaInputNavigation> =
+        qazaInputNavigationLiveData
 
     fun saveQaza(inputQazaDataList: List<QazaData>) {
         updateTotalPreyedCount(inputQazaDataList)
@@ -38,7 +45,7 @@ class QazaInputViewModel(
             element.solatCount += inputQazaDataList[i].solatCount
         }
         qazaDataSource.saveQazaList(actualQazaList)
-        qazaInputViewLiveData.value = QazaInputView.NavigationToMain
+        qazaInputNavigationLiveData.value = QazaInputNavigation.MainScreen
     }
 
     private fun updateTotalPreyedCount(inputQazaDataList: List<QazaData>) {

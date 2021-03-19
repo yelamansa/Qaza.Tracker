@@ -49,14 +49,7 @@ class CalculationViewModel(
         if (qazaDaysIsValid.not()) return
 
         qazaDataSource.saveQazaList(
-            listOf(
-                QazaData.Fajr(qazaDays),
-                QazaData.Zuhr(qazaDays),
-                QazaData.Asr(qazaDays),
-                QazaData.Magrib(qazaDays),
-                QazaData.Isha(qazaDays),
-                QazaData.Utir(qazaDays)
-            )
+            qazaDataSource.getQazaList().map { it.also { it.solatCount = qazaDays } }
         )
         navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
     }

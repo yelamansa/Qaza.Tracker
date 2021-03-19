@@ -8,7 +8,7 @@
     android:background="@android:color/white"
     android:padding="16dp"
     android:visibility="gone"
-    app:layout_constraintTop_toBottomOf="@id/date_container"
+    app:layout_constraintTop_toBottomOf="@id/sapar_container"
     tools:visibility="visible">
 
     <TextView
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <kz.qazatracker.widgets.DefaultCounterWidget
+    <kz.qazatracker.widgets.CounterWidget
         android:id="@+id/hayz_input_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/hayz_input_container"
         />
 
-    <kz.qazatracker.widgets.DefaultCounterWidget
+    <kz.qazatracker.widgets.CounterWidget
         android:id="@+id/born_count_input_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

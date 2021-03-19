@@ -5,22 +5,19 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_input.data.QazaData
-import kz.qazatracker.widgets.DefaultCounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.DefinitionParameters
 import org.koin.core.parameter.parametersOf
 
 class QazaInputActivity : AppCompatActivity() {
 
-    private lateinit var fajrCounterWidget: DefaultCounterWidget
-    private lateinit var zuhrCounterWidget: DefaultCounterWidget
-    private lateinit var asrCounterWidget: DefaultCounterWidget
-    private lateinit var magribCounterWidget: DefaultCounterWidget
-    private lateinit var ishaCounterWidget: DefaultCounterWidget
-    private lateinit var utirCounterWidget: DefaultCounterWidget
+    private lateinit var qazaInputRecyclerView: RecyclerView
+    private val qazaInputAdapter: QazaInputAdapter = QazaInputAdapter()
 
     private val qazaInputViewModel: QazaInputViewModel by viewModel {
         getViewModelParams()
@@ -34,34 +31,21 @@ class QazaInputActivity : AppCompatActivity() {
         observeViewModel()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unObserveViewModel()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
     private fun initViews() {
-        fajrCounterWidget = findViewById(R.id.layout_qaza_input_fajr_counter)
-        zuhrCounterWidget = findViewById(R.id.layout_qaza_input_zuhr_counter)
-        asrCounterWidget = findViewById(R.id.layout_qaza_input_asr_counter)
-        magribCounterWidget = findViewById(R.id.layout_qaza_input_magrib_counter)
-        ishaCounterWidget = findViewById(R.id.layout_qaza_input_isha_counter)
-        utirCounterWidget = findViewById(R.id.layout_qaza_input_utir_counter)
+        qazaInputRecyclerView = findViewById(R.id.qaza_input_recycler_view)
+        qazaInputRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = qazaInputAdapter
+        }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
             qazaInputViewModel.saveQaza(
-                listOf(
-                    QazaData.Fajr(fajrCounterWidget.getCounter()),
-                    QazaData.Zuhr(zuhrCounterWidget.getCounter()),
-                    QazaData.Asr(asrCounterWidget.getCounter()),
-                    QazaData.Magrib(magribCounterWidget.getCounter()),
-                    QazaData.Isha(ishaCounterWidget.getCounter()),
-                    QazaData.Utir(utirCounterWidget.getCounter())
-                )
+                inputQazaDataList = qazaInputAdapter.getList()
             )
         }
     }
@@ -74,46 +58,20 @@ class QazaInputActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        qazaInputViewModel.getQazaInputViewLiveData().observe(
-            this,
-            Observer { qazaInputView -> handleQazaInputView(qazaInputView) }
-        )
+        qazaInputViewModel.getQazaDataListLiveData().observe(this, Observer { handleQazaInputView(it) })
+        qazaInputViewModel.getQazaInputNavigationLiveData().observe(this, Observer { handleNavigation(it) })
     }
 
-    private fun unObserveViewModel() {
-        qazaInputViewModel.getQazaInputViewLiveData().removeObservers(this)
-    }
-
-    private fun handleQazaInputView(qazaInputView: QazaInputView) {
-        when (qazaInputView) {
-            is QazaInputView.NavigationToMain -> {
+    private fun handleNavigation(qazaInputNavigation: QazaInputNavigation) {
+        when(qazaInputNavigation) {
+            is QazaInputNavigation.MainScreen -> {
                 startActivity(MainRouter().createIntent(this))
             }
-            is QazaInputView.QazaInputPreFilled -> {
-                qazaInputView.qazaDataList.forEach { qazaData ->
-                    when (qazaData) {
-                        is QazaData.Fajr -> fajrCounterWidget.setCounter(qazaData.solatCount)
-                        is QazaData.Zuhr -> zuhrCounterWidget.setCounter(qazaData.solatCount)
-                        is QazaData.Asr -> asrCounterWidget.setCounter(qazaData.solatCount)
-                        is QazaData.Magrib -> magribCounterWidget.setCounter(qazaData.solatCount)
-                        is QazaData.Isha -> ishaCounterWidget.setCounter(qazaData.solatCount)
-                        is QazaData.Utir -> utirCounterWidget.setCounter(qazaData.solatCount)
-                    }
-                }
-            }
-            is QazaInputView.QazaInputMinValues -> {
-                qazaInputView.qazaDataList.forEach { qazaData ->
-                    when (qazaData) {
-                        is QazaData.Fajr -> fajrCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                        is QazaData.Zuhr -> zuhrCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                        is QazaData.Asr -> asrCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                        is QazaData.Magrib -> magribCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                        is QazaData.Isha -> ishaCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                        is QazaData.Utir -> utirCounterWidget.setMinCounterValue(-qazaData.solatCount)
-                    }
-                }
-            }
         }
+    }
+
+    private fun handleQazaInputView(qazaDataList: List<QazaData>) {
+        qazaInputAdapter.setList(qazaDataList)
     }
 
     private fun getViewModelParams(): DefinitionParameters =

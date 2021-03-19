@@ -3,6 +3,19 @@ package kz.qazatracker.data
 import android.content.SharedPreferences
 import kz.qazatracker.qaza_input.data.*
 
+const val FAJR_KEY = "fajr"
+const val ZUHR_KEY = "zuhr"
+const val ASR_KEY = "asr"
+const val MAGRIB_KEY = "magrib"
+const val ISHA_KEY = "isha"
+const val UTIR_KEY = "utir"
+const val FAJR_NAME = "Таң"
+const val ZUHR_NAME = "Бесін"
+const val ASR_NAME = "Аср"
+const val MAGRIB_NAME = "Шам"
+const val ISHA_NAME = "Құптан"
+const val UTIR_NAME = "Үтір"
+
 private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_prayed_qaza_count"
 private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 
@@ -10,65 +23,42 @@ class DefaultQazaDataSource(
     private val sharedPreferences: SharedPreferences
 ) : QazaDataSource {
 
-    private val fajr: QazaData
-    private val zuhr: QazaData
-    private val asr: QazaData
-    private val magrib: QazaData
-    private val isha: QazaData
-    private val utir: QazaData
-
-    init {
-        fajr = getQaza(FAJR_KEY)
-        zuhr = getQaza(ZUHR_KEY)
-        asr = getQaza(ASR_KEY)
-        magrib = getQaza(MAGRIB_KEY)
-        isha = getQaza(ISHA_KEY)
-        utir = getQaza(UTIR_KEY)
-    }
-
     override fun saveQazaList(qazaDataList: List<QazaData>) {
         for (qazaData: QazaData in qazaDataList) {
             sharedPreferences.edit().putInt(qazaData.solatKey, qazaData.solatCount).apply()
+            sharedPreferences.edit()
+                .putInt(getSaparSolatName(qazaData.solatKey), qazaData.solatCount).apply()
         }
     }
 
     override fun getQazaList(): List<QazaData> = listOf(
-        fajr,
-        zuhr,
-        asr,
-        magrib,
-        isha,
-        utir
+        getQaza(FAJR_KEY, FAJR_NAME, false),
+        getQaza(ZUHR_KEY, ZUHR_NAME, true),
+        getQaza(ASR_KEY, ASR_NAME, true),
+        getQaza(MAGRIB_KEY, MAGRIB_NAME, false),
+        getQaza(ISHA_KEY, ISHA_NAME, true),
+        getQaza(UTIR_KEY, UTIR_NAME, false)
     )
 
-    override fun getQaza(solatKey: String): QazaData {
-        return when (solatKey) {
-            FAJR_KEY -> QazaData.Fajr(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            ZUHR_KEY -> QazaData.Zuhr(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            ASR_KEY -> QazaData.Asr(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            MAGRIB_KEY -> QazaData.Magrib(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            ISHA_KEY -> QazaData.Isha(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            UTIR_KEY -> QazaData.Utir(
-                count = sharedPreferences.getInt(solatKey, 0),
-                totalCount = getTotalPrayedCount(solatKey)
-            )
-            else -> QazaData.Undefined
-        }
+    private fun getQaza(
+        solatKey: String,
+        solatName: String,
+        hasSaparSolat: Boolean
+    ): QazaData {
+        val solatCount = sharedPreferences.getInt(solatKey, 0)
+        val saparSolatCount =
+            if (!hasSaparSolat) 0 else sharedPreferences.getInt(getSaparSolatName(solatKey), 0)
+
+        return QazaData(
+            solatKey = solatKey,
+            solatName = solatName,
+            solatCount = solatCount,
+            saparSolatCount = saparSolatCount,
+            minSolatCount = -solatCount,
+            minSaparSolatCount = -saparSolatCount,
+            totalPrayedCount = getTotalPrayedCount(solatKey),
+            hasSaparSolat = hasSaparSolat
+        )
     }
 
     override fun getTotalCompletedQazaPercent(): Float {
@@ -110,4 +100,6 @@ class DefaultQazaDataSource(
 
         return count
     }
+
+    private fun getSaparSolatName(solatKey: String) = "${solatKey}_sapar"
 }
