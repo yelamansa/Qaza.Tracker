@@ -40,6 +40,15 @@ class DefaultQazaDataSource(
         getQaza(UTIR_KEY, UTIR_NAME, false)
     )
 
+    override fun clearQazaList() {
+        clearQaza(FAJR_KEY)
+        clearQaza(ZUHR_KEY)
+        clearQaza(ASR_KEY)
+        clearQaza(MAGRIB_KEY)
+        clearQaza(ISHA_KEY)
+        clearQaza(UTIR_KEY)
+    }
+
     private fun getQaza(
         solatKey: String,
         solatName: String,
@@ -102,4 +111,9 @@ class DefaultQazaDataSource(
     }
 
     private fun getSaparSolatName(solatKey: String) = "${solatKey}_sapar"
+
+    private fun clearQaza(key: String) {
+        sharedPreferences.edit().remove(key).apply()
+        sharedPreferences.edit().remove(getSaparSolatName(key)).apply()
+    }
 }

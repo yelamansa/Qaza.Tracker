@@ -8,6 +8,8 @@ interface QazaDataSource {
 
     fun getQazaList(): List<QazaData>
 
+    fun clearQazaList()
+
     fun getTotalCompletedQazaPercent(): Float
 
     fun getTotalPrayedCount(): Int

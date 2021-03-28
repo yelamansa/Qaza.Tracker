@@ -25,8 +25,11 @@ class QazaInputViewModel(
                     }
                 }
             }
+            QazaInputState.Start -> {
+                qazaDataSource.clearQazaList()
+                qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
+            }
             QazaInputState.Correction,
-            QazaInputState.Start,
             QazaInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
