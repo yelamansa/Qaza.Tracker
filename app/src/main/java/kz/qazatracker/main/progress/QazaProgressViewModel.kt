@@ -3,11 +3,11 @@ package kz.qazatracker.main.progress
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
-class ProgressViewModel(
+class QazaProgressViewModel(
     private val qazaDataSource: QazaDataSource
 ) : ViewModel() {
 

@@ -1,10 +1,10 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.CounterWidget

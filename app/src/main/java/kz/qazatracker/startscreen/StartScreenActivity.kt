@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import kz.qazatracker.R
-import kz.qazatracker.calculation.presentation.QazaCalculationRouter
-import kz.qazatracker.qaza_input.presentation.QazaInputRouter
-import kz.qazatracker.qaza_input.presentation.QazaInputState
+import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationRouter
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 
 class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -31,12 +31,12 @@ class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.calculate_button -> {
                 startActivity(
-                    QazaCalculationRouter().createIntent(this)
+                    QazaAutoCalculationRouter().createIntent(this)
                 )
             }
             R.id.qaza_input_button -> {
                 startActivity(
-                   QazaInputRouter().createIntent(this, QazaInputState.Start)
+                   QazaInputRouter().createIntent(this, QazaHandInputState.Start)
                 )
             }
         }

@@ -7,7 +7,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 
 class QazaProgressAdapter : RecyclerView.Adapter<QazaProgressViewHolder>() {
 

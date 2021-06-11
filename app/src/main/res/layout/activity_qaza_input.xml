@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_huge"
-        tools:context=".calculation.presentation.QazaCalculationActivity">
+        tools:context=".qaza_auto_calculation.presentation.QazaAutoCalculationActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

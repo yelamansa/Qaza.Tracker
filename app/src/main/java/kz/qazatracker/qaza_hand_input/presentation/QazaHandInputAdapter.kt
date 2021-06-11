@@ -1,12 +1,12 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 
-class QazaInputAdapter : RecyclerView.Adapter<QazaInputViewHolder>(), QazaInputViewHolderCallback {
+class QazaHandInputAdapter : RecyclerView.Adapter<QazaInputViewHolder>(), QazaInputViewHolderCallback {
 
     private val qazaInputList: MutableList<QazaData> = mutableListOf()
 

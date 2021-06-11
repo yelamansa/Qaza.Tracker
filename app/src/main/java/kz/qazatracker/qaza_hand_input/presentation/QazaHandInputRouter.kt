@@ -1,4 +1,4 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,10 @@ class QazaInputRouter {
 
     fun createIntent(
         context: Context,
-        qazaInputState: QazaInputState
+        qazaHandInputState: QazaHandInputState
     ) = Intent(
-        context, QazaInputActivity::class.java
+        context, QazaHandInputActivity::class.java
     ).apply {
-        putExtra(QAZA_INPUT_STATE, qazaInputState)
+        putExtra(QAZA_INPUT_STATE, qazaHandInputState)
     }
 }

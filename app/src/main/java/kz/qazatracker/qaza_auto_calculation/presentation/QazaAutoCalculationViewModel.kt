@@ -1,12 +1,12 @@
-package kz.qazatracker.calculation.presentation
+package kz.qazatracker.qaza_auto_calculation.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
-import kz.qazatracker.calculation.presentation.model.CalculationData
-import kz.qazatracker.calculation.presentation.model.ExceptionData
-import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
+import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
+import kz.qazatracker.qaza_auto_calculation.presentation.model.CalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.utils.Event
 import java.util.*
@@ -16,7 +16,7 @@ private const val MIN_BALIGAT_OLD = 8
 private const val MAX_BALIGAT_OLD = 15
 private const val MIN_QAZA_DAYS = 1
 
-class CalculationViewModel(
+class QazaAutoCalculationViewModel(
     private val qazaDataSource: QazaDataSource
 ) : ViewModel() {
 

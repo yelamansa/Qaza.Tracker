@@ -7,10 +7,10 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
-import kz.qazatracker.main.progress.ProgressFragment
+import kz.qazatracker.main.progress.QazaProgressFragment
 import kz.qazatracker.main.settings.SettingsFragment
-import kz.qazatracker.qaza_input.presentation.QazaInputRouter
-import kz.qazatracker.qaza_input.presentation.QazaInputState
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_add -> {
-                    val intent = QazaInputRouter().createIntent(this, QazaInputState.Reduction)
+                    val intent = QazaInputRouter().createIntent(this, QazaHandInputState.Reduction)
                     startActivity(intent)
 
                     return@setOnNavigationItemSelectedListener true
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun replaceToProgress() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<ProgressFragment>(R.id.activity_main_fragment_container)
+            replace<QazaProgressFragment>(R.id.activity_main_fragment_container)
         }
     }
 

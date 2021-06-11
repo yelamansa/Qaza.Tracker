@@ -1,4 +1,4 @@
-package kz.qazatracker.calculation.presentation
+package kz.qazatracker.qaza_auto_calculation.presentation
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
-import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
-import kz.qazatracker.calculation.presentation.model.CalculationData
-import kz.qazatracker.calculation.presentation.model.ExceptionData
-import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
-import kz.qazatracker.qaza_input.presentation.QazaInputRouter
-import kz.qazatracker.qaza_input.presentation.QazaInputState
+import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
+import kz.qazatracker.qaza_auto_calculation.presentation.model.CalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
@@ -30,7 +30,7 @@ const val DEFAULT_BALIGAT_OLD = 12
 
 private const val MALE_TAB_POSITION = 1
 
-class QazaCalculationActivity : AppCompatActivity() {
+class QazaAutoCalculationActivity : AppCompatActivity() {
 
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
@@ -49,11 +49,11 @@ class QazaCalculationActivity : AppCompatActivity() {
 
     private lateinit var inputViews: MutableList<View>
 
-    private val calculationViewModel: CalculationViewModel by viewModel()
+    private val qazaAutoCalculationViewModel: QazaAutoCalculationViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qaza_calculation)
+        setContentView(R.layout.activity_qaza_auto_calculation)
 
         initViews()
         observeViewModelLiveData()
@@ -116,9 +116,9 @@ class QazaCalculationActivity : AppCompatActivity() {
     }
 
     private fun observeViewModelLiveData() {
-        calculationViewModel.getExceptionLiveData()
+        qazaAutoCalculationViewModel.getExceptionLiveData()
             .observe(this, EventObserver { handleExceptions(it) })
-        calculationViewModel.getNavigationLiveData()
+        qazaAutoCalculationViewModel.getNavigationLiveData()
             .observe(this, EventObserver { handleNavigation(it) })
     }
 
@@ -133,7 +133,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     private fun handleNavigation(navigation: QalqulationNavigation) {
         when(navigation) {
             is QalqulationNavigation.QazaInput -> {
-                val intent = QazaInputRouter().createIntent(this, QazaInputState.Correction)
+                val intent = QazaInputRouter().createIntent(this, QazaHandInputState.Correction)
                 startActivity(intent)
             }
         }
@@ -179,7 +179,7 @@ class QazaCalculationActivity : AppCompatActivity() {
             bornCount = bornCount
         )
 
-        calculationViewModel.saveCalculationData(calculationData)
+        qazaAutoCalculationViewModel.saveCalculationData(calculationData)
     }
 
     private fun collectAllInputViews() {

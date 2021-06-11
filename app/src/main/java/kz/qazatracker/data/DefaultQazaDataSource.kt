@@ -1,7 +1,7 @@
 package kz.qazatracker.data
 
 import android.content.SharedPreferences
-import kz.qazatracker.qaza_input.data.*
+import kz.qazatracker.qaza_hand_input.data.*
 
 const val FAJR_KEY = "fajr"
 const val ZUHR_KEY = "zuhr"

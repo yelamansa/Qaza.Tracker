@@ -1,23 +1,23 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 import kotlin.math.abs
 
-class QazaInputViewModel(
-    private val qazaInputState: QazaInputState,
+class QazaHandInputViewModel(
+    private val qazaHandInputState: QazaHandInputState,
     private val qazaDataSource: QazaDataSource
 ) : ViewModel() {
 
     private val qazaViewDataListLiveData = MutableLiveData<List<QazaData>>()
-    private val qazaInputNavigationLiveData = MutableLiveData<QazaInputNavigation>()
+    private val qazaInputNavigationLiveData = MutableLiveData<QazaHandInputNavigation>()
 
     init {
-        when (qazaInputState) {
-            QazaInputState.Reduction -> {
+        when (qazaHandInputState) {
+            QazaHandInputState.Reduction -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList().map {
                     it.also {
                         it.minSolatCount = -it.solatCount
@@ -25,12 +25,12 @@ class QazaInputViewModel(
                     }
                 }
             }
-            QazaInputState.Start -> {
+            QazaHandInputState.Start -> {
                 qazaDataSource.clearQazaList()
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
-            QazaInputState.Correction,
-            QazaInputState.None -> {
+            QazaHandInputState.Correction,
+            QazaHandInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
         }
@@ -38,7 +38,7 @@ class QazaInputViewModel(
 
     fun getQazaDataListLiveData(): LiveData<List<QazaData>> = qazaViewDataListLiveData
 
-    fun getQazaInputNavigationLiveData(): LiveData<QazaInputNavigation> =
+    fun getQazaInputNavigationLiveData(): LiveData<QazaHandInputNavigation> =
         qazaInputNavigationLiveData
 
     fun saveQaza(inputQazaDataList: List<QazaData>) {
@@ -48,7 +48,7 @@ class QazaInputViewModel(
             element.solatCount += inputQazaDataList[i].solatCount
         }
         qazaDataSource.saveQazaList(actualQazaList)
-        qazaInputNavigationLiveData.value = QazaInputNavigation.MainScreen
+        qazaInputNavigationLiveData.value = QazaHandInputNavigation.MainScreen
     }
 
     private fun updateTotalPreyedCount(inputQazaDataList: List<QazaData>) {

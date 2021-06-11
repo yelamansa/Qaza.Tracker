@@ -1,22 +1,22 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-sealed class QazaInputState : Parcelable {
+sealed class QazaHandInputState : Parcelable {
 
     /*Автоматты түрде қойылған қазаны коррекция жасау үшін*/
     @Parcelize
-    object Correction: QazaInputState()
+    object Correction: QazaHandInputState()
 
     /*Қазаларды алғашқы рет енгізу үшін*/
     @Parcelize
-    object Start: QazaInputState()
+    object Start: QazaHandInputState()
 
     /*Қаза намаздарды азайту үшін*/
     @Parcelize
-    object Reduction : QazaInputState()
+    object Reduction : QazaHandInputState()
 
     @Parcelize
-    object None: QazaInputState()
+    object None: QazaHandInputState()
 }

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".qaza_input.presentation.QazaInputActivity"
+            android:name=".qaza_hand_input.presentation.QazaHandInputActivity"
             android:screenOrientation="portrait"
             />
         <activity
@@ -25,7 +25,7 @@
             </intent-filter>
             
         </activity>
-        <activity android:name=".calculation.presentation.QazaCalculationActivity"/>
+        <activity android:name=".qaza_auto_calculation.presentation.QazaAutoCalculationActivity"/>
 
         <activity
             android:name=".main.MainActivity"

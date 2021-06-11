@@ -1,12 +1,12 @@
 package kz.qazatracker.di
 
 import android.app.Activity
-import kz.qazatracker.calculation.presentation.CalculationViewModel
+import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.main.progress.ProgressViewModel
-import kz.qazatracker.qaza_input.presentation.QazaInputState
-import kz.qazatracker.qaza_input.presentation.QazaInputViewModel
+import kz.qazatracker.main.progress.QazaProgressViewModel
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -18,20 +18,20 @@ private const val QAZA_PREFERENCES = "qaza_preferences"
 val applicationModule: Module = module {
 
     viewModel {
-        CalculationViewModel(
+        QazaAutoCalculationViewModel(
             qazaDataSource = get()
         )
     }
 
-    viewModel { (qazaInputState: QazaInputState)->
-        QazaInputViewModel(
-            qazaInputState = qazaInputState,
+    viewModel { (qazaHandInputState: QazaHandInputState)->
+        QazaHandInputViewModel(
+            qazaHandInputState = qazaHandInputState,
             qazaDataSource = get()
         )
     }
 
     viewModel {
-        ProgressViewModel(
+        QazaProgressViewModel(
             qazaDataSource = get()
         )
     }

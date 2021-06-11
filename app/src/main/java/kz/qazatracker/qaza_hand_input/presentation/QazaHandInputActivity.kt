@@ -1,4 +1,4 @@
-package kz.qazatracker.qaza_input.presentation
+package kz.qazatracker.qaza_hand_input.presentation
 
 import android.os.Bundle
 import android.widget.Button
@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.main.MainRouter
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.DefinitionParameters
 import org.koin.core.parameter.parametersOf
 
-class QazaInputActivity : AppCompatActivity() {
+class QazaHandInputActivity : AppCompatActivity() {
 
     private lateinit var qazaInputRecyclerView: RecyclerView
-    private val qazaInputAdapter: QazaInputAdapter = QazaInputAdapter()
+    private val qazaHandInputAdapter: QazaHandInputAdapter = QazaHandInputAdapter()
 
-    private val qazaInputViewModel: QazaInputViewModel by viewModel {
+    private val qazaHandInputViewModel: QazaHandInputViewModel by viewModel {
         getViewModelParams()
     }
 
@@ -40,12 +40,12 @@ class QazaInputActivity : AppCompatActivity() {
         qazaInputRecyclerView = findViewById(R.id.qaza_input_recycler_view)
         qazaInputRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = qazaInputAdapter
+            adapter = qazaHandInputAdapter
         }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
-            qazaInputViewModel.saveQaza(
-                inputQazaDataList = qazaInputAdapter.getList()
+            qazaHandInputViewModel.saveQaza(
+                inputQazaDataList = qazaHandInputAdapter.getList()
             )
         }
     }
@@ -58,20 +58,20 @@ class QazaInputActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        qazaInputViewModel.getQazaDataListLiveData().observe(this, Observer { handleQazaInputView(it) })
-        qazaInputViewModel.getQazaInputNavigationLiveData().observe(this, Observer { handleNavigation(it) })
+        qazaHandInputViewModel.getQazaDataListLiveData().observe(this, Observer { handleQazaInputView(it) })
+        qazaHandInputViewModel.getQazaInputNavigationLiveData().observe(this, Observer { handleNavigation(it) })
     }
 
-    private fun handleNavigation(qazaInputNavigation: QazaInputNavigation) {
-        when(qazaInputNavigation) {
-            is QazaInputNavigation.MainScreen -> {
+    private fun handleNavigation(qazaHandInputNavigation: QazaHandInputNavigation) {
+        when(qazaHandInputNavigation) {
+            is QazaHandInputNavigation.MainScreen -> {
                 startActivity(MainRouter().createIntent(this))
             }
         }
     }
 
     private fun handleQazaInputView(qazaDataList: List<QazaData>) {
-        qazaInputAdapter.setList(qazaDataList)
+        qazaHandInputAdapter.setList(qazaDataList)
     }
 
     private fun getViewModelParams(): DefinitionParameters =

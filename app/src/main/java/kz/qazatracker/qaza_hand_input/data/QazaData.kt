@@ -1,4 +1,4 @@
-package kz.qazatracker.qaza_input.data
+package kz.qazatracker.qaza_hand_input.data
 
 data class QazaData(
     val solatKey: String,
