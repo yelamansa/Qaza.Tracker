@@ -27,7 +27,7 @@ class DefaultQazaDataSource(
         for (qazaData: QazaData in qazaDataList) {
             sharedPreferences.edit().putInt(qazaData.solatKey, qazaData.solatCount).apply()
             sharedPreferences.edit()
-                .putInt(getSaparSolatName(qazaData.solatKey), qazaData.solatCount).apply()
+                .putInt(getSaparSolatName(qazaData.solatKey), qazaData.saparSolatCount).apply()
         }
     }
 

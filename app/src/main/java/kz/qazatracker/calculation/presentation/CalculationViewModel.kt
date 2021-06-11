@@ -7,8 +7,7 @@ import kz.qazatracker.calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.calculation.presentation.model.CalculationData
 import kz.qazatracker.calculation.presentation.model.ExceptionData
 import kz.qazatracker.calculation.presentation.model.QalqulationNavigation
-import kz.qazatracker.data.*
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.utils.Event
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -49,7 +48,15 @@ class CalculationViewModel(
         if (qazaDaysIsValid.not()) return
 
         qazaDataSource.saveQazaList(
-            qazaDataSource.getQazaList().map { it.also { it.solatCount = qazaDays } }
+            qazaDataSource.getQazaList().map { it.also {
+                if (it.hasSaparSolat) {
+                    it.saparSolatCount = data.saparDays
+                    val saparDaysDifference = qazaDays - data.saparDays
+                    it.solatCount = if (saparDaysDifference > 0) saparDaysDifference else 0
+                } else {
+                   it.solatCount = qazaDays
+                }
+            } }
         )
         navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
     }
@@ -112,6 +119,5 @@ class CalculationViewModel(
         calendar.set(Calendar.HOUR, 0)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MINUTE, 0)
     }
 }

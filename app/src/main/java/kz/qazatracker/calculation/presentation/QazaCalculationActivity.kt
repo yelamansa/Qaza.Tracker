@@ -42,6 +42,7 @@ class QazaCalculationActivity : AppCompatActivity() {
     private lateinit var hayzInputContainer: CounterWidget
     private lateinit var bornCountTextView: TextView
     private lateinit var bornCountInputContainer: CounterWidget
+    private lateinit var saparCountInputContainer: CounterWidget
     private lateinit var calculateButton: Button
     private lateinit var femailContainer: View
     private var unknownBaligatDateDialog: AlertDialog? = null
@@ -86,6 +87,7 @@ class QazaCalculationActivity : AppCompatActivity() {
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
+        saparCountInputContainer = findViewById(R.id.sapar_input_container)
         calculateButton = findViewById(R.id.calculate_button)
         femailContainer = findViewById(R.id.femail_container)
         initActionBar()
@@ -156,6 +158,7 @@ class QazaCalculationActivity : AppCompatActivity() {
             baligatDateTextView.getCalendarDate()
         }
         val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
+        val saparDays: Int = saparCountInputContainer.getCounter()
         val hayzDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
@@ -168,11 +171,12 @@ class QazaCalculationActivity : AppCompatActivity() {
         }
 
         val calculationData = CalculationData(
-            birthDate,
-            baligatStartDate,
-            solatStartDate,
-            hayzDays,
-            bornCount
+            birthDate = birthDate,
+            baligatStartDate = baligatStartDate,
+            solatStartDate = solatStartDate,
+            saparDays = saparDays,
+            hayzDays = hayzDays,
+            bornCount = bornCount
         )
 
         calculationViewModel.saveCalculationData(calculationData)

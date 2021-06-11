@@ -23,11 +23,10 @@
 
     <kz.qazatracker.widgets.CounterWidget
         android:layout_marginTop="8dp"
-        android:id="@+id/hayz_input_container"
+        android:id="@+id/sapar_input_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:counter="0"
-        app:max_counter_value="10"
         app:min_counter_value="0"
         />
 
