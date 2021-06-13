@@ -109,8 +109,10 @@ class QazaAutoCalculationViewModel(
         if (baligatStartDate != null) return baligatStartDate
 
         val birthYear: Int = birthDate.get(Calendar.YEAR)
+        val birthDayInYear: Int = birthDate.get(Calendar.DAY_OF_YEAR)
         val baligatStartYear: Int = birthYear + DEFAULT_BALIGAT_OLD
         tempBaligatStartDate.set(Calendar.YEAR, baligatStartYear)
+        tempBaligatStartDate.set(Calendar.DAY_OF_YEAR, birthDayInYear-1)
 
         return tempBaligatStartDate
     }
