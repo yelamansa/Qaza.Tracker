@@ -1,16 +1,18 @@
 package kz.qazatracker.qaza_auto_calculation.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
-import kz.qazatracker.qaza_auto_calculation.presentation.model.CalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.utils.Event
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 private const val MIN_BALIGAT_OLD = 8
 private const val MAX_BALIGAT_OLD = 15
@@ -24,11 +26,11 @@ class QazaAutoCalculationViewModel(
     private val exceptionLiveData = MutableLiveData<Event<ExceptionData>>()
     private val navigationLiveData = MutableLiveData<Event<QalqulationNavigation>>()
 
-    fun saveCalculationData(calculationData: CalculationData) {
-        validate(calculationData)
+    fun saveCalculationData(autoCalculationData: AutoCalculationData) {
+        validate(autoCalculationData)
 
         if (isValid) {
-            calculate(calculationData)
+            calculate(autoCalculationData)
         }
     }
 
@@ -36,14 +38,15 @@ class QazaAutoCalculationViewModel(
 
     fun getNavigationLiveData(): LiveData<Event<QalqulationNavigation>> = navigationLiveData
 
-    private fun calculate(data: CalculationData) {
+    private fun calculate(data: AutoCalculationData) {
         val baligatStartDate: Calendar =
             getCorrectBaligatDate(data.birthDate, data.baligatStartDate)
         clearCalendarHours(baligatStartDate)
         clearCalendarHours(data.solatStartDate)
         val qazaDaysInMillis: Long =
             data.solatStartDate.timeInMillis - baligatStartDate.timeInMillis
-        val qazaDays: Int = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis).toInt()
+        var qazaDays: Int = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis).toInt()
+        qazaDays = calculateForFemale(qazaDays, data)
         val qazaDaysIsValid: Boolean = validateQazaDays(qazaDays)
         if (qazaDaysIsValid.not()) return
 
@@ -61,8 +64,26 @@ class QazaAutoCalculationViewModel(
         navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
     }
 
-    private fun validate(calculationData: CalculationData) {
-        validateBaligatAge(calculationData.birthDate, calculationData.baligatStartDate)
+    private fun calculateForFemale(
+        qazaDays: Int,
+        autoCalculationData: AutoCalculationData
+    ): Int {
+        var sumQazaDays = qazaDays
+        if (autoCalculationData.femaleBornCount != 0) {
+            val nifasDays = autoCalculationData.femaleBornCount * 40
+            sumQazaDays -= nifasDays
+        }
+        if (autoCalculationData.femaleHayzDays != 0) {
+            val monthCount = (qazaDays / 30.0).roundToInt()
+            val haizDays = autoCalculationData.femaleHayzDays * monthCount
+            sumQazaDays -= haizDays
+        }
+
+        return sumQazaDays
+    }
+
+    private fun validate(autoCalculationData: AutoCalculationData) {
+        validateBaligatAge(autoCalculationData.birthDate, autoCalculationData.baligatStartDate)
     }
 
     private fun validateQazaDays(qazaDays: Int): Boolean {

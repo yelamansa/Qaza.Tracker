@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
 import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
-import kz.qazatracker.qaza_auto_calculation.presentation.model.CalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
@@ -25,7 +25,6 @@ import kz.qazatracker.widgets.CounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-const val UNKNOWN_COUNT = -1
 const val DEFAULT_BALIGAT_OLD = 12
 
 private const val MALE_TAB_POSITION = 1
@@ -159,24 +158,24 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
         }
         val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
         val saparDays: Int = saparCountInputContainer.getCounter()
-        val hayzDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
+        val femaleHazyDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
         } else {
-            UNKNOWN_COUNT
+            0
         }
-        val bornCount: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
+        val femaleBornCount: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             bornCountInputContainer.getCounter()
         } else {
-            UNKNOWN_COUNT
+            0
         }
 
-        val calculationData = CalculationData(
+        val calculationData = AutoCalculationData(
             birthDate = birthDate,
             baligatStartDate = baligatStartDate,
             solatStartDate = solatStartDate,
             saparDays = saparDays,
-            hayzDays = hayzDays,
-            bornCount = bornCount
+            femaleHayzDays = femaleHazyDays,
+            femaleBornCount = femaleBornCount
         )
 
         qazaAutoCalculationViewModel.saveCalculationData(calculationData)
