@@ -48,6 +48,7 @@ class QazaHandInputViewModel(
         val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
         actualQazaList.forEachIndexed { i, element ->
             element.solatCount += inputQazaDataList[i].solatCount
+            element.saparSolatCount += inputQazaDataList[i].saparSolatCount
         }
         qazaDataSource.saveQazaList(actualQazaList)
         qazaInputNavigationLiveData.value = QazaHandInputNavigation.MainScreen
