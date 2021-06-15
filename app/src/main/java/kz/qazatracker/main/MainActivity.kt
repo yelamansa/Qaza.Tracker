@@ -7,7 +7,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
-import kz.qazatracker.main.progress.QazaProgressFragment
+import kz.qazatracker.main.qaza_progress.QazaProgressFragment
 import kz.qazatracker.main.settings.SettingsFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState

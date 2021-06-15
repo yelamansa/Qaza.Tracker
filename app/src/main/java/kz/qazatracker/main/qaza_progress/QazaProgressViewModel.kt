@@ -1,4 +1,4 @@
-package kz.qazatracker.main.progress
+package kz.qazatracker.main.qaza_progress
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

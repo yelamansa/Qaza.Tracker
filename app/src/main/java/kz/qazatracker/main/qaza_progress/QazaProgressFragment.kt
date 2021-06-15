@@ -1,4 +1,4 @@
-package kz.qazatracker.main.progress
+package kz.qazatracker.main.qaza_progress
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -31,7 +31,7 @@ class QazaProgressFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_progress, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_qaza_progress, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

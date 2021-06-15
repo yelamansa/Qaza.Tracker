@@ -4,7 +4,7 @@ import android.app.Activity
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.main.progress.QazaProgressViewModel
+import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
 import org.koin.android.ext.koin.androidApplication

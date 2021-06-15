@@ -1,4 +1,4 @@
-package kz.qazatracker.main.progress
+package kz.qazatracker.main.qaza_progress
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,14 +40,16 @@ class QazaProgressAdapter : RecyclerView.Adapter<QazaProgressViewHolder>() {
 
 class QazaProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val progressTextView: TextView = itemView.findViewById(R.id.qaza_progress_text_view)
+    private val qazaProgressTextView: TextView = itemView.findViewById(R.id.qaza_progress_text_view)
+    private val saparQazaProgressTextView: TextView = itemView.findViewById(R.id.sapar_qaza_progress_text_view)
     private val solatName: TextView = itemView.findViewById(R.id.solat_name_text_view)
     private val progressBar: ProgressBar = itemView.findViewById(R.id.qaza_progress_bar)
 
     fun onBind(
         qazaProgressData: QazaData
     ) {
-        progressTextView.text = "${qazaProgressData.solatCount}"
+        qazaProgressTextView.text = "${qazaProgressData.solatCount}"
+        saparQazaProgressTextView.text = "${qazaProgressData.saparSolatCount}"
         solatName.text = qazaProgressData.solatName
         progressBar.progress = 100 - qazaProgressData.getTotalCompletedQazaPercent().toInt()
     }
