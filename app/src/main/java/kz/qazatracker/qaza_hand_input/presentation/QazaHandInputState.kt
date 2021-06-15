@@ -7,7 +7,7 @@ sealed class QazaHandInputState : Parcelable {
 
     /*Автоматты түрде қойылған қазаны коррекция жасау үшін*/
     @Parcelize
-    object Correction: QazaHandInputState()
+    object QazaAutoCalculateCorrection: QazaHandInputState()
 
     /*Қазаларды алғашқы рет енгізу үшін*/
     @Parcelize
@@ -15,7 +15,7 @@ sealed class QazaHandInputState : Parcelable {
 
     /*Қаза намаздарды азайту үшін*/
     @Parcelize
-    object Reduction : QazaHandInputState()
+    object QazaMinus : QazaHandInputState()
 
     @Parcelize
     object None: QazaHandInputState()

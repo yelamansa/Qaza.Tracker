@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_add -> {
-                    val intent = QazaInputRouter().createIntent(this, QazaHandInputState.Reduction)
+                    val intent = QazaInputRouter().createIntent(this, QazaHandInputState.QazaMinus)
                     startActivity(intent)
 
                     return@setOnNavigationItemSelectedListener true

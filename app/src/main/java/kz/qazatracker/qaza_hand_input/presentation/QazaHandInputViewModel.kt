@@ -17,11 +17,13 @@ class QazaHandInputViewModel(
 
     init {
         when (qazaHandInputState) {
-            QazaHandInputState.Reduction -> {
+            QazaHandInputState.QazaMinus -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList().map {
                     it.also {
                         it.minSolatCount = -it.solatCount
                         it.minSaparSolatCount = -it.saparSolatCount
+                        it.solatCount = 0
+                        it.saparSolatCount = 0
                     }
                 }
             }
@@ -29,7 +31,7 @@ class QazaHandInputViewModel(
                 qazaDataSource.clearQazaList()
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
-            QazaHandInputState.Correction,
+            QazaHandInputState.QazaAutoCalculateCorrection,
             QazaHandInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
             }
