@@ -132,7 +132,7 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
     private fun handleNavigation(navigation: QalqulationNavigation) {
         when(navigation) {
             is QalqulationNavigation.QazaInput -> {
-                val intent = QazaInputRouter().createIntent(this, QazaHandInputState.QazaAutoCalculateCorrection)
+                val intent = QazaInputRouter().createIntent(this, QazaHandInputState.QazaAutoCalculateEdit)
                 startActivity(intent)
             }
         }

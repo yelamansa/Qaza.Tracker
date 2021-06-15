@@ -23,11 +23,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Сіздің қаза намаздарыңыз" />
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/qaza_input_info_text_view"
+            android:layout_margin="8dp"
+            android:textSize="17sp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/qaza_input_recycler_view"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/qaza_input_info_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

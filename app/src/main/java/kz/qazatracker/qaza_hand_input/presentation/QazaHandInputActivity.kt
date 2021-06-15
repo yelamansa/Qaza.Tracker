@@ -1,7 +1,9 @@
 package kz.qazatracker.qaza_hand_input.presentation
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -17,6 +19,8 @@ import org.koin.core.parameter.parametersOf
 class QazaHandInputActivity : AppCompatActivity() {
 
     private lateinit var qazaInputRecyclerView: RecyclerView
+    private lateinit var toolbar: Toolbar
+    private lateinit var infoTextView: TextView
     private val qazaHandInputAdapter: QazaHandInputAdapter = QazaHandInputAdapter()
 
     private val qazaHandInputViewModel: QazaHandInputViewModel by viewModel {
@@ -25,10 +29,11 @@ class QazaHandInputActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qaza_input)
+        setContentView(R.layout.activity_qaza_hand_input)
         initViews()
         setUpToolbar()
         observeViewModel()
+        qazaHandInputViewModel.onCreate()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -37,6 +42,7 @@ class QazaHandInputActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        infoTextView = findViewById(R.id.qaza_input_info_text_view)
         qazaInputRecyclerView = findViewById(R.id.qaza_input_recycler_view)
         qazaInputRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -51,7 +57,7 @@ class QazaHandInputActivity : AppCompatActivity() {
     }
 
     private fun setUpToolbar() {
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -60,6 +66,11 @@ class QazaHandInputActivity : AppCompatActivity() {
     private fun observeViewModel() {
         qazaHandInputViewModel.getQazaDataListLiveData().observe(this, Observer { handleQazaInputView(it) })
         qazaHandInputViewModel.getQazaInputNavigationLiveData().observe(this, Observer { handleNavigation(it) })
+        qazaHandInputViewModel.getTitleLiveData().observe(this, Observer { handleTitle(it) })
+        qazaHandInputViewModel.getInfoLiveData().observe(this, Observer {
+            infoTextView.visibility = View.VISIBLE
+            infoTextView.text = it
+        })
     }
 
     private fun handleNavigation(qazaHandInputNavigation: QazaHandInputNavigation) {
@@ -72,6 +83,10 @@ class QazaHandInputActivity : AppCompatActivity() {
 
     private fun handleQazaInputView(qazaDataList: List<QazaData>) {
         qazaHandInputAdapter.setList(qazaDataList)
+    }
+
+    private fun handleTitle(title: String) {
+        supportActionBar?.title = title
     }
 
     private fun getViewModelParams(): DefinitionParameters =

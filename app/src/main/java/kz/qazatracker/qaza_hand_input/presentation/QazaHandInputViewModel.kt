@@ -14,10 +14,12 @@ class QazaHandInputViewModel(
 
     private val qazaViewDataListLiveData = MutableLiveData<List<QazaData>>()
     private val qazaInputNavigationLiveData = MutableLiveData<QazaHandInputNavigation>()
+    private val titleLiveData = MutableLiveData<String>()
+    private val infoLiveData = MutableLiveData<String>()
 
-    init {
+    fun onCreate() {
         when (qazaHandInputState) {
-            QazaHandInputState.QazaMinus -> {
+            QazaHandInputState.QazaEdit -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList().map {
                     it.also {
                         it.minSolatCount = -it.solatCount
@@ -26,19 +28,29 @@ class QazaHandInputViewModel(
                         it.saparSolatCount = 0
                     }
                 }
+                titleLiveData.value = "Қазаларды өзгерту"
+                infoLiveData.value = "Қосымша қаза намазды енгізу үшін «+»\n" +
+                        "батырмасын, ал өтелген қаза намазды\n" +
+                        "енгізу үшін «-» батырмасын басыңыз"
             }
             QazaHandInputState.Start -> {
                 qazaDataSource.clearQazaList()
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
+                titleLiveData.value = "Сіздің қаза намаздарыңыз"
             }
-            QazaHandInputState.QazaAutoCalculateCorrection,
+            QazaHandInputState.QazaAutoCalculateEdit,
             QazaHandInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
+                titleLiveData.value = "Сіздің қаза намаздарыңыз"
             }
         }
     }
 
     fun getQazaDataListLiveData(): LiveData<List<QazaData>> = qazaViewDataListLiveData
+
+    fun getTitleLiveData(): LiveData<String> = titleLiveData
+
+    fun getInfoLiveData(): LiveData<String> = infoLiveData
 
     fun getQazaInputNavigationLiveData(): LiveData<QazaHandInputNavigation> =
         qazaInputNavigationLiveData
