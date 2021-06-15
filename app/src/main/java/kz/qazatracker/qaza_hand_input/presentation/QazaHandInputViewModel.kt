@@ -73,6 +73,10 @@ class QazaHandInputViewModel(
                 totalPreyedCount += abs(qazaData.solatCount)
                 updateSolatTotalPrayedCount(qazaData)
             }
+            if (qazaData.saparSolatCount < 0) {
+                updateSaparSolatTotalPrayedCount(qazaData)
+                totalPreyedCount += abs(qazaData.saparSolatCount)
+            }
         }
         qazaDataSource.saveTotalPreyedCount(totalPreyedCount)
     }
@@ -83,4 +87,16 @@ class QazaHandInputViewModel(
             qazaData.solatKey, actualPrayedCount + abs(qazaData.solatCount)
         )
     }
+
+    private fun updateSaparSolatTotalPrayedCount(qazaData: QazaData) {
+        val actualPrayedCount: Int = qazaDataSource.getTotalPrayedCount(
+            getSaparSolatName(qazaData.solatKey)
+        )
+        qazaDataSource.saveTotalPrayedCount(
+            solatKey = getSaparSolatName(qazaData.solatKey),
+            count = actualPrayedCount + abs(qazaData.saparSolatCount)
+        )
+    }
+
+    private fun getSaparSolatName(solatKey: String) = "${solatKey}_sapar"
 }

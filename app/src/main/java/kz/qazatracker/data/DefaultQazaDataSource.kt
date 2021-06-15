@@ -27,7 +27,7 @@ class DefaultQazaDataSource(
         for (qazaData: QazaData in qazaDataList) {
             sharedPreferences.edit().putInt(qazaData.solatKey, qazaData.solatCount).apply()
             sharedPreferences.edit()
-                .putInt(getSaparSolatName(qazaData.solatKey), qazaData.saparSolatCount).apply()
+                .putInt(getSaparSolatKey(qazaData.solatKey), qazaData.saparSolatCount).apply()
         }
     }
 
@@ -56,7 +56,7 @@ class DefaultQazaDataSource(
     ): QazaData {
         val solatCount = sharedPreferences.getInt(solatKey, 0)
         val saparSolatCount =
-            if (!hasSaparSolat) 0 else sharedPreferences.getInt(getSaparSolatName(solatKey), 0)
+            if (!hasSaparSolat) 0 else sharedPreferences.getInt(getSaparSolatKey(solatKey), 0)
 
         return QazaData(
             solatKey = solatKey,
@@ -65,7 +65,7 @@ class DefaultQazaDataSource(
             saparSolatCount = saparSolatCount,
             minSolatCount = -solatCount,
             minSaparSolatCount = -saparSolatCount,
-            totalPrayedCount = getTotalPrayedCount(solatKey),
+            totalPrayedCount = getTotalPrayedCount(solatKey) + getTotalPrayedCount(getSaparSolatKey(solatKey)),
             hasSaparSolat = hasSaparSolat
         )
     }
@@ -105,15 +105,16 @@ class DefaultQazaDataSource(
         var count = 0
         getQazaList().forEach {
             count += it.solatCount
+            count += it.saparSolatCount
         }
 
         return count
     }
 
-    private fun getSaparSolatName(solatKey: String) = "${solatKey}_sapar"
+    private fun getSaparSolatKey(solatKey: String) = "${solatKey}_sapar"
 
     private fun clearQaza(key: String) {
         sharedPreferences.edit().remove(key).apply()
-        sharedPreferences.edit().remove(getSaparSolatName(key)).apply()
+        sharedPreferences.edit().remove(getSaparSolatKey(key)).apply()
     }
 }
