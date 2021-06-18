@@ -7,6 +7,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
+import kz.qazatracker.main.menu.MenuFragment
 import kz.qazatracker.main.qaza_progress.QazaProgressFragment
 import kz.qazatracker.main.settings.SettingsFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun replaceToSettings() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<SettingsFragment>(R.id.activity_main_fragment_container)
+            replace<MenuFragment>(R.id.activity_main_fragment_container)
         }
     }
 }

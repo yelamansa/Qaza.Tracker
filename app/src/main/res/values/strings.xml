@@ -25,4 +25,7 @@
     <string name="activity_start_screen_salam">Әссәләмуғалейкум!</string>
     <string name="save">Сақтау</string>
     <string name="language_title">Тіл</string>
+    <string name="setting">Баптаулар</string>
+    <string name="about_qaza_solat">Қаза намаз туралы</string>
+    <string name="about_us">Біз туралы</string>
 </resources>

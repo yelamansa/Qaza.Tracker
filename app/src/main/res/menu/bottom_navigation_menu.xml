@@ -12,6 +12,6 @@
     <item
         android:iconTint="@color/color_white"
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Баптаулар" />
+        android:icon="@drawable/ic_menu"
+        android:title="Меню" />
 </menu>
