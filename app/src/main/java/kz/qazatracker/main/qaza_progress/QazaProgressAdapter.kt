@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.qaza_hand_input.data.QazaData
+import kz.qazatracker.utils.show
 
 class QazaProgressAdapter : RecyclerView.Adapter<QazaProgressViewHolder>() {
 
@@ -52,5 +53,6 @@ class QazaProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         saparQazaProgressTextView.text = "${qazaProgressData.saparSolatCount}"
         solatName.text = qazaProgressData.solatName
         progressBar.progress = 100 - qazaProgressData.getTotalCompletedQazaPercent().toInt()
+        if (qazaProgressData.hasSaparSolat) saparQazaProgressTextView.show()
     }
 }

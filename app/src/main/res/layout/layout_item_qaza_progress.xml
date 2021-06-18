@@ -34,8 +34,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/qaza_progress_bar"
         app:layout_constraintEnd_toEndOf="@id/qaza_progress_bar"
         app:layout_constraintStart_toStartOf="@id/qaza_progress_bar"
@@ -47,20 +47,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="18sp"
             android:text="15"
             android:textAlignment="center"
+            android:textSize="18sp"
             android:textStyle="bold"
             />
 
         <TextView
             android:id="@+id/sapar_qaza_progress_text_view"
             android:layout_width="wrap_content"
-            android:textSize="16sp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="2"
             android:textAlignment="center"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:visibility="visible"
             />
 
     </LinearLayout>
