@@ -33,6 +33,8 @@ class QazaProgressViewModel(
     fun getCalculatedRemainTime() = calculatedRemainTimeLiveData
 
     fun calculateRemainDate(solatCountPerDay: Int) {
+        if (solatCountPerDay == 0) return
+
         val totalRemainSolatCount = qazaDataSource.getTotalRemainCount()
         val day = ceil(totalRemainSolatCount / solatCountPerDay.toDouble())
         calculatedRemainTimeLiveData.value = "${day.roundToInt()} күнде толық оқып боласыз"
