@@ -21,4 +21,6 @@ interface QazaDataSource {
     fun saveTotalPrayedCount(solatKey: String, count: Int)
 
     fun getTotalRemainCount(): Int
+
+    fun isQazaSaved(): Boolean
 }

@@ -18,6 +18,7 @@ const val UTIR_NAME = "Үтір"
 
 private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_prayed_qaza_count"
 private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
+private const val QAZA_SAVED_KEY = "qaza_save"
 
 class DefaultQazaDataSource(
     private val sharedPreferences: SharedPreferences
@@ -29,6 +30,7 @@ class DefaultQazaDataSource(
             sharedPreferences.edit()
                 .putInt(getSaparSolatKey(qazaData.solatKey), qazaData.saparSolatCount).apply()
         }
+        sharedPreferences.edit().putBoolean(QAZA_SAVED_KEY, true).apply()
     }
 
     override fun getQazaList(): List<QazaData> = listOf(
@@ -47,6 +49,7 @@ class DefaultQazaDataSource(
         clearQaza(MAGRIB_KEY)
         clearQaza(ISHA_KEY)
         clearQaza(UTIR_KEY)
+        sharedPreferences.edit().putBoolean(QAZA_SAVED_KEY, false).apply()
     }
 
     private fun getQaza(
@@ -110,6 +113,8 @@ class DefaultQazaDataSource(
 
         return count
     }
+
+    override fun isQazaSaved(): Boolean = sharedPreferences.getBoolean(QAZA_SAVED_KEY, false)
 
     private fun getSaparSolatKey(solatKey: String) = "${solatKey}_sapar"
 
