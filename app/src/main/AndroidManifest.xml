@@ -10,29 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".main.menu.SettingsActivity"></activity>
+        <activity android:name=".main.menu.AboutQazaActivity" />
         <activity
             android:name=".qaza_hand_input.presentation.QazaHandInputActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".startscreen.StartScreenActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
-        <activity android:name=".qaza_auto_calculation.presentation.QazaAutoCalculationActivity"/>
-
+        <activity android:name=".qaza_auto_calculation.presentation.QazaAutoCalculationActivity" />
         <activity
             android:name=".main.MainActivity"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
