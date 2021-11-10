@@ -5,13 +5,14 @@
     <application
         android:name=".QazaTrackerApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_qaza"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_qaza_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.menu.SettingsActivity"></activity>
+        <activity android:name=".main.menu.SettingsActivity"/>
         <activity android:name=".main.menu.AboutQazaActivity" />
+        <activity android:name=".main.menu.AboutUsActivity" />
         <activity
             android:name=".qaza_hand_input.presentation.QazaHandInputActivity"
             android:screenOrientation="portrait" />

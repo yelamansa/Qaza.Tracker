@@ -4,38 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.menu.MenuFragment"
     android:orientation="vertical"
+    tools:context=".main.menu.MenuFragment"
     >
 
     <TextView
         android:id="@+id/about_qaza_solat_text_view"
+        style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_qaza_solat"
-        style="@style/menu_item_style"
+        android:visibility="gone"
         />
 
     <TextView
-        android:visibility="gone"
-        android:clickable="true"
-        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/settings_text_view"
+        style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:text="@string/setting"
-        style="@style/menu_item_style"
+        android:visibility="gone"
         />
 
     <TextView
-        android:clickable="true"
-        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/about_us_text_view"
+        style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_us"
-        style="@style/menu_item_style"
         />
 
+    <TextView
+        android:drawablePadding="8dp"
+        android:id="@+id/telegram_text_view"
+        style="@style/menu_item_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telegram: https://t.me/iamsyrym"
+        />
 
 </LinearLayout>
