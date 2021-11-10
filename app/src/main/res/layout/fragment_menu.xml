@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.menu.MenuFragment"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/about_qaza_solat_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_qaza_solat"
+        style="@style/menu_item_style"
+        />
+
+    <TextView
+        android:visibility="gone"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:id="@+id/settings_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setting"
+        style="@style/menu_item_style"
+        />
+
+    <TextView
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:id="@+id/about_us_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_us"
+        style="@style/menu_item_style"
+        />
+
+
+</LinearLayout>

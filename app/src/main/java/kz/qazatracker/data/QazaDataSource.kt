@@ -1,6 +1,6 @@
 package kz.qazatracker.data
 
-import kz.qazatracker.qaza_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.QazaData
 
 interface QazaDataSource {
 
@@ -8,5 +8,19 @@ interface QazaDataSource {
 
     fun getQazaList(): List<QazaData>
 
-    fun getQaza(solatKey: String): QazaData
+    fun clearQazaList()
+
+    fun getTotalCompletedQazaPercent(): Float
+
+    fun getTotalPrayedCount(): Int
+
+    fun getTotalPrayedCount(solatKey: String): Int
+
+    fun saveTotalPreyedCount(count: Int)
+
+    fun saveTotalPrayedCount(solatKey: String, count: Int)
+
+    fun getTotalRemainCount(): Int
+
+    fun isQazaSaved(): Boolean
 }

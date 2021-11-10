@@ -1,0 +1,93 @@
+package kz.qazatracker.main.qaza_progress
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kz.qazatracker.R
+import kz.qazatracker.widgets.CounterWidgetCallback
+import kz.qazatracker.widgets.CounterWidget
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class QazaProgressFragment : Fragment() {
+
+    private lateinit var mainProgressBar: ProgressBar
+    private lateinit var qazaProgressRecyclerView: RecyclerView
+    private lateinit var qazaProgressAdapter: QazaProgressAdapter
+    private lateinit var completedQazaTextView: TextView
+    private lateinit var totalPrayedQazaTextView: TextView
+    private lateinit var totalRemainTextView: TextView
+    private lateinit var solatCounterView: CounterWidget
+    private lateinit var calculatedTimeTextView: TextView
+    private val qazaProgressViewModel: QazaProgressViewModel by viewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_qaza_progress, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews(view)
+        qazaProgressViewModel.onCreate()
+        observeViewModel()
+    }
+
+    private fun initViews(view: View) {
+        with(view) {
+            completedQazaTextView = findViewById(R.id.completed_qaza_text_view)
+            totalPrayedQazaTextView = findViewById(R.id.total_prayed_qaza_text_view)
+            totalRemainTextView = findViewById(R.id.total_remain_text_view)
+            mainProgressBar = findViewById(R.id.main_progress_bar)
+            qazaProgressRecyclerView = findViewById(R.id.qaza_progress_recycler_view)
+            solatCounterView = findViewById(R.id.solat_counter_view)
+            calculatedTimeTextView = findViewById(R.id.calculated_time_text_view)
+            qazaProgressRecyclerView.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            qazaProgressAdapter =
+                QazaProgressAdapter()
+            qazaProgressRecyclerView.adapter = qazaProgressAdapter
+            solatCounterView.setCounterCallback(object : CounterWidgetCallback {
+                override fun onCounterChanged(value: Int) {
+                  calculateSolatTime(value)
+                }
+            })
+            calculateSolatTime(solatCounterView.getCounter())
+        }
+    }
+
+    private fun observeViewModel() {
+        qazaProgressViewModel.getQazaLiveData().observe(
+            viewLifecycleOwner,
+            Observer { qazaDataList ->  qazaProgressAdapter.setList(qazaDataList)})
+        qazaProgressViewModel.getQazaProgressLiveData().observe(
+            viewLifecycleOwner,
+            Observer { qazaProgressData ->
+                completedQazaTextView.text = "Аяқталды: %.2f".format(qazaProgressData.completedPercent).plus("%")
+                totalPrayedQazaTextView.text = "Барлық оқылғандар: ${qazaProgressData.totalPreyedCount}"
+                totalRemainTextView.text = "Қалды\n${qazaProgressData.totalRemainCount}"
+                mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
+            }
+        )
+        qazaProgressViewModel.getCalculatedRemainTime().observe(
+            viewLifecycleOwner,
+            Observer { calculatedRemainTime ->
+                calculatedTimeTextView.text = calculatedRemainTime
+            }
+        )
+    }
+
+    private fun calculateSolatTime(solatCountPerDay: Int) {
+        qazaProgressViewModel.calculateRemainDate(solatCountPerDay)
+    }
+}

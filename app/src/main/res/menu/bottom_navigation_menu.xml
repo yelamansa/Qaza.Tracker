@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_progress"
+        android:iconTint="@color/color_white"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Прогресс" />
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_add"
+        android:title="Толықтыру" />
+    <item
+        android:iconTint="@color/color_white"
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_menu"
+        android:title="Меню" />
+</menu>

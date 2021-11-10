@@ -1,70 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    tools:context=".main.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_primary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Қаза намаздар" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/activity_main_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".main.MainActivity">
+        android:layout_gravity="bottom"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        android:background="@color/color_primary"
+        app:itemIconTint="@color/color_white"
+        app:itemTextColor="@color/color_white"
+        app:menu="@menu/bottom_navigation_menu"
+        />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/color_primary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="Қаза намаздар" />
-
-        <ProgressBar
-            android:id="@+id/main_progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="16dp"
-            android:max="25"
-            android:progressDrawable="@drawable/circle_progress_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="15 \n қалды"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
-            app:layout_constraintEnd_toEndOf="@id/main_progress_bar"
-            app:layout_constraintStart_toStartOf="@id/main_progress_bar"
-            app:layout_constraintTop_toTopOf="@id/main_progress_bar" />
-
-        <TextView
-            android:text="Жалпы орындалғандар: 45"
-            app:layout_constraintTop_toTopOf="@id/main_progress_bar"
-            app:layout_constraintBottom_toBottomOf="@id/main_progress_bar"
-            app:layout_constraintStart_toEndOf="@id/main_progress_bar"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/qaza_progress_recycler_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_progress_bar"
-            android:layout_marginVertical="16dp"
-            tools:listitem="@layout/layout_item_qaza_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

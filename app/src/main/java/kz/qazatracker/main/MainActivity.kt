@@ -1,65 +1,69 @@
 package kz.qazatracker.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
-import kz.qazatracker.qaza_input.presentation.QazaInputRouter
-import kz.qazatracker.qaza_input.presentation.QazaInputState
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import kz.qazatracker.main.menu.MenuFragment
+import kz.qazatracker.main.qaza_progress.QazaProgressFragment
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 
-class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
-
-    private val mainViewModel: MainViewModel by viewModel()
+class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
-    private lateinit var mainProgressBar: ProgressBar
-    private lateinit var qazaProgressRecyclerView: RecyclerView
-    private lateinit var qazaProgressAdapter: QazaProgressAdapter
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initToolbar()
         initViews()
-        mainViewModel.onCreate()
-        observeViewModel()
-    }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        val intent = QazaInputRouter().createIntent(this, QazaInputState.Reduction)
-        startActivity(intent)
-
-        return true
     }
 
     private fun initToolbar() {
         toolbar = findViewById(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.activity_main_toolbar_menu)
-        toolbar.setOnMenuItemClickListener(this)
     }
 
     private fun initViews() {
-        mainProgressBar = findViewById(R.id.main_progress_bar)
-        mainProgressBar.progress = 6
-        qazaProgressRecyclerView = findViewById(R.id.qaza_progress_recycler_view)
-        qazaProgressRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        qazaProgressAdapter = QazaProgressAdapter()
-        qazaProgressRecyclerView.adapter = qazaProgressAdapter
+        replaceToProgress()
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view)
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_progress -> {
+                    replaceToProgress()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_add -> {
+                    val intent = QazaInputRouter().createIntent(this, QazaHandInputState.QazaEdit)
+                    startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_settings -> {
+                    replaceToSettings()
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> return@setOnNavigationItemSelectedListener false
+            }
+        }
     }
 
-    private fun observeViewModel() {
-        mainViewModel.getQazaLiveData().observe(
-            this,
-        Observer { qazaDataList ->  qazaProgressAdapter.setList(qazaDataList)})
+    private fun replaceToProgress() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<QazaProgressFragment>(R.id.activity_main_fragment_container)
+        }
+    }
+
+    private fun replaceToSettings() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<MenuFragment>(R.id.activity_main_fragment_container)
+        }
     }
 }
