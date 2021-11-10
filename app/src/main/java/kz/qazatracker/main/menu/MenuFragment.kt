@@ -27,7 +27,7 @@ class MenuFragment : Fragment() {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
         view.findViewById<TextView>(R.id.about_us_text_view).setOnClickListener {
-
+            startActivity(Intent(requireContext(), AboutUsActivity::class.java))
         }
     }
 }
