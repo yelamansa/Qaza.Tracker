@@ -59,8 +59,16 @@ class QazaHandInputViewModel(
         updateTotalPreyedCount(inputQazaDataList)
         val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
         actualQazaList.forEachIndexed { i, element ->
-            element.solatCount += inputQazaDataList[i].solatCount
-            element.saparSolatCount += inputQazaDataList[i].saparSolatCount
+            when (qazaHandInputState) {
+                QazaHandInputState.QazaEdit -> {
+                    element.solatCount += inputQazaDataList[i].solatCount
+                    element.saparSolatCount += inputQazaDataList[i].saparSolatCount
+                }
+                else -> {
+                    element.solatCount = inputQazaDataList[i].solatCount
+                    element.saparSolatCount = inputQazaDataList[i].saparSolatCount
+                }
+            }
         }
         qazaDataSource.saveQazaList(actualQazaList)
         qazaInputNavigationLiveData.value = QazaHandInputNavigation.MainScreen
