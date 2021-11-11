@@ -2,6 +2,7 @@ package kz.qazatracker.main.menu
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.util.Linkify
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -26,13 +27,10 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             showResetDialog()
         }
         view.findViewById<TextView>(R.id.about_qaza_solat_text_view).setOnClickListener {
-
+            //todo
         }
-        view.findViewById<TextView>(R.id.contact_text_view).setOnClickListener {
-
-        }
-//        val telegramTextView = view.findViewById<TextView>(R.id.telegram_text_view)
-//        Linkify.addLinks(telegramTextView, Linkify.ALL)
+        val telegramTextView = view.findViewById<TextView>(R.id.contact_text_view)
+        Linkify.addLinks(telegramTextView, Linkify.ALL)
     }
 
     private fun observeViewModel() {
@@ -40,7 +38,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     }
 
     private fun handleMenuNavigation(menuNavigation: MenuNavigation) {
-        when(menuNavigation) {
+        when (menuNavigation) {
             MenuNavigation.RestartApp -> {
                 val intent = Intent(requireContext(), StartScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -58,7 +56,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         val dialog = builder.create()
         dialog.show()
     }
-
 
     private fun showSelectLanguageDialog() {
         val builder = AlertDialog.Builder(requireContext())

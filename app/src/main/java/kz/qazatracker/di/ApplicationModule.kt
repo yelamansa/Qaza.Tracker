@@ -4,6 +4,7 @@ import android.app.Activity
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.main.menu.MenuViewModel
 import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
@@ -34,6 +35,12 @@ val applicationModule: Module = module {
 
     viewModel {
         QazaProgressViewModel(
+            qazaDataSource = get()
+        )
+    }
+
+    viewModel {
+        MenuViewModel(
             qazaDataSource = get()
         )
     }

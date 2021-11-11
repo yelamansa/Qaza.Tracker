@@ -30,6 +30,7 @@
         />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/about_qaza_solat_text_view"
         style="@style/menu_item_style"
         android:layout_width="match_parent"
@@ -42,7 +43,7 @@
         style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about_us"
+        android:text="@string/contact_telegram"
         />
 
 </LinearLayout>
