@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -32,9 +33,8 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
 
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView
-    private lateinit var baligatDateTextView: DatePickerTextView
+    private lateinit var baligatOldEditText: EditText
     private lateinit var solatStartDateTextView: DatePickerTextView
-    private lateinit var baligatDateUnknownCheckbox: CheckBox
     private lateinit var solatStartTodayCheckBox: CheckBox
     private lateinit var hayzDaysTextView: TextView
     private lateinit var hayzInputContainer: CounterWidget
@@ -43,7 +43,6 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
     private lateinit var saparCountInputContainer: CounterWidget
     private lateinit var calculateButton: Button
     private lateinit var femailContainer: View
-    private var unknownBaligatDateDialog: AlertDialog? = null
 
     private lateinit var inputViews: MutableList<View>
 
@@ -55,21 +54,6 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
 
         initViews()
         observeViewModelLiveData()
-
-        baligatDateUnknownCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            baligatDateTextView.isClickable = isChecked.not()
-            if (isChecked) {
-                if (unknownBaligatDateDialog == null) {
-                    unknownBaligatDateDialog = createDialog(
-                        message = "Егер балиғатқа толған уақытты білмесеңіз, балиғат жасы 15 деп есепке алынады"
-                    ).show()
-                } else {
-                    unknownBaligatDateDialog?.show()
-                }
-            } else {
-                unknownBaligatDateDialog?.dismiss()
-            }
-        }
         solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
             solatStartDateTextView.isClickable = isChecked.not()
         }
@@ -77,9 +61,8 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
 
     private fun initViews() {
         birthDateTextView = findViewById(R.id.birth_date_text_view)
-        baligatDateTextView = findViewById(R.id.baligat_date_text_view)
+        baligatOldEditText = findViewById(R.id.baligat_date_old_edit_text)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
-        baligatDateUnknownCheckbox = findViewById(R.id.baligat_date_unknown_checkbox)
         solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
         hayzInputContainer = findViewById(R.id.hayz_input_container)
@@ -150,11 +133,6 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
 
     private fun onCalculationButtonClicked() {
         val birthDate: DateTime = birthDateTextView.getDateTime()
-        val baligatStartDate: DateTime? = if (baligatDateUnknownCheckbox.isChecked) {
-            null
-        } else {
-            baligatDateTextView.getDateTime()
-        }
         val solatStartDate: DateTime = solatStartDateTextView.getDateTime()
         val saparDays: Int = saparCountInputContainer.getCounter()
         val femaleHazyDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
@@ -167,10 +145,14 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
         } else {
             0
         }
-
+        val baligatOld = if (baligatOldEditText.text.toString().isEmpty()) {
+            0
+        } else {
+            baligatOldEditText.text.toString().toInt()
+        }
         val calculationData = AutoCalculationData(
             birthDate = birthDate,
-            baligatStartDate = baligatStartDate,
+            baligatOld = baligatOld,
             solatStartDate = solatStartDate,
             saparDays = saparDays,
             femaleHayzDays = femaleHazyDays,
@@ -226,12 +208,4 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
     }
 
     private fun getDefaultBirthDate(): DateTime = DateTime().minus(Period.years(DEFAULT_BALIGAT_OLD))
-
-    private fun createDialog(
-        title: String? = null,
-        message: String? = null
-    ) = AlertDialog.Builder(this)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(R.string.ok) { dialog, _ ->  dialog.dismiss()}
 }

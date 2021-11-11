@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 data class AutoCalculationData(
     val birthDate: DateTime,
-    val baligatStartDate: DateTime?, // Если null то пользователь не знает свой возраст балигата
+    val baligatOld: Int,
     val solatStartDate: DateTime,
     val saparDays: Int,
     val femaleHayzDays: Int,

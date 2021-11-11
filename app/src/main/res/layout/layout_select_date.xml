@@ -45,35 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/birth_date_text_view" />
 
-    <kz.qazatracker.widgets.DatePickerTextView
-        android:id="@+id/baligat_date_text_view"
-        style="@style/calculationFormDate"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/baligat_date_old_edit_text"
+        style="@style/calculationInput"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_date_text_view"
         android:paddingHorizontal="@dimen/padding_large"
         android:paddingVertical="@dimen/padding_slarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/baligat_date_title_text_view"
-        tools:text="28 мамыр 2020" />
-
-    <CheckBox
-        android:id="@+id/baligat_date_unknown_checkbox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        app:buttonTint="@color/color_primary"
-        android:fontFamily="@font/open_sans"
-        android:paddingStart="@dimen/padding_medium"
-        android:paddingEnd="@dimen/padding_medium"
-        android:text="@string/unknown"
-        android:textColor="@color/black_gray_color"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/baligat_date_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/baligat_date_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/baligat_date_title_text_view" />
+        />
 
     <TextView
         android:id="@+id/solat_start_date_title_text_view"
@@ -84,7 +67,7 @@
         android:text="@string/solat_start_date"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/baligat_date_unknown_checkbox" />
+        app:layout_constraintTop_toBottomOf="@id/baligat_date_old_edit_text" />
 
     <kz.qazatracker.widgets.DatePickerTextView
         android:id="@+id/solat_start_date_text_view"

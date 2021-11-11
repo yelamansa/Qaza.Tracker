@@ -5,7 +5,7 @@
     <string name="male">Ер адам</string>
     <string name="female">Әйел адам</string>
     <string name="birth_date">Туған күн</string>
-    <string name="baligat_date">Балиғатқа толған уақыт</string>
+    <string name="baligat_date">Балиғатқа толған жасыңыз</string>
     <string name="unknown">Білмеймін</string>
     <string name="solat_start_date">Намаз бастаған уақыт</string>
     <string name="from_today">Бүгіннен</string>

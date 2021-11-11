@@ -16,8 +16,8 @@ import org.joda.time.chrono.IslamicChronology
 import kotlin.math.roundToInt
 
 const val DEFAULT_BALIGAT_OLD = 15
-private const val MIN_BALIGAT_OLD = 8
-private const val MAX_BALIGAT_OLD = 15
+private const val MIN_BALIGAT_OLD = 6
+private const val MAX_BALIGAT_OLD = 17
 private const val MIN_QAZA_DAYS = 1
 
 class QazaAutoCalculationViewModel(
@@ -62,13 +62,12 @@ class QazaAutoCalculationViewModel(
 
     private fun calculateQazaDays(
         data: AutoCalculationData
-    ): Int = if (data.baligatStartDate == null) {
+    ): Int {
         val birthDateHijrah = data.birthDate.withChronology(IslamicChronology.getInstance())
-        val baligatDateHijrah = birthDateHijrah.plusYears(DEFAULT_BALIGAT_OLD)
+        val baligatDateHijrah = birthDateHijrah.plusYears(data.baligatOld)
         val solatStartDateHijrah = data.solatStartDate.withChronology(IslamicChronology.getInstance())
-        Days.daysBetween(baligatDateHijrah, solatStartDateHijrah).days
-    } else {
-        Days.daysBetween(data.baligatStartDate, data.solatStartDate).days
+
+        return Days.daysBetween(baligatDateHijrah, solatStartDateHijrah).days
     }
 
     private fun calculateForFemale(
@@ -90,7 +89,7 @@ class QazaAutoCalculationViewModel(
     }
 
     private fun validate(autoCalculationData: AutoCalculationData) {
-        validateBaligatAge(autoCalculationData.birthDate, autoCalculationData.baligatStartDate)
+        validateBaligatAge(autoCalculationData.baligatOld)
     }
 
     private fun validateQazaDays(qazaDays: Int): Boolean {
@@ -107,18 +106,13 @@ class QazaAutoCalculationViewModel(
      * Проверяем возраст если меньше 8-ми выводим ошибку, так как не достиг возраста балигата
      */
     private fun validateBaligatAge(
-        birthDateTime: DateTime,
-        baligateDateTime: DateTime?
+        baligatOld: Int
     ) {
-        if(baligateDateTime == null) {
-            isValid = true
-
-            return
-        }
-        val ageDiff = Years.yearsBetween(baligateDateTime, birthDateTime).years
-        if (ageDiff < MIN_BALIGAT_OLD || ageDiff > MAX_BALIGAT_OLD) {
+        if (baligatOld < MIN_BALIGAT_OLD || baligatOld > MAX_BALIGAT_OLD) {
             exceptionLiveData.value = Event(BaligatAgeNotValid)
             isValid = false
+        } else {
+            isValid = true
         }
     }
 }
