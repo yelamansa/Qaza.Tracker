@@ -1,15 +1,18 @@
 package kz.qazatracker.qaza_hand_input.presentation
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kz.qazatracker.R
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_hand_input.data.QazaData
 import kotlin.math.abs
 
 class QazaHandInputViewModel(
     private val qazaHandInputState: QazaHandInputState,
-    private val qazaDataSource: QazaDataSource
+    private val qazaDataSource: QazaDataSource,
+    private val context: Context
 ) : ViewModel() {
 
     private val qazaViewDataListLiveData = MutableLiveData<List<QazaData>>()
@@ -28,20 +31,18 @@ class QazaHandInputViewModel(
                         it.saparSolatCount = 0
                     }
                 }
-                titleLiveData.value = "Қазаларды өзгерту"
-                infoLiveData.value = "Қосымша қаза намазды енгізу үшін «+»\n" +
-                        "батырмасын, ал өтелген қаза намазды\n" +
-                        "енгізу үшін «-» батырмасын басыңыз"
+                titleLiveData.value = context.getString(R.string.change_qaza)
+                infoLiveData.value = context.getString(R.string.info_change_qaza)
             }
             QazaHandInputState.Start -> {
                 qazaDataSource.clearQazaList()
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
-                titleLiveData.value = "Сіздің қаза намаздарыңыз"
+                titleLiveData.value = context.getString(R.string.your_qaza_solats)
             }
             QazaHandInputState.QazaAutoCalculateEdit,
             QazaHandInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
-                titleLiveData.value = "Сіздің қаза намаздарыңыз"
+                titleLiveData.value = context.getString(R.string.your_qaza_solats)
             }
         }
     }

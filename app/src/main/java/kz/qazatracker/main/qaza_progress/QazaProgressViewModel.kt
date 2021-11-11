@@ -13,7 +13,7 @@ class QazaProgressViewModel(
 
     private val qazaLiveData = MutableLiveData<List<QazaData>>()
     private val qazaProgressLiveData = MutableLiveData<QazaProgressData>()
-    private val calculatedRemainTimeLiveData = MutableLiveData<String>()
+    private val calculatedRemainTimeLiveData = MutableLiveData<Int>()
 
     fun onCreate() {
         val qazaDataList = qazaDataSource.getQazaList()
@@ -37,6 +37,6 @@ class QazaProgressViewModel(
 
         val totalRemainSolatCount = qazaDataSource.getTotalRemainCount()
         val day = ceil(totalRemainSolatCount / solatCountPerDay.toDouble())
-        calculatedRemainTimeLiveData.value = "${day.roundToInt()} күнде толық оқып боласыз"
+        calculatedRemainTimeLiveData.value = day.roundToInt()
     }
 }

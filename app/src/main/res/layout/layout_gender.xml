@@ -14,7 +14,7 @@
 
     <TextView
         android:textSize="18sp"
-        android:text="Жынысыңыз"
+        android:text="@string/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

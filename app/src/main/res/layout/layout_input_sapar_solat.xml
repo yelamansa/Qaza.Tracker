@@ -17,7 +17,7 @@
         android:id="@+id/sapar_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сапарда болған күндер"
+        android:text="@string/days_in_sapar"
         android:textSize="18sp"
         />
 

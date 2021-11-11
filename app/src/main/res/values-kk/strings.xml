@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qaza tracker</string>
+    <string name="calculation_first_header">Қаза намаздың санын нақты білу үшін төменге өзіңіз жайлы ақпаратты сәйкесінше мұқият еңгізіңіз</string>
+    <string name="calculation_second_header">*Сіз жайлы ақпарат тек есептеуге қолданылады және сақталмайды</string>
+    <string name="male">Ер адам</string>
+    <string name="female">Әйел адам</string>
+    <string name="birth_date">Туған күн</string>
+    <string name="baligat_date">Балиғатқа толған жасыңыз</string>
+    <string name="unknown">Білмеймін</string>
+    <string name="solat_start_date">Намаз бастаған уақыт</string>
+    <string name="from_today">Бүгіннен</string>
+    <string name="days_in_sapar">Сапарда болған күндер</string>
+    <string name="days_haiz">Ай сайын етеккір келу ұзақтығы (күн)</string>
+    <string name="born_count">Намаз бастағанға дейін босану саны</string>
+    <string name="calculate">Есептеу</string>
+    <string name="back">Кері</string>
+    <string name="baligat_not_valid">Балиғатқа толған жасты дұрыс енгізіңіз</string>
+    <string name="ok">Жақсы</string>
+    <string name="exception">Қате</string>
+    <string name="activity_start_screen_yes">Иә, білемін</string>
+    <string name="activity_start_screen_no_help">Жоқ, көмектесіңіз</string>
+    <string name="activity_start_screen_do_you_qaza_count">Сіз қаза намаздарыңыздың нақты санын білесіз бе?</string>
+    <string name="activity_start_screen_app_description">Бұл қолданба сіздің қаза намаздарыңызды есептеуге көмектеседі</string>
+    <string name="activity_start_screen_salam">Әссәләмуғалейкум!</string>
+    <string name="save">Сақтау</string>
+    <string name="language_title">Тілді ауыстыру</string>
+    <string name="data_reset">Мәліметтерді тазарту</string>
+    <string name="setting">Баптаулар</string>
+    <string name="about_qaza_solat">Қаза намазы туралы</string>
+    <string name="about_us">Ұсыныстар бойынша</string>
+    <string name="kazakh_lang">Қазақ</string>
+    <string name="russian_lang">Орыс</string>
+    <string name="select_language">Тілді таңдаңыз</string>
+    <string name="calculate_qaza_count">Қаза намазды есептеу</string>
+    <string name="gender">Жынысыңыз</string>
+    <string name="nav_add">Толықтыру</string>
+    <string name="nav_menu">Меню</string>
+    <string name="nav_progress">Прогресс</string>
+    <string name="completed_qaza_fmt">Аяқталды: %1$s %%</string>
+    <string name="total_prayed_qaza">Барлық оқылғандар: %1$d</string>
+    <string name="total_remain_qaza">Қалды: \n %1$d</string>
+    <string name="fajr">Таң</string>
+    <string name="zuhr">Бесін</string>
+    <string name="asr">Аср</string>
+    <string name="magrib">Шам</string>
+    <string name="isha">Құптан</string>
+    <string name="utir">Үтір</string>
+    <string name="progress_assumption_header">Егер күніне</string>
+    <string name="progress_assumption_footer">намаз оқысаңыз</string>
+    <string name="progress_assumption_info">%1$d күнде толық оқып боласыз</string>
+    <string name="change_qaza">Қазаларды өзгерту</string>
+    <string name="info_change_qaza">Қосымша қаза намазды енгізу үшін «+»\n батырмасын, ал өтелген қаза намазды\n енгізу үшін «-» батырмасын басыңыз</string>
+    <string name="your_qaza_solats">Сіздің қаза намаздарыңыз</string>
+
+</resources>

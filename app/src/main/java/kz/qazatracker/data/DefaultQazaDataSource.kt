@@ -1,6 +1,8 @@
 package kz.qazatracker.data
 
+import android.content.Context
 import android.content.SharedPreferences
+import kz.qazatracker.R
 import kz.qazatracker.qaza_hand_input.data.*
 
 const val FAJR_KEY = "fajr"
@@ -21,7 +23,8 @@ private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 private const val QAZA_SAVED_KEY = "qaza_save"
 
 class DefaultQazaDataSource(
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val context: Context
 ) : QazaDataSource {
 
     override fun saveQazaList(qazaDataList: List<QazaData>) {
@@ -34,12 +37,12 @@ class DefaultQazaDataSource(
     }
 
     override fun getQazaList(): List<QazaData> = listOf(
-        getQaza(FAJR_KEY, FAJR_NAME, false),
-        getQaza(ZUHR_KEY, ZUHR_NAME, true),
-        getQaza(ASR_KEY, ASR_NAME, true),
-        getQaza(MAGRIB_KEY, MAGRIB_NAME, false),
-        getQaza(ISHA_KEY, ISHA_NAME, true),
-        getQaza(UTIR_KEY, UTIR_NAME, false)
+        getQaza(FAJR_KEY, context.getString(R.string.fajr), false),
+        getQaza(ZUHR_KEY, context.getString(R.string.zuhr), true),
+        getQaza(ASR_KEY, context.getString(R.string.asr), true),
+        getQaza(MAGRIB_KEY, context.getString(R.string.magrib), false),
+        getQaza(ISHA_KEY, context.getString(R.string.isha), true),
+        getQaza(UTIR_KEY, context.getString(R.string.utir), false)
     )
 
     override fun clearQazaList() {
@@ -68,7 +71,11 @@ class DefaultQazaDataSource(
             saparSolatCount = saparSolatCount,
             minSolatCount = -solatCount,
             minSaparSolatCount = -saparSolatCount,
-            totalPrayedCount = getTotalPrayedCount(solatKey) + getTotalPrayedCount(getSaparSolatKey(solatKey)),
+            totalPrayedCount = getTotalPrayedCount(solatKey) + getTotalPrayedCount(
+                getSaparSolatKey(
+                    solatKey
+                )
+            ),
             hasSaparSolat = hasSaparSolat
         )
     }

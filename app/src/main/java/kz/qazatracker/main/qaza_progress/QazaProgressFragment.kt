@@ -73,16 +73,16 @@ class QazaProgressFragment : Fragment() {
         qazaProgressViewModel.getQazaProgressLiveData().observe(
             viewLifecycleOwner,
             Observer { qazaProgressData ->
-                completedQazaTextView.text = "Аяқталды: %.2f".format(qazaProgressData.completedPercent).plus("%")
-                totalPrayedQazaTextView.text = "Барлық оқылғандар: ${qazaProgressData.totalPreyedCount}"
-                totalRemainTextView.text = "Қалды\n${qazaProgressData.totalRemainCount}"
+                completedQazaTextView.text = String.format(getString(R.string.completed_qaza_fmt), "${qazaProgressData.completedPercent}")
+                totalPrayedQazaTextView.text = String.format(getString(R.string.total_prayed_qaza), qazaProgressData.totalPreyedCount)
+                totalRemainTextView.text = String.format(getString(R.string.total_remain_qaza), qazaProgressData.totalRemainCount)
                 mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
             }
         )
         qazaProgressViewModel.getCalculatedRemainTime().observe(
             viewLifecycleOwner,
             Observer { calculatedRemainTime ->
-                calculatedTimeTextView.text = calculatedRemainTime
+                calculatedTimeTextView.text = String.format(getString(R.string.progress_assumption_info), calculatedRemainTime)
             }
         )
     }

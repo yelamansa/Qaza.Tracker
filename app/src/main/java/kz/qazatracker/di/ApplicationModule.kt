@@ -8,6 +8,7 @@ import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
@@ -26,7 +27,8 @@ val applicationModule: Module = module {
     viewModel { (qazaHandInputState: QazaHandInputState)->
         QazaHandInputViewModel(
             qazaHandInputState = qazaHandInputState,
-            qazaDataSource = get()
+            qazaDataSource = get(),
+            context = androidContext()
         )
     }
 
@@ -42,7 +44,8 @@ val applicationModule: Module = module {
 
     factory<QazaDataSource> {
         DefaultQazaDataSource(
-            sharedPreferences = get(named(QAZA_PREFERENCES))
+            sharedPreferences = get(named(QAZA_PREFERENCES)),
+            context = androidContext()
         )
     }
 }
