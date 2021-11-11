@@ -16,7 +16,7 @@
         tools:context=".qaza_auto_calculation.presentation.QazaAutoCalculationActivity">
 
         <androidx.appcompat.widget.Toolbar
-            app:title="Қаза намазды есептеу"
+            app:title="@string/calculate_qaza_count"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:background="@color/color_primary"
             android:id="@+id/toolbar"

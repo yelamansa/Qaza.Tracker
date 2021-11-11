@@ -52,5 +52,8 @@
     <string name="change_qaza">Қазаларды өзгерту</string>
     <string name="info_change_qaza">Қосымша қаза намазды енгізу үшін «+»\n батырмасын, ал өтелген қаза намазды\n енгізу үшін «-» батырмасын басыңыз</string>
     <string name="your_qaza_solats">Сіздің қаза намаздарыңыз</string>
+    <string name="reset_message">"Мәліметтерді өшіруге сенімдісіз бе?"</string>
+    <string name="yes">Иә</string>
+    <string name="cancel">Болдырмау</string>
 
 </resources>

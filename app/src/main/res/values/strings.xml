@@ -51,4 +51,7 @@
     <string name="change_qaza">Изменить каза намазы</string>
     <string name="info_change_qaza">Чтобы внести дополнительные каза намазы нажмите на «+», а если хотите уменьшить нажмите на «-»</string>
     <string name="your_qaza_solats">Ваши каза намазы</string>
+    <string name="reset_message">"Вы уверен что хотите сбросить все данные? "</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
 </resources>
