@@ -22,10 +22,9 @@ import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
 import kz.qazatracker.widgets.DatePickerTextView
 import kz.qazatracker.widgets.CounterWidget
+import org.joda.time.DateTime
+import org.joda.time.Period
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
-
-const val DEFAULT_BALIGAT_OLD = 12
 
 private const val MALE_TAB_POSITION = 1
 
@@ -62,7 +61,7 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
             if (isChecked) {
                 if (unknownBaligatDateDialog == null) {
                     unknownBaligatDateDialog = createDialog(
-                        message = "Егер балиғатқа толған уақытты білмесеңіз, балиғат жасы 12 деп есепке алынады"
+                        message = "Егер балиғатқа толған уақытты білмесеңіз, балиғат жасы 15 деп есепке алынады"
                     ).show()
                 } else {
                     unknownBaligatDateDialog?.show()
@@ -93,7 +92,7 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
         initGenderSwitcherView()
         collectAllInputViews()
 
-        birthDateTextView.setDateInMillis(getDefaultBirthDateInMillis())
+        birthDateTextView.setDate(getDefaultBirthDate())
 
         calculateButton.setOnClickListener {
             onCalculationButtonClicked()
@@ -150,13 +149,13 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
     }
 
     private fun onCalculationButtonClicked() {
-        val birthDate: Calendar = birthDateTextView.getCalendarDate()
-        val baligatStartDate: Calendar? = if (baligatDateUnknownCheckbox.isChecked) {
+        val birthDate: DateTime = birthDateTextView.getDateTime()
+        val baligatStartDate: DateTime? = if (baligatDateUnknownCheckbox.isChecked) {
             null
         } else {
-            baligatDateTextView.getCalendarDate()
+            baligatDateTextView.getDateTime()
         }
-        val solatStartDate: Calendar = solatStartDateTextView.getCalendarDate()
+        val solatStartDate: DateTime = solatStartDateTextView.getDateTime()
         val saparDays: Int = saparCountInputContainer.getCounter()
         val femaleHazyDays: Int = if (genderTabLayout.selectedTabPosition == MALE_TAB_POSITION) {
             hayzInputContainer.getCounter()
@@ -226,13 +225,7 @@ class QazaAutoCalculationActivity : AppCompatActivity() {
         })
     }
 
-    private fun getDefaultBirthDateInMillis(): Long {
-        val defaultDateCalendar = Calendar.getInstance()
-        val twelveYears = defaultDateCalendar[Calendar.YEAR] - DEFAULT_BALIGAT_OLD
-        defaultDateCalendar[Calendar.YEAR] = twelveYears
-
-        return defaultDateCalendar.timeInMillis
-    }
+    private fun getDefaultBirthDate(): DateTime = DateTime().minus(Period.years(DEFAULT_BALIGAT_OLD))
 
     private fun createDialog(
         title: String? = null,

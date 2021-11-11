@@ -1,19 +1,21 @@
 package kz.qazatracker.qaza_auto_calculation.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
+import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
-import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.utils.Event
-import java.util.*
-import java.util.concurrent.TimeUnit
+import org.joda.time.DateTime
+import org.joda.time.Days
+import org.joda.time.Years
+import org.joda.time.chrono.IslamicChronology
 import kotlin.math.roundToInt
 
+const val DEFAULT_BALIGAT_OLD = 15
 private const val MIN_BALIGAT_OLD = 8
 private const val MAX_BALIGAT_OLD = 15
 private const val MIN_QAZA_DAYS = 1
@@ -39,13 +41,7 @@ class QazaAutoCalculationViewModel(
     fun getNavigationLiveData(): LiveData<Event<QalqulationNavigation>> = navigationLiveData
 
     private fun calculate(data: AutoCalculationData) {
-        val baligatStartDate: Calendar =
-            getCorrectBaligatDate(data.birthDate, data.baligatStartDate)
-        clearCalendarHours(baligatStartDate)
-        clearCalendarHours(data.solatStartDate)
-        val qazaDaysInMillis: Long =
-            data.solatStartDate.timeInMillis - baligatStartDate.timeInMillis
-        var qazaDays: Int = TimeUnit.MILLISECONDS.toDays(qazaDaysInMillis).toInt()
+        var qazaDays = calculateQazaDays(data)
         qazaDays = calculateForFemale(qazaDays, data)
         val qazaDaysIsValid: Boolean = validateQazaDays(qazaDays)
         if (qazaDaysIsValid.not()) return
@@ -62,6 +58,17 @@ class QazaAutoCalculationViewModel(
             } }
         )
         navigationLiveData.value = Event(QalqulationNavigation.QazaInput)
+    }
+
+    private fun calculateQazaDays(
+        data: AutoCalculationData
+    ): Int = if (data.baligatStartDate == null) {
+        val birthDateHijrah = data.birthDate.withChronology(IslamicChronology.getInstance())
+        val baligatDateHijrah = birthDateHijrah.plusYears(DEFAULT_BALIGAT_OLD)
+        val solatStartDateHijrah = data.solatStartDate.withChronology(IslamicChronology.getInstance())
+        Days.daysBetween(baligatDateHijrah, solatStartDateHijrah).days
+    } else {
+        Days.daysBetween(data.baligatStartDate, data.solatStartDate).days
     }
 
     private fun calculateForFemale(
@@ -100,47 +107,18 @@ class QazaAutoCalculationViewModel(
      * Проверяем возраст если меньше 8-ми выводим ошибку, так как не достиг возраста балигата
      */
     private fun validateBaligatAge(
-        birthDate: Calendar,
-        baligatDate: Calendar?
+        birthDateTime: DateTime,
+        baligateDateTime: DateTime?
     ) {
-        val correctBaligatDate: Calendar = getCorrectBaligatDate(birthDate, baligatDate)
-
-        val ageDifference: Int =
-            correctBaligatDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
-        if (ageDifference < MIN_BALIGAT_OLD || ageDifference > MAX_BALIGAT_OLD) {
-            exceptionLiveData.value = Event(BaligatAgeNotValid)
-            isValid = false
+        if(baligateDateTime == null) {
+            isValid = true
 
             return
         }
-
-        isValid = true
-    }
-
-    /**
-     * Если юзер не знает своего возраста балигата
-     * вычитываем по такой логике: в день рождение добавляем дефолтовое значение балигата,
-     * оно состовляет 12 лет
-     */
-    private fun getCorrectBaligatDate(
-        birthDate: Calendar,
-        baligatStartDate: Calendar?
-    ): Calendar {
-        val tempBaligatStartDate: Calendar = birthDate.clone() as Calendar
-        if (baligatStartDate != null) return baligatStartDate
-
-        val birthYear: Int = birthDate.get(Calendar.YEAR)
-        val birthDayInYear: Int = birthDate.get(Calendar.DAY_OF_YEAR)
-        val baligatStartYear: Int = birthYear + DEFAULT_BALIGAT_OLD
-        tempBaligatStartDate.set(Calendar.YEAR, baligatStartYear)
-        tempBaligatStartDate.set(Calendar.DAY_OF_YEAR, birthDayInYear-1)
-
-        return tempBaligatStartDate
-    }
-
-    private fun clearCalendarHours(calendar: Calendar) {
-        calendar.set(Calendar.HOUR, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
+        val ageDiff = Years.yearsBetween(baligateDateTime, birthDateTime).years
+        if (ageDiff < MIN_BALIGAT_OLD || ageDiff > MAX_BALIGAT_OLD) {
+            exceptionLiveData.value = Event(BaligatAgeNotValid)
+            isValid = false
+        }
     }
 }

@@ -8,6 +8,7 @@ import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import kz.qazatracker.R
+import org.joda.time.DateTime
 import java.util.*
 
 class DatePickerTextView(
@@ -15,7 +16,7 @@ class DatePickerTextView(
     attributeSet: AttributeSet
 ) : AppCompatTextView(context, attributeSet), DatePickerDialog.OnDateSetListener {
 
-    private val calendarDate: Calendar = Calendar.getInstance()
+    private var dateTime: DateTime = DateTime()
     private var dateDialog: DatePickerDialog? = null
 
     init {
@@ -30,27 +31,23 @@ class DatePickerTextView(
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        calendarDate[Calendar.YEAR] = year
-        calendarDate[Calendar.MONTH] = month
-        calendarDate[Calendar.DAY_OF_MONTH] = dayOfMonth
+        dateTime = DateTime("$year-${month+1}-$dayOfMonth")
         setDate()
         setTextColor(ContextCompat.getColor(context, R.color.black_gray_color))
     }
 
-    fun getTimeInMillis(): Long = calendarDate.timeInMillis
+    fun getDateTime(): DateTime = dateTime
 
-    fun getCalendarDate(): Calendar = calendarDate
-
-    fun setDateInMillis(timeInMillis: Long) {
-        dateDialog?.datePicker?.maxDate = timeInMillis
-        calendarDate.timeInMillis = timeInMillis
+    fun setDate(date: DateTime) {
+        dateDialog?.datePicker?.maxDate = date.millis
+        dateTime = date
         setDate()
     }
 
     private fun setDate() {
         text = DateUtils.formatDateTime(
             context,
-            calendarDate.timeInMillis,
+            dateTime.millis,
             DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
         )
     }
@@ -59,11 +56,11 @@ class DatePickerTextView(
         dateDialog = DatePickerDialog(
             context,
             this,
-            calendarDate.get(Calendar.YEAR),
-            calendarDate.get(Calendar.MONTH),
-            calendarDate.get(Calendar.DAY_OF_MONTH)
+            dateTime.year,
+            dateTime.monthOfYear-1,
+            dateTime.dayOfMonth
         ).apply {
-            datePicker.maxDate = calendarDate.timeInMillis
+            datePicker.maxDate = dateTime.millis
         }
     }
 }
