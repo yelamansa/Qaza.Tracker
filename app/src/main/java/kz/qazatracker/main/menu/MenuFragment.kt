@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import kz.qazatracker.R
-import kz.qazatracker.startscreen.StartScreenActivity
+import kz.qazatracker.startscreen.StartScreenRouter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MenuFragment : Fragment(R.layout.fragment_menu) {
@@ -39,8 +39,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun handleMenuNavigation(menuNavigation: MenuNavigation) {
         when (menuNavigation) {
             MenuNavigation.RestartApp -> {
-                val intent = Intent(requireContext(), StartScreenActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                val intent = StartScreenRouter().createIntent(requireContext())
                 startActivity(intent)
                 requireActivity().finish()
             }

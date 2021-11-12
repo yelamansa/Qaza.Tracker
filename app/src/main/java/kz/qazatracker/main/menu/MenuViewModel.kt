@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.data.QazaDataSource
-import kz.qazatracker.utils.LocaleHelper2
-import kz.qazatracker.utils.LocaleHelper2.Companion.LOCALE_KZ
-import kz.qazatracker.utils.LocaleHelper2.Companion.LOCALE_RU
+import kz.qazatracker.utils.LocaleHelper
+import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_KZ
+import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_RU
 
 class MenuViewModel(
     private val qazaDataSource: QazaDataSource,
-    private val localeHelper: LocaleHelper2
+    private val localeHelper: LocaleHelper
 ): ViewModel() {
 
     private val _navigationLiveData = MutableLiveData<MenuNavigation>()

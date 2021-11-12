@@ -10,7 +10,7 @@ import java.util.Locale
 /**
  * Класс-помощьник для работы с локализацией приложения.
  */
-open class LocaleHelper2(
+open class LocaleHelper(
     private val localeDataSource: LocaleDataSource
 ) {
 
@@ -53,7 +53,7 @@ open class LocaleHelper2(
     fun getCurrentLocale(): Locale = currentLocale
 
     private fun getLocale(): Locale {
-        val localeName = localeDataSource.getLocaleName()
+        val localeName = localeDataSource.getLocaleName() ?: DEFAULT_LOCALE_NAME
 
         return if (localeName == LOCALE_KZ.language) {
             LOCALE_KZ

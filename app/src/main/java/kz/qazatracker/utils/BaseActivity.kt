@@ -6,12 +6,7 @@ import org.koin.android.ext.android.inject
 
 open class BaseActivity: AppCompatActivity() {
 
-    private val localeHelper: LocaleHelper2 by inject()
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        LocaleHelper.setLocale(this, LocaleHelper.getSelectedLanguage(this))
-//    }
+    private val localeHelper: LocaleHelper by inject()
 
     override fun attachBaseContext(newBase: Context) {
         val updatedContext: Context = localeHelper.updateContext(newBase)

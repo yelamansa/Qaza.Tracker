@@ -9,9 +9,8 @@ import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
 import kz.qazatracker.utils.LocaleDataSource
-import kz.qazatracker.utils.LocaleHelper2
+import kz.qazatracker.utils.LocaleHelper
 import org.koin.android.ext.koin.androidApplication
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
@@ -58,7 +57,7 @@ val applicationModule: Module = module {
     }
 
     factory {
-        LocaleHelper2(
+        LocaleHelper(
             localeDataSource = get()
         )
     }

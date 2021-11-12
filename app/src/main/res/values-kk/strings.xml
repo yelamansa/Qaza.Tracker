@@ -57,5 +57,6 @@
     <string name="cancel">Болдырмау</string>
     <string name="contact_telegram">Ұсыныстар бойынша: t.me/iamsyrym</string>
     <string name="solat_sapar">Сапар</string>
+    <string name="activity_lang_select">Қосымша тілін таңдаңыз</string>
 
 </resources>
