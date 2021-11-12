@@ -67,7 +67,7 @@ class QazaAutoCalculationViewModel(
         val baligatDateHijrah = birthDateHijrah.plusYears(data.baligatOld)
         val solatStartDateHijrah = data.solatStartDate.withChronology(IslamicChronology.getInstance())
 
-        return Days.daysBetween(baligatDateHijrah, solatStartDateHijrah).days
+        return Days.daysBetween(baligatDateHijrah, solatStartDateHijrah).days + 1
     }
 
     private fun calculateForFemale(
