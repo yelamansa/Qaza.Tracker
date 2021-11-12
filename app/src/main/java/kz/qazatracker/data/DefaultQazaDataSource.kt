@@ -45,6 +45,7 @@ class DefaultQazaDataSource(
         clearQaza(ISHA_KEY)
         clearQaza(UTIR_KEY)
         sharedPreferences.edit().putBoolean(QAZA_SAVED_KEY, false).apply()
+        saveTotalPreyedCount(0)
     }
 
     private fun getQaza(
@@ -120,5 +121,6 @@ class DefaultQazaDataSource(
     private fun clearQaza(key: String) {
         sharedPreferences.edit().remove(key).apply()
         sharedPreferences.edit().remove(getSaparSolatKey(key)).apply()
+        saveTotalPrayedCount(key, 0)
     }
 }

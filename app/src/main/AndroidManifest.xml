@@ -13,11 +13,12 @@
         <activity android:name=".main.menu.SettingsActivity"/>
         <activity android:name=".main.menu.AboutQazaActivity" />
         <activity android:name=".main.menu.AboutUsActivity" />
+        <activity android:name=".startscreen.StartScreenActivity" />
         <activity
             android:name=".qaza_hand_input.presentation.QazaHandInputActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".startscreen.StartScreenActivity"
+            android:name=".startscreen.LangActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
