@@ -73,7 +73,7 @@ class QazaProgressFragment : Fragment() {
         qazaProgressViewModel.getQazaProgressLiveData().observe(
             viewLifecycleOwner,
             Observer { qazaProgressData ->
-                completedQazaTextView.text = String.format(getString(R.string.completed_qaza_fmt), "${qazaProgressData.completedPercent}")
+                completedQazaTextView.text = String.format(getString(R.string.completed_qaza_fmt), "${qazaProgressData.completedPercent.toInt()}")
                 totalPrayedQazaTextView.text = String.format(getString(R.string.total_prayed_qaza), qazaProgressData.totalPreyedCount)
                 totalRemainTextView.text = String.format(getString(R.string.total_remain_qaza), qazaProgressData.totalRemainCount)
                 mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
