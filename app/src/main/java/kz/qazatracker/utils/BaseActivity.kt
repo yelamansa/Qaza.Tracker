@@ -1,22 +1,22 @@
 package kz.qazatracker.utils
 
-import android.os.Build
-import android.os.Bundle
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import java.util.Locale
+import org.koin.android.ext.android.inject
 
 open class BaseActivity: AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val config = resources.configuration
-        val lang = "kk"
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        config.setLocale(locale)
+    private val localeHelper: LocaleHelper2 by inject()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            createConfigurationContext(config)
-        resources.updateConfiguration(config, resources.displayMetrics)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        LocaleHelper.setLocale(this, LocaleHelper.getSelectedLanguage(this))
+//    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val updatedContext: Context = localeHelper.updateContext(newBase)
+        applyOverrideConfiguration(updatedContext.resources.configuration)
+
+        super.attachBaseContext(updatedContext)
     }
 }

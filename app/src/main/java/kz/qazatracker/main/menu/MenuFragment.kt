@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import kz.qazatracker.R
 import kz.qazatracker.startscreen.StartScreenActivity
-import kz.qazatracker.utils.LocaleHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MenuFragment : Fragment(R.layout.fragment_menu) {
@@ -65,14 +64,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             getString(R.string.russian_lang)
         )
         builder.setItems(animals) { dialog, which ->
-            when (which) {
-                0 -> {
-                    LocaleHelper.setLocale(requireContext(), "kk")
-                }
-                1 -> {
-                    LocaleHelper.setLocale(requireContext(), "en")
-                }
-            }
+            menuViewModel.langSelected(which)
             requireActivity().finish();
             requireActivity().startActivity(requireActivity().intent);
         }

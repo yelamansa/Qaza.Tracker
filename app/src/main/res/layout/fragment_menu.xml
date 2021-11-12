@@ -10,7 +10,6 @@
 
     <TextView
         android:id="@+id/language_text_view"
-        android:visibility="gone"
         style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

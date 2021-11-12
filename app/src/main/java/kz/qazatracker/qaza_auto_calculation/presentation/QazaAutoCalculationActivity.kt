@@ -8,28 +8,28 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.tabs.TabLayout
 import kz.qazatracker.R
-import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
+import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
-import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.utils.BaseActivity
 import kz.qazatracker.utils.EventObserver
 import kz.qazatracker.utils.hide
 import kz.qazatracker.utils.show
-import kz.qazatracker.widgets.DatePickerTextView
 import kz.qazatracker.widgets.CounterWidget
+import kz.qazatracker.widgets.DatePickerTextView
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val MALE_TAB_POSITION = 1
 
-class QazaAutoCalculationActivity : AppCompatActivity() {
+class QazaAutoCalculationActivity : BaseActivity() {
 
     private lateinit var genderTabLayout: TabLayout
     private lateinit var birthDateTextView: DatePickerTextView

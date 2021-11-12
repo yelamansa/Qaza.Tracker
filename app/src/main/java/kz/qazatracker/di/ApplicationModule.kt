@@ -8,6 +8,8 @@ import kz.qazatracker.main.menu.MenuViewModel
 import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
+import kz.qazatracker.utils.LocaleDataSource
+import kz.qazatracker.utils.LocaleHelper2
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -28,8 +30,7 @@ val applicationModule: Module = module {
     viewModel { (qazaHandInputState: QazaHandInputState)->
         QazaHandInputViewModel(
             qazaHandInputState = qazaHandInputState,
-            qazaDataSource = get(),
-            context = androidContext()
+            qazaDataSource = get()
         )
     }
 
@@ -41,7 +42,8 @@ val applicationModule: Module = module {
 
     viewModel {
         MenuViewModel(
-            qazaDataSource = get()
+            qazaDataSource = get(),
+            localeHelper = get()
         )
     }
 
@@ -51,8 +53,19 @@ val applicationModule: Module = module {
 
     factory<QazaDataSource> {
         DefaultQazaDataSource(
-            sharedPreferences = get(named(QAZA_PREFERENCES)),
-            context = androidContext()
+            sharedPreferences = get(named(QAZA_PREFERENCES))
+        )
+    }
+
+    factory {
+        LocaleHelper2(
+            localeDataSource = get()
+        )
+    }
+
+    factory {
+        LocaleDataSource(
+            sharedPreferences = get(named(QAZA_PREFERENCES))
         )
     }
 }

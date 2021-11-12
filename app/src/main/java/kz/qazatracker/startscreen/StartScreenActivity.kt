@@ -1,6 +1,5 @@
 package kz.qazatracker.startscreen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,11 +7,12 @@ import kz.qazatracker.R
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationRouter
-import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
+import kz.qazatracker.utils.BaseActivity
 import org.koin.android.ext.android.inject
 
-class StartScreenActivity : AppCompatActivity(), View.OnClickListener {
+class StartScreenActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var calculateButton: Button
     private lateinit var qazaInputButton: Button
