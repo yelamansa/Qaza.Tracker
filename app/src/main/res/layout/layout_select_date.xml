@@ -81,22 +81,4 @@
         app:layout_constraintTop_toBottomOf="@id/solat_start_date_title_text_view"
         tools:text="28 мамыр 2020" />
 
-    <CheckBox
-        android:id="@+id/solat_start_today_date_checkbox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        app:buttonTint="@color/color_primary"
-        android:fontFamily="@font/open_sans"
-        android:paddingStart="@dimen/padding_medium"
-        android:paddingLeft="@dimen/padding_medium"
-        android:text="@string/from_today"
-        android:textColor="@color/black_gray_color"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/solat_start_date_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/solat_start_date_text_view"
-        app:layout_constraintTop_toTopOf="@+id/solat_start_date_text_view" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

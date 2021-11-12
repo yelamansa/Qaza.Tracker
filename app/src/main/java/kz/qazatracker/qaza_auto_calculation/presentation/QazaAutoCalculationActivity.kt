@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -35,7 +34,6 @@ class QazaAutoCalculationActivity : BaseActivity() {
     private lateinit var birthDateTextView: DatePickerTextView
     private lateinit var baligatOldEditText: EditText
     private lateinit var solatStartDateTextView: DatePickerTextView
-    private lateinit var solatStartTodayCheckBox: CheckBox
     private lateinit var hayzDaysTextView: TextView
     private lateinit var hayzInputContainer: CounterWidget
     private lateinit var bornCountTextView: TextView
@@ -54,16 +52,12 @@ class QazaAutoCalculationActivity : BaseActivity() {
 
         initViews()
         observeViewModelLiveData()
-        solatStartTodayCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            solatStartDateTextView.isClickable = isChecked.not()
-        }
     }
 
     private fun initViews() {
         birthDateTextView = findViewById(R.id.birth_date_text_view)
         baligatOldEditText = findViewById(R.id.baligat_date_old_edit_text)
         solatStartDateTextView = findViewById(R.id.solat_start_date_text_view)
-        solatStartTodayCheckBox = findViewById(R.id.solat_start_today_date_checkbox)
         hayzDaysTextView = findViewById(R.id.haiz_days_text_view)
         hayzInputContainer = findViewById(R.id.hayz_input_container)
         bornCountTextView = findViewById(R.id.born_count_text_view)

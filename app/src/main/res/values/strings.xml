@@ -8,7 +8,6 @@
     <string name="baligat_date">Возраст совершоннолетия</string>
     <string name="unknown">Не знаю</string>
     <string name="solat_start_date">Дата начала молитвы</string>
-    <string name="from_today">Сегодня</string>
     <string name="days_in_sapar">Количество дней в сапаре</string>
     <string name="days_haiz">Количество дней хайз в каждом месяце</string>
     <string name="born_count">Количество родов до начала молитвы</string>
