@@ -1,9 +1,8 @@
 package kz.qazatracker.data
 
-import android.content.Context
 import android.content.SharedPreferences
 import kz.qazatracker.R
-import kz.qazatracker.qaza_hand_input.data.*
+import kz.qazatracker.qaza_hand_input.data.QazaData
 
 const val FAJR_KEY = "fajr"
 const val ZUHR_KEY = "zuhr"
@@ -17,8 +16,7 @@ private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 private const val QAZA_SAVED_KEY = "qaza_save"
 
 class DefaultQazaDataSource(
-    private val sharedPreferences: SharedPreferences,
-    private val context: Context
+    private val sharedPreferences: SharedPreferences
 ) : QazaDataSource {
 
     override fun saveQazaList(qazaDataList: List<QazaData>) {
@@ -31,12 +29,12 @@ class DefaultQazaDataSource(
     }
 
     override fun getQazaList(): List<QazaData> = listOf(
-        getQaza(FAJR_KEY, context.getString(R.string.fajr), false),
-        getQaza(ZUHR_KEY, context.getString(R.string.zuhr), true),
-        getQaza(ASR_KEY, context.getString(R.string.asr), true),
-        getQaza(MAGRIB_KEY, context.getString(R.string.magrib), false),
-        getQaza(ISHA_KEY, context.getString(R.string.isha), true),
-        getQaza(UTIR_KEY, context.getString(R.string.utir), false)
+        getQaza(FAJR_KEY, R.string.fajr, false),
+        getQaza(ZUHR_KEY, R.string.zuhr, true),
+        getQaza(ASR_KEY, R.string.asr, true),
+        getQaza(MAGRIB_KEY, R.string.magrib, false),
+        getQaza(ISHA_KEY, R.string.isha, true),
+        getQaza(UTIR_KEY, R.string.utir, false)
     )
 
     override fun clearQazaList() {
@@ -51,7 +49,7 @@ class DefaultQazaDataSource(
 
     private fun getQaza(
         solatKey: String,
-        solatName: String,
+        solatNameResId: Int,
         hasSaparSolat: Boolean
     ): QazaData {
         val solatCount = sharedPreferences.getInt(solatKey, 0)
@@ -60,7 +58,7 @@ class DefaultQazaDataSource(
 
         return QazaData(
             solatKey = solatKey,
-            solatName = solatName,
+            solatNameResId = solatNameResId,
             solatCount = solatCount,
             saparSolatCount = saparSolatCount,
             minSolatCount = -solatCount,

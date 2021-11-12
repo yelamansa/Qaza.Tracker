@@ -1,6 +1,5 @@
 package kz.qazatracker.qaza_hand_input.presentation
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,14 +10,13 @@ import kotlin.math.abs
 
 class QazaHandInputViewModel(
     private val qazaHandInputState: QazaHandInputState,
-    private val qazaDataSource: QazaDataSource,
-    private val context: Context
+    private val qazaDataSource: QazaDataSource
 ) : ViewModel() {
 
     private val qazaViewDataListLiveData = MutableLiveData<List<QazaData>>()
     private val qazaInputNavigationLiveData = MutableLiveData<QazaHandInputNavigation>()
-    private val titleLiveData = MutableLiveData<String>()
-    private val infoLiveData = MutableLiveData<String>()
+    private val titleLiveData = MutableLiveData<Int>()
+    private val infoLiveData = MutableLiveData<Int>()
 
     fun onCreate() {
         when (qazaHandInputState) {
@@ -31,27 +29,27 @@ class QazaHandInputViewModel(
                         it.saparSolatCount = 0
                     }
                 }
-                titleLiveData.value = context.getString(R.string.change_qaza)
-                infoLiveData.value = context.getString(R.string.info_change_qaza)
+                titleLiveData.value = R.string.change_qaza
+                infoLiveData.value = R.string.info_change_qaza
             }
             QazaHandInputState.Start -> {
                 qazaDataSource.clearQazaList()
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
-                titleLiveData.value = context.getString(R.string.your_qaza_solats)
+                titleLiveData.value = R.string.your_qaza_solats
             }
             QazaHandInputState.QazaAutoCalculateEdit,
             QazaHandInputState.None -> {
                 qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
-                titleLiveData.value = context.getString(R.string.your_qaza_solats)
+                titleLiveData.value = R.string.your_qaza_solats
             }
         }
     }
 
     fun getQazaDataListLiveData(): LiveData<List<QazaData>> = qazaViewDataListLiveData
 
-    fun getTitleLiveData(): LiveData<String> = titleLiveData
+    fun getTitleLiveData(): LiveData<Int> = titleLiveData
 
-    fun getInfoLiveData(): LiveData<String> = infoLiveData
+    fun getInfoLiveData(): LiveData<Int> = infoLiveData
 
     fun getQazaInputNavigationLiveData(): LiveData<QazaHandInputNavigation> =
         qazaInputNavigationLiveData

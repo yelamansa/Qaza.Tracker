@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kz.qazatracker.R
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_hand_input.data.QazaData
+import kz.qazatracker.utils.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.DefinitionParameters
 import org.koin.core.parameter.parametersOf
 
-class QazaHandInputActivity : AppCompatActivity() {
+class QazaHandInputActivity : BaseActivity() {
 
     private lateinit var qazaInputRecyclerView: RecyclerView
     private lateinit var toolbar: Toolbar
@@ -69,7 +70,7 @@ class QazaHandInputActivity : AppCompatActivity() {
         qazaHandInputViewModel.getTitleLiveData().observe(this, Observer { handleTitle(it) })
         qazaHandInputViewModel.getInfoLiveData().observe(this, Observer {
             infoTextView.visibility = View.VISIBLE
-            infoTextView.text = it
+            infoTextView.text = resources.getString(it)
         })
     }
 
@@ -85,8 +86,8 @@ class QazaHandInputActivity : AppCompatActivity() {
         qazaHandInputAdapter.setList(qazaDataList)
     }
 
-    private fun handleTitle(title: String) {
-        supportActionBar?.title = title
+    private fun handleTitle(titleId: Int) {
+        supportActionBar?.title = resources.getString(titleId)
     }
 
     private fun getViewModelParams(): DefinitionParameters =

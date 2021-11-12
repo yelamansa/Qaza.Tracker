@@ -35,7 +35,7 @@ class QazaInputViewHolder(
     }
 
     fun onBind(qazaData: QazaData) {
-        titleTextView.text = qazaData.solatName
+        titleTextView.text = itemView.resources.getString(qazaData.solatNameResId)
         counterWidget.setCounter(qazaData.solatCount)
         counterWidget.setMinCounterValue(qazaData.minSolatCount)
         saparCounterWidget.setCounter(qazaData.saparSolatCount)

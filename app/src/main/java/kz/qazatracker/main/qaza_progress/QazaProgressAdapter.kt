@@ -39,10 +39,13 @@ class QazaProgressAdapter : RecyclerView.Adapter<QazaProgressViewHolder>() {
     }
 }
 
-class QazaProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class QazaProgressViewHolder(
+     itemView: View
+) : RecyclerView.ViewHolder(itemView) {
 
     private val qazaProgressTextView: TextView = itemView.findViewById(R.id.qaza_progress_text_view)
-    private val saparQazaProgressTextView: TextView = itemView.findViewById(R.id.sapar_qaza_progress_text_view)
+    private val saparQazaProgressTextView: TextView =
+        itemView.findViewById(R.id.sapar_qaza_progress_text_view)
     private val solatName: TextView = itemView.findViewById(R.id.solat_name_text_view)
     private val progressBar: ProgressBar = itemView.findViewById(R.id.qaza_progress_bar)
 
@@ -51,7 +54,7 @@ class QazaProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     ) {
         qazaProgressTextView.text = "${qazaProgressData.solatCount}"
         saparQazaProgressTextView.text = "${qazaProgressData.saparSolatCount}"
-        solatName.text = qazaProgressData.solatName
+        solatName.text = itemView.resources.getString(qazaProgressData.solatNameResId)
         progressBar.progress = 100 - qazaProgressData.getTotalCompletedQazaPercent().toInt()
         if (qazaProgressData.hasSaparSolat) saparQazaProgressTextView.show()
     }

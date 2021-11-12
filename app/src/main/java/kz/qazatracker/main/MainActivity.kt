@@ -11,8 +11,9 @@ import kz.qazatracker.main.menu.MenuFragment
 import kz.qazatracker.main.qaza_progress.QazaProgressFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.utils.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
