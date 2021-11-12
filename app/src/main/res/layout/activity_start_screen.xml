@@ -58,7 +58,7 @@
         android:textAlignment="center"
         android:textColor="@color/black_gray_color"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/calculate_button"
+        app:layout_constraintBottom_toTopOf="@+id/hand_input_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,22 +67,22 @@
         />
 
     <Button
-        android:id="@+id/calculate_button"
+        android:id="@+id/hand_input_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="6dp"
         android:padding="10dp"
-        android:text="@string/activity_start_screen_no_help"
+        android:text="@string/activity_start_screen_yes"
         android:textAllCaps="false"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/qaza_input_button"
+        app:layout_constraintBottom_toTopOf="@+id/calculate_qaza_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/qaza_input_button"
+        android:id="@+id/calculate_qaza_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:padding="10dp"
-        android:text="@string/activity_start_screen_yes"
+        android:text="@string/activity_start_screen_no_help"
         android:textAllCaps="false"
         android:textColor="@color/color_primary"
         android:textSize="15sp"

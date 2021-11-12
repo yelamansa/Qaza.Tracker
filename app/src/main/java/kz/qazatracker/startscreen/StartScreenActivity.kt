@@ -34,22 +34,22 @@ class StartScreenActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initButtons() {
-        calculateButton = findViewById(R.id.calculate_button)
-        qazaInputButton = findViewById(R.id.qaza_input_button)
+        calculateButton = findViewById(R.id.hand_input_button)
+        qazaInputButton = findViewById(R.id.calculate_qaza_button)
         calculateButton.setOnClickListener(this)
         qazaInputButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.calculate_button -> {
+            R.id.hand_input_button -> {
                 startActivity(
-                    QazaAutoCalculationRouter().createIntent(this)
+                    QazaInputRouter().createIntent(this, QazaHandInputState.Start)
                 )
             }
-            R.id.qaza_input_button -> {
+            R.id.calculate_qaza_button -> {
                 startActivity(
-                   QazaInputRouter().createIntent(this, QazaHandInputState.Start)
+                    QazaAutoCalculationRouter().createIntent(this)
                 )
             }
         }

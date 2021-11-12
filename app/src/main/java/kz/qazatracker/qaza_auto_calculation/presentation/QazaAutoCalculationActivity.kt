@@ -69,7 +69,7 @@ class QazaAutoCalculationActivity : BaseActivity() {
         bornCountTextView = findViewById(R.id.born_count_text_view)
         bornCountInputContainer = findViewById(R.id.born_count_input_container)
         saparCountInputContainer = findViewById(R.id.sapar_input_container)
-        calculateButton = findViewById(R.id.calculate_button)
+        calculateButton = findViewById(R.id.hand_input_button)
         femailContainer = findViewById(R.id.femail_container)
         initActionBar()
         initGenderSwitcherView()
