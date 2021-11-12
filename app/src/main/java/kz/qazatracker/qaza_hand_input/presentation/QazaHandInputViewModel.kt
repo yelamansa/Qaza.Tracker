@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import kz.qazatracker.R
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.qaza_hand_input.data.QazaData
-import kotlin.math.abs
 
 class QazaHandInputViewModel(
     private val qazaHandInputState: QazaHandInputState,
@@ -21,14 +20,7 @@ class QazaHandInputViewModel(
     fun onCreate() {
         when (qazaHandInputState) {
             QazaHandInputState.QazaEdit -> {
-                qazaViewDataListLiveData.value = qazaDataSource.getQazaList().map {
-                    it.also {
-                        it.minSolatCount = -it.solatCount
-                        it.minSaparSolatCount = -it.saparSolatCount
-                        it.solatCount = 0
-                        it.saparSolatCount = 0
-                    }
-                }
+                qazaViewDataListLiveData.value = qazaDataSource.getQazaList()
                 titleLiveData.value = R.string.change_qaza
                 infoLiveData.value = R.string.info_change_qaza
             }
@@ -55,53 +47,52 @@ class QazaHandInputViewModel(
         qazaInputNavigationLiveData
 
     fun saveQaza(inputQazaDataList: List<QazaData>) {
-        updateTotalPreyedCount(inputQazaDataList)
         val actualQazaList: List<QazaData> = qazaDataSource.getQazaList()
-        actualQazaList.forEachIndexed { i, element ->
-            when (qazaHandInputState) {
-                QazaHandInputState.QazaEdit -> {
-                    element.solatCount += inputQazaDataList[i].solatCount
-                    element.saparSolatCount += inputQazaDataList[i].saparSolatCount
-                }
-                else -> {
-                    element.solatCount = inputQazaDataList[i].solatCount
-                    element.saparSolatCount = inputQazaDataList[i].saparSolatCount
-                }
-            }
+        actualQazaList.forEachIndexed { i, actualQazaData ->
+            val updatedQazaData = inputQazaDataList[i]
+            updateTotalPreyedCount(actualQazaData, updatedQazaData)
+            actualQazaData.solatCount = updatedQazaData.solatCount
+            actualQazaData.saparSolatCount = updatedQazaData.saparSolatCount
         }
         qazaDataSource.saveQazaList(actualQazaList)
         qazaInputNavigationLiveData.value = QazaHandInputNavigation.MainScreen
     }
 
-    private fun updateTotalPreyedCount(inputQazaDataList: List<QazaData>) {
+    private fun updateTotalPreyedCount(
+        actualQazaData: QazaData,
+        updatedQazaData: QazaData
+    ) {
+        if (qazaHandInputState !is QazaHandInputState.QazaEdit) return
+
         var totalPreyedCount: Int = qazaDataSource.getTotalPrayedCount()
-        inputQazaDataList.forEach { qazaData ->
-            if (qazaData.solatCount < 0) {
-                totalPreyedCount += abs(qazaData.solatCount)
-                updateSolatTotalPrayedCount(qazaData)
-            }
-            if (qazaData.saparSolatCount < 0) {
-                updateSaparSolatTotalPrayedCount(qazaData)
-                totalPreyedCount += abs(qazaData.saparSolatCount)
-            }
+        val solatDiff = actualQazaData.solatCount - updatedQazaData.solatCount
+        val saparSolatDiff = actualQazaData.saparSolatCount - updatedQazaData.saparSolatCount
+        if (solatDiff > 0) {
+            totalPreyedCount += solatDiff
+            updateSolatTotalPrayedCount(updatedQazaData, solatDiff)
+        }
+        if (saparSolatDiff > 0) {
+            totalPreyedCount += saparSolatDiff
+            updateSaparSolatTotalPrayedCount(updatedQazaData, saparSolatDiff)
         }
         qazaDataSource.saveTotalPreyedCount(totalPreyedCount)
     }
 
-    private fun updateSolatTotalPrayedCount(qazaData: QazaData) {
+    private fun updateSolatTotalPrayedCount(qazaData: QazaData, solatCount: Int) {
         val actualPrayedCount = qazaDataSource.getTotalPrayedCount(qazaData.solatKey)
         qazaDataSource.saveTotalPrayedCount(
-            qazaData.solatKey, actualPrayedCount + abs(qazaData.solatCount)
+            solatKey = qazaData.solatKey,
+            count = actualPrayedCount + solatCount
         )
     }
 
-    private fun updateSaparSolatTotalPrayedCount(qazaData: QazaData) {
+    private fun updateSaparSolatTotalPrayedCount(qazaData: QazaData, saparSolatCount: Int) {
         val actualPrayedCount: Int = qazaDataSource.getTotalPrayedCount(
             getSaparSolatName(qazaData.solatKey)
         )
         qazaDataSource.saveTotalPrayedCount(
             solatKey = getSaparSolatName(qazaData.solatKey),
-            count = actualPrayedCount + abs(qazaData.saparSolatCount)
+            count = actualPrayedCount + saparSolatCount
         )
     }
 
