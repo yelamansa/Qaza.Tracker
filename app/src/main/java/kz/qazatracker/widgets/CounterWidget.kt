@@ -123,25 +123,20 @@ class CounterWidget(
         textWatcher = object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
-                try {
-                    val value: String = s?.toString() ?: return
+                val value: String = s?.toString() ?: return
 
-                    counter = value.toInt()
-                    if (counter > maxCounterValue) {
-                        counter = maxCounterValue
-                        counterEditText.setText("$counter")
-                        moveCursorToEnd()
-                    }
-                    if (counter < minCounterValue) {
-                        counter = minCounterValue
-                        counterEditText.setText("$counter")
-                        moveCursorToEnd()
-                    }
-                    counterWidgetCallback?.onCounterChanged(counter)
-                } catch (nfe: NumberFormatException) {
-                    counter = 0
+                counter = if (value.isEmpty()) 0 else value.toInt()
+                if (counter > maxCounterValue) {
+                    counter = maxCounterValue
                     counterEditText.setText("$counter")
+                    moveCursorToEnd()
                 }
+                if (counter < minCounterValue) {
+                    counter = minCounterValue
+                    counterEditText.setText("$counter")
+                    moveCursorToEnd()
+                }
+                counterWidgetCallback?.onCounterChanged(counter)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
