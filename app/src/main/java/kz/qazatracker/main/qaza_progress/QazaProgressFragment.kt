@@ -14,6 +14,10 @@ import kz.qazatracker.R
 import kz.qazatracker.widgets.CounterWidgetCallback
 import kz.qazatracker.widgets.CounterWidget
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 class QazaProgressFragment : Fragment() {
 
@@ -73,7 +77,7 @@ class QazaProgressFragment : Fragment() {
         qazaProgressViewModel.getQazaProgressLiveData().observe(
             viewLifecycleOwner,
             Observer { qazaProgressData ->
-                completedQazaTextView.text = String.format(getString(R.string.completed_qaza_fmt), "${qazaProgressData.completedPercent.toInt()}")
+                completedQazaTextView.text = String.format(getString(R.string.completed_qaza_fmt), "${roundOffDecimal(qazaProgressData.completedPercent)}")
                 totalPrayedQazaTextView.text = String.format(getString(R.string.total_prayed_qaza), qazaProgressData.totalPreyedCount)
                 totalRemainTextView.text = String.format(getString(R.string.total_remain_qaza), qazaProgressData.totalRemainCount)
                 mainProgressBar.progress = 100 - qazaProgressData.completedPercent.toInt()
@@ -85,6 +89,13 @@ class QazaProgressFragment : Fragment() {
                 calculatedTimeTextView.text = String.format(getString(R.string.progress_assumption_info), calculatedRemainTime)
             }
         )
+    }
+
+    private fun roundOffDecimal(number: Float): Float {
+        val df = DecimalFormat("#.##", DecimalFormatSymbols(Locale.ENGLISH))
+        df.roundingMode = RoundingMode.CEILING
+
+        return df.format(number).toFloat()
     }
 
     private fun calculateSolatTime(solatCountPerDay: Int) {

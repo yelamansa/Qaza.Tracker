@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         app:counter="0"
         app:min_counter_value="0"
+        app:max_counter_value="100000"
         />
 
 </LinearLayout>

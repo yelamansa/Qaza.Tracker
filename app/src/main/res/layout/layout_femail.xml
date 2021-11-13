@@ -32,7 +32,7 @@
         app:counter="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/haiz_days_text_view"
-        app:max_counter_value="10"
+        app:max_counter_value="15"
         app:min_counter_value="3"
         />
 
