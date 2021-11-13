@@ -36,6 +36,7 @@
         app:layout_constraintStart_toEndOf="@id/layout_qaza_input_title"
         app:layout_constraintTop_toTopOf="parent"
         app:min_counter_value="0"
+        app:max_counter_value="1000000"
         />
 
     <TextView
@@ -55,16 +56,15 @@
 
     <kz.qazatracker.widgets.CounterWidget
         android:id="@+id/layout_qaza_input_sapar_counter"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         app:counter="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_qaza_input_sapar"
+        app:layout_constraintEnd_toEndOf="@id/layout_qaza_input_counter"
+        app:layout_constraintStart_toStartOf="@id/layout_qaza_input_counter"
         app:layout_constraintTop_toBottomOf="@id/layout_qaza_input_counter"
         app:min_counter_value="0"
+        app:max_counter_value="1000000"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

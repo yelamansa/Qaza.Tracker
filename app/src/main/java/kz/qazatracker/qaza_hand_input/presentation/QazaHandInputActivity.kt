@@ -45,7 +45,11 @@ class QazaHandInputActivity : BaseActivity() {
         infoTextView = findViewById(R.id.qaza_input_info_text_view)
         qazaInputRecyclerView = findViewById(R.id.qaza_input_recycler_view)
         qazaInputRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = object: LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) {
+                override fun canScrollHorizontally(): Boolean = false
+
+                override fun canScrollVertically(): Boolean = false
+            }
             adapter = qazaHandInputAdapter
         }
 

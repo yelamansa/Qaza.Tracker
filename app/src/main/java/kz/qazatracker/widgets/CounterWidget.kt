@@ -12,7 +12,7 @@ import kz.qazatracker.R
 
 private const val DEFAULT_COUNTER_VALUE = -1
 private const val DEFAULT_MIN_COUNTER_VALUE = 0
-private const val DEFAULT_MAX_COUNTER_VALUE = 10000000
+private const val DEFAULT_MAX_COUNTER_VALUE = Int.MAX_VALUE
 
 class CounterWidget(
     context: Context,
@@ -27,7 +27,7 @@ class CounterWidget(
 
     private var counter: Int = 0
     private var minCounterValue: Int = 0
-    private var maxCounterValue: Int = 12
+    private var maxCounterValue: Int = 1000000
 
     init {
         View.inflate(context, R.layout.number_input_view, this)
@@ -51,7 +51,7 @@ class CounterWidget(
             DEFAULT_MAX_COUNTER_VALUE
         )
         if (counter != DEFAULT_COUNTER_VALUE) {
-            counterEditText.setText("$counter")
+            setCounter(counter)
         }
         attributes.recycle()
 
@@ -125,16 +125,20 @@ class CounterWidget(
             override fun afterTextChanged(s: Editable?) {
                 val value: String = s?.toString() ?: return
 
-                counter = if (value.isEmpty()) 0 else value.toInt()
-                if (counter > maxCounterValue) {
-                    counter = maxCounterValue
-                    counterEditText.setText("$counter")
-                    moveCursorToEnd()
-                }
-                if (counter < minCounterValue) {
-                    counter = minCounterValue
-                    counterEditText.setText("$counter")
-                    moveCursorToEnd()
+                val tempCounter = if (value.isEmpty()) 0 else value.toLong()
+                when {
+                    tempCounter > maxCounterValue -> {
+                        setCounter(maxCounterValue)
+                        moveCursorToEnd()
+                    }
+                    tempCounter < minCounterValue -> {
+                        setCounter(minCounterValue)
+                        moveCursorToEnd()
+                    }
+                    else -> {
+                        setCounter(tempCounter.toInt())
+                        moveCursorToEnd()
+                    }
                 }
                 counterWidgetCallback?.onCounterChanged(counter)
             }
