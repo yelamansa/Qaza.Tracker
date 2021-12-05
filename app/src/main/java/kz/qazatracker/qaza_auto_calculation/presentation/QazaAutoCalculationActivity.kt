@@ -201,5 +201,5 @@ class QazaAutoCalculationActivity : BaseActivity() {
         })
     }
 
-    private fun getDefaultBirthDate(): DateTime = DateTime().minus(Period.years(DEFAULT_BALIGAT_OLD))
+    private fun getDefaultBirthDate(): DateTime = DateTime().minus(Period.years(MIN_BALIGAT_OLD))
 }

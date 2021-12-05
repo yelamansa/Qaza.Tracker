@@ -16,7 +16,7 @@ import org.joda.time.chrono.IslamicChronology
 import kotlin.math.roundToInt
 
 const val DEFAULT_BALIGAT_OLD = 15
-private const val MIN_BALIGAT_OLD = 6
+const val MIN_BALIGAT_OLD = 6
 private const val MAX_BALIGAT_OLD = 17
 private const val MIN_QAZA_DAYS = 1
 
