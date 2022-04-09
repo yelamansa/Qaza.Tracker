@@ -25,6 +25,7 @@ import kz.qazatracker.widgets.DatePickerTextView
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 private const val MALE_TAB_POSITION = 1
 
@@ -139,10 +140,13 @@ class QazaAutoCalculationActivity : BaseActivity() {
         } else {
             0
         }
-        val baligatOld = if (baligatOldEditText.text.toString().isEmpty()) {
+        val baligatOldString = baligatOldEditText.text.toString().trim()
+        val baligatOld = if (baligatOldString.isEmpty()) {
             0
-        } else {
-            baligatOldEditText.text.toString().toInt()
+        } else try {
+            baligatOldString.toInt()
+        } catch (e: Exception) {
+            0
         }
         val calculationData = AutoCalculationData(
             birthDate = birthDate,
