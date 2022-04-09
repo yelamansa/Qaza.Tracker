@@ -1,7 +1,6 @@
 package kz.qazatracker.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -11,10 +10,13 @@ import kz.qazatracker.main.menu.MenuFragment
 import kz.qazatracker.main.qaza_progress.QazaProgressFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.utils.BaseActivity
+import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
 
+    private val remoteConfig: RemoteConfig by inject()
     private lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -23,6 +25,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         initToolbar()
         initViews()
+        remoteConfig.fetchAndActivate(this)
     }
 
     private fun initToolbar() {

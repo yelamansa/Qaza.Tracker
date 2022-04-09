@@ -8,6 +8,8 @@ import kz.qazatracker.main.menu.MenuViewModel
 import kz.qazatracker.main.qaza_progress.QazaProgressViewModel
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
+import kz.qazatracker.remoteconfig.FirebaseRemoteConfig
+import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.utils.LocaleDataSource
 import kz.qazatracker.utils.LocaleHelper
 import org.koin.android.ext.koin.androidApplication
@@ -66,5 +68,8 @@ val applicationModule: Module = module {
         LocaleDataSource(
             sharedPreferences = get(named(QAZA_PREFERENCES))
         )
+    }
+    factory<RemoteConfig> {
+        FirebaseRemoteConfig()
     }
 }

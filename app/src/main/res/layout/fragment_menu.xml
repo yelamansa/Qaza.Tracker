@@ -38,11 +38,16 @@
         />
 
     <TextView
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_telegram"
+        android:drawablePadding="8dp"
         android:id="@+id/contact_text_view"
         style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/contact_telegram"
+        android:gravity="center_vertical"
+        android:drawableEnd="@drawable/ic_arrow_right"
         />
 
 </LinearLayout>

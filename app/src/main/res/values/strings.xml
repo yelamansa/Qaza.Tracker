@@ -53,7 +53,7 @@
     <string name="reset_message">"Вы уверен что хотите сбросить все данные ваших каза намазов? "</string>
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
-    <string name="contact_telegram">Насчет предложении: t.me/iamsyrym</string>
+    <string name="contact_telegram">Насчет предложении и ошибок</string>
     <string name="solat_sapar">Сафар</string>
     <string name="activity_lang_select">Выберите язык приложения</string>
 </resources>

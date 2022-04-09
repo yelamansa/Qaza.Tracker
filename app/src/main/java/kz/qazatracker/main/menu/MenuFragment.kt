@@ -1,6 +1,7 @@
 package kz.qazatracker.main.menu
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.util.Linkify
 import android.view.View
@@ -9,12 +10,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import kz.qazatracker.R
+import kz.qazatracker.remoteconfig.CONTACT_LINK_REMOTE_CONFIG
+import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.startscreen.StartScreenRouter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private val menuViewModel: MenuViewModel by viewModel()
+    private val remoteConfig: RemoteConfig by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +34,12 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             //todo
         }
         val telegramTextView = view.findViewById<TextView>(R.id.contact_text_view)
-        Linkify.addLinks(telegramTextView, Linkify.ALL)
+        telegramTextView.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW, Uri.parse(remoteConfig.getString(CONTACT_LINK_REMOTE_CONFIG)))
+            )
+        }
     }
 
     private fun observeViewModel() {

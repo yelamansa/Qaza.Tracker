@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_arrow_right.xml" value="0.203" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_left_arrow.xml" value="0.219" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_menu.xml" value="0.219" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_minus.xml" value="0.219" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_plus.xml" value="0.219" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/drawable/ic_telegram.xml" value="0.16" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/layout/fragment_menu.xml" value="0.2864583333333333" />
+        <entry key="..\:/Users/aytymbet/StudioProjects/qaza-tracker/app/src/main/res/xml/remote_config_defaults.xml" value="0.2864583333333333" />
+      </map>
+    </option>
+  </component>
   <component name="GradlePerProjectExperimentalSettings">
     <option name="USE_SINGLE_VARIANT_SYNC" value="true" />
   </component>

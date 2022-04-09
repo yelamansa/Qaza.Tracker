@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "979933550887",
+    "project_id": "qaza-tracker-e1c21",
+    "storage_bucket": "qaza-tracker-e1c21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979933550887:android:11d116091845daa7463102",
+        "android_client_info": {
+          "package_name": "kz.qazatracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979933550887-q7c6jvijc819qk7d7o5l7397kakpa4s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCOlJZyR02xOaBdAsgL_QPNClxaf1ciNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979933550887-q7c6jvijc819qk7d7o5l7397kakpa4s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
