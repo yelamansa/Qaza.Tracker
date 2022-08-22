@@ -29,25 +29,38 @@
         />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/about_qaza_solat_text_view"
         style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_qaza_solat"
+        android:visibility="gone"
         />
 
     <TextView
-        android:clickable="true"
-        android:drawableStart="@drawable/ic_telegram"
-        android:drawablePadding="8dp"
         android:id="@+id/contact_text_view"
         style="@style/menu_item_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/contact_telegram"
-        android:gravity="center_vertical"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_whatsapp"
         android:drawableEnd="@drawable/ic_arrow_right"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/contact_telegram"
+        />
+
+    <TextView
+        android:id="@+id/social_network_text_view"
+        style="@style/menu_item_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_instagram"
+        android:drawableEnd="@drawable/ic_arrow_right"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/social_network"
         />
 
 </LinearLayout>

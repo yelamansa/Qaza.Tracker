@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import kz.qazatracker.R
 import kz.qazatracker.remoteconfig.CONTACT_LINK_REMOTE_CONFIG
 import kz.qazatracker.remoteconfig.RemoteConfig
+import kz.qazatracker.remoteconfig.SOCIAL_NETWORK_REMOTE_CONFIG
 import kz.qazatracker.startscreen.StartScreenRouter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,6 +39,14 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW, Uri.parse(remoteConfig.getString(CONTACT_LINK_REMOTE_CONFIG)))
+            )
+        }
+        view.findViewById<TextView>(R.id.social_network_text_view).setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(remoteConfig.getString(SOCIAL_NETWORK_REMOTE_CONFIG))
+                )
             )
         }
     }

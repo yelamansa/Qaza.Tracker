@@ -9,6 +9,7 @@ import kz.qazatracker.R
 import java.util.concurrent.TimeUnit
 
 const val CONTACT_LINK_REMOTE_CONFIG = "contact_link"
+const val SOCIAL_NETWORK_REMOTE_CONFIG = "social_network"
 
 class FirebaseRemoteConfig : RemoteConfig {
 
