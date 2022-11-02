@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="100dp"
+    android:layout_height="139dp"
     >
 
     <TextView
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="2"
+            android:text="22222"
             android:textAlignment="center"
             android:textSize="16sp"
             android:visibility="gone"
@@ -67,5 +67,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="+"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_primary_whiter"
+        android:id="@+id/input_performed_qaza_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/circle_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
