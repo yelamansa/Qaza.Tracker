@@ -1,5 +1,6 @@
 package kz.qazatracker.main.qaza_progress
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class QazaProgressViewHolder(
         itemView.findViewById(R.id.sapar_qaza_progress_text_view)
     private val solatName: TextView = itemView.findViewById(R.id.solat_name_text_view)
     private val progressBar: ProgressBar = itemView.findViewById(R.id.qaza_progress_bar)
+    private val inputPerformedQazaButton: TextView = itemView.findViewById(R.id.input_performed_qaza_button)
 
     fun onBind(
         qazaProgressData: QazaData
@@ -57,5 +59,8 @@ class QazaProgressViewHolder(
         solatName.text = itemView.resources.getString(qazaProgressData.solatNameResId)
         progressBar.progress = 100 - qazaProgressData.getTotalCompletedQazaPercent().toInt()
         if (qazaProgressData.hasSaparSolat) saparQazaProgressTextView.show()
+        inputPerformedQazaButton.setOnClickListener {
+            Log.d("yela", "Position: $adapterPosition")
+        }
     }
 }
