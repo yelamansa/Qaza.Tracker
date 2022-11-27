@@ -5,13 +5,13 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "kz.qazatracker"
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 4
         versionName "1.4"
         multiDexEnabled true
@@ -32,15 +32,22 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation 'org.koin:koin-android:2.1.5'
     implementation 'org.koin:koin-androidx-scope:2.1.5'
     implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
@@ -55,4 +62,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-config-ktx:21.0.2'
     implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
+
+    //Compose
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation 'androidx.activity:activity-compose:1.4.0'
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 }

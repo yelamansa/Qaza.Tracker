@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.compose.material.Text
+import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,13 +37,17 @@ class QazaProgressFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_qaza_progress, container, false)
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            Text(text = "Hello world.")
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews(view)
-        qazaProgressViewModel.onCreate()
-        observeViewModel()
+//        initViews(view)
+//        qazaProgressViewModel.onCreate()
+//        observeViewModel()
     }
 
     private fun initViews(view: View) {
