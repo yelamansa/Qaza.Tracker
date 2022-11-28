@@ -1,7 +1,6 @@
 package kz.qazatracker.main
 
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -17,19 +16,13 @@ import org.koin.android.ext.android.inject
 class MainActivity : BaseActivity() {
 
     private val remoteConfig: RemoteConfig by inject()
-    private lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initToolbar()
         initViews()
         remoteConfig.fetchAndActivate(this)
-    }
-
-    private fun initToolbar() {
-        toolbar = findViewById(R.id.toolbar)
     }
 
     private fun initViews() {
