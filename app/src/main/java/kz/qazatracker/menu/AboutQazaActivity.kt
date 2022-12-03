@@ -1,4 +1,4 @@
-package kz.qazatracker.main.menu
+package kz.qazatracker.menu
 
 import android.os.Bundle
 import kz.qazatracker.R

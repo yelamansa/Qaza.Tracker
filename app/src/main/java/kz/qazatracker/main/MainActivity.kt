@@ -5,8 +5,8 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
-import kz.qazatracker.main.menu.MenuFragment
-import kz.qazatracker.main.qaza_progress.QazaProgressFragment
+import kz.qazatracker.menu.MenuFragment
+import kz.qazatracker.qazainfo.presentatation.QazaProgressFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.remoteconfig.RemoteConfig

@@ -1,0 +1,173 @@
+package kz.qazatracker.qazainfo.presentatation
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.fragment.app.Fragment
+import kz.qazatracker.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class QazaProgressFragment : Fragment() {
+
+    private val qazaInfoViewModel: QazaInfoViewModel by viewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            QazaInfoScreen()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        qazaInfoViewModel.onCreate()
+    }
+
+    @Preview
+    @Composable
+    private fun QazaInfoScreen() {
+        val qazaList = qazaInfoViewModel.getQazaInfoListLiveData().observeAsState(emptyList())
+        Box(Modifier.background(Color.White)) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(qazaList.value) { qazaInfo ->
+                    QazaCard(qazaInfo)
+                }
+            }
+        }
+    }
+
+
+    @Composable
+    private fun QazaCard(
+        qazaViewData: QazaViewData
+    ) {
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            backgroundColor = Color(android.graphics.Color.parseColor("#F6F4F4"))
+        ) {
+            Column(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+            ) {
+                QazaTitle(qazaViewData = qazaViewData)
+                Spacer(modifier = Modifier.height(8.dp))
+                ChangeQazaButton(
+                    solatCount = qazaViewData.count,
+                    saparSolatCount = qazaViewData.saparCount
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun QazaTitle(
+        qazaViewData: QazaViewData
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.width(8.dp))
+            Image(
+                painter = painterResource(id = qazaViewData.icon),
+                contentDescription = null,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(colorResource(id = R.color.qaza_icon_bg_color))
+                    .padding(2.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = qazaViewData.name,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.alpha(0.65f)
+            )
+        }
+    }
+
+    @Composable
+    private fun ChangeQazaButton(
+        solatCount: Int,
+        saparSolatCount: Int
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(color = colorResource(id = R.color.qaza_change_button_bg))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(
+                        color = Color.Black
+                    ),
+                    onClick = {
+
+                    }
+                )
+                .padding(vertical = 16.dp, horizontal = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = stringResource(id = R.string.qaza_remainder),
+                    fontSize = 12.sp,
+                    color = Color.Black,
+                    modifier = Modifier.alpha(0.35f),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
+                Text(
+                    text = "${solatCount + saparSolatCount}",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    modifier = Modifier.alpha(0.75f),
+                )
+            }
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_right),
+                contentDescription = null
+            )
+        }
+    }
+}

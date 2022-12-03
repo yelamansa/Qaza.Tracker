@@ -58,6 +58,6 @@
     <string name="solat_sapar">Сафар</string>
     <string name="activity_lang_select">Выберите язык приложения</string>
     <string name="action_change">Изменить</string>
-    <string name="sapar_qaza_remainder">Оставшиеся сафар намазы:</string>
-    <string name="qaza_remainder">Оставшиеся намазы:</string>
+    <string name="sapar_qaza_remainder">Оставшиеся сафар каза:</string>
+    <string name="qaza_remainder">Оставшиеся каза:</string>
 </resources>

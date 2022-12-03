@@ -11,4 +11,7 @@
     <color name="bg_date_text_view">#FFF6F7F9</color>
     <color name="sapar_container_border_stroke_color">#E0E0E0</color>
     <color name="inactive_tab_layout_bg">#F6F7F9</color>
+
+    <color name="qaza_icon_bg_color">#ECECEC</color>>
+    <color name="qaza_change_button_bg">#D9E5D3</color>
 </resources>
