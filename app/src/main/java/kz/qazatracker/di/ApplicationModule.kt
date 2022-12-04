@@ -1,6 +1,8 @@
 package kz.qazatracker.di
 
 import android.app.Activity
+import kz.qazatracker.common.data.QazaUpdateDataSource
+import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
 import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
@@ -40,7 +42,8 @@ val applicationModule: Module = module {
 
     viewModel {
         QazaInfoViewModel(
-            qazaInfoRepository = get()
+            qazaInfoRepository = get(),
+            qazaUpdateRepository = get()
         )
     }
 
@@ -85,6 +88,16 @@ val applicationModule: Module = module {
         QazaInfoRepository(
             qazaDataSource = get(),
             qazaViewDataMapper = get()
+        )
+    }
+    factory {
+        QazaUpdateDataSource(
+            sharedPreferences = get(named(QAZA_PREFERENCES))
+        )
+    }
+    factory {
+        QazaUpdateRepository(
+            qazaUpdateDataSource = get()
         )
     }
 }

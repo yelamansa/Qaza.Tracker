@@ -3,14 +3,20 @@ package kz.qazatracker.qazainfo.presentatation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qazainfo.data.QazaInfoRepository
 
 class QazaInfoViewModel(
-    private val qazaInfoRepository: QazaInfoRepository
+    private val qazaInfoRepository: QazaInfoRepository,
+    private val qazaUpdateRepository: QazaUpdateRepository
 ) : ViewModel() {
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaViewData>>()
     private val qazaChangeLiveData = MutableLiveData<QazaViewData>()
+
+    fun getQazaInfoListLiveData(): LiveData<List<QazaViewData>> = qazaInfoListLiveData
+
+    fun getQazaChangeLiveData(): LiveData<QazaViewData> = qazaChangeLiveData
 
     fun onCreate() {
         val qazaInfo = qazaInfoRepository.getQazaInfoList()
@@ -21,7 +27,17 @@ class QazaInfoViewModel(
         qazaChangeLiveData.value = qazaViewData
     }
 
-    fun getQazaInfoListLiveData(): LiveData<List<QazaViewData>> = qazaInfoListLiveData
+    fun onQazaValueIncrement(
+        solatKey: String,
+        isSapar: Boolean
+    ) {
+        qazaUpdateRepository.increaseQazaValue(solatKey, isSapar)
+    }
 
-    fun getQazaChangeLiveData(): LiveData<QazaViewData> = qazaChangeLiveData
+    fun onQazaValueDecrement(
+        solatKey: String,
+        isSapar: Boolean
+    ) {
+        qazaUpdateRepository.decreaseQazaValue(solatKey, isSapar)
+    }
 }

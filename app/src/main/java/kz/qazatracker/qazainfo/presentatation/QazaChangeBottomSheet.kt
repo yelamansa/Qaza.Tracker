@@ -39,18 +39,23 @@ fun QazaChangeDialog() {
     ) {
         QazaChangeBottomSheet(
             qazaViewData = QazaViewData(
+                key = "fajr",
                 name = "Таң",
                 count = 4445,
                 saparCount = 54,
                 icon = R.drawable.ic_fajr
-            )
+            ),
+            {},
+            {}
         )
     }
 }
 
 @Composable
 fun QazaChangeBottomSheet(
-    qazaViewData: QazaViewData
+    qazaViewData: QazaViewData,
+    onQazaValueIncrement: (isSapar: Boolean) -> Unit,
+    onQazaValueDecrement: (isSapar: Boolean) -> Unit,
 ) {
     val changeQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(true) }
     val changeSaparQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(false) }
@@ -70,16 +75,16 @@ fun QazaChangeBottomSheet(
             name = stringResource(id = R.string.qazas),
             count = qazaViewData.count,
             isExpended = changeQazaIsExpended,
-            onIncrementClick = {},
-            onDecrementClick = {}
+            onIncrementClick = { onQazaValueIncrement(false) },
+            onDecrementClick = { onQazaValueDecrement(false) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
             name = stringResource(id = R.string.sapar_qazas),
             count = qazaViewData.count,
             isExpended = changeSaparQazaIsExpended,
-            onIncrementClick = {},
-            onDecrementClick = {}
+            onIncrementClick = { onQazaValueIncrement(true) },
+            onDecrementClick = { onQazaValueDecrement(true) }
         )
     }
 }
@@ -182,14 +187,14 @@ fun QazaButtons(
             text = stringResource(id = R.string.increate_one_qaza),
             weight = 1f,
             color = colorResource(id = R.color.qaza_decrees_button_bg),
-            onClick = onDecrementClick
+            onClick = onIncrementClick
         )
         Spacer(modifier = Modifier.width(8.dp))
         ChangeQazaButton(
             text = stringResource(id = R.string.decrease_one_qaza),
             weight = 2f,
             color = colorResource(id = R.color.qaza_change_button_bg),
-            onClick = onIncrementClick
+            onClick = onDecrementClick
         )
     }
 }

@@ -74,9 +74,18 @@ class QazaProgressFragment : Fragment() {
         ModalBottomSheetLayout(
             sheetState = sheetState,
             sheetContent = {
-                val qazaViewData: QazaViewData? = qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
+                val qazaViewData: QazaViewData? =
+                    qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
                 if (qazaViewData != null) {
-                    QazaChangeBottomSheet(qazaViewData)
+                    QazaChangeBottomSheet(
+                        qazaViewData = qazaViewData,
+                        onQazaValueIncrement = { isSapar ->
+                            qazaInfoViewModel.onQazaValueIncrement(qazaViewData.key, isSapar)
+                        },
+                        onQazaValueDecrement = { isSapar ->
+                            qazaInfoViewModel.onQazaValueDecrement(qazaViewData.key, isSapar)
+                        }
+                    )
                 } else {
                     Text(text = stringResource(id = R.string.error_loading_qaza))
                 }

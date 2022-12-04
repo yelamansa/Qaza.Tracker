@@ -15,6 +15,7 @@ class QazaViewDataMapper(
     fun map(
         qazaData: QazaData
     ): QazaViewData = QazaViewData(
+        key = qazaData.solatKey,
         name = getLocaledName(qazaData.solatNameResId),
         count = qazaData.solatCount,
         saparCount = qazaData.saparSolatCount,
