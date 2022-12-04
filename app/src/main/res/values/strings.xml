@@ -60,4 +60,9 @@
     <string name="action_change">Изменить</string>
     <string name="sapar_qaza_remainder">Оставшиеся сафар каза:</string>
     <string name="qaza_remainder">Оставшиеся каза:</string>
+    <string name="all_remaining_qaza">Оставшиеся все каза</string>
+    <string name="qazas">Каза</string>
+    <string name="sapar_qazas">Сапар каза</string>
+    <string name="decrease_one_qaza">-1 каза</string>
+    <string name="increate_one_qaza">+1 каза</string>
 </resources>

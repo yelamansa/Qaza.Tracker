@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,12 +15,12 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -35,9 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.launch
 import kz.qazatracker.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@OptIn(ExperimentalMaterialApi::class)
 class QazaProgressFragment : Fragment() {
 
     private val qazaInfoViewModel: QazaInfoViewModel by viewModel()
@@ -60,16 +63,36 @@ class QazaProgressFragment : Fragment() {
     @Preview
     @Composable
     private fun QazaInfoScreen() {
+        val sheetState = rememberModalBottomSheetState(
+            initialValue = ModalBottomSheetValue.Hidden,
+            confirmStateChange = { it != ModalBottomSheetValue.HalfExpanded }
+        )
+        val coroutineScope = rememberCoroutineScope()
+
+        BackHandler(sheetState.isVisible) {
+            coroutineScope.launch { sheetState.hide() }
+        }
         val qazaList = qazaInfoViewModel.getQazaInfoListLiveData().observeAsState(emptyList())
-        Box(Modifier.background(Color.White)) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(qazaList.value) { qazaInfo ->
-                    QazaCard(qazaInfo)
+        ModalBottomSheetLayout(
+            sheetState = sheetState,
+            sheetContent = { QazaChangeBottomSheet(qazaViewData = qazaList.value.first()) },
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(Modifier.background(Color.White)) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(qazaList.value) { qazaInfo ->
+                        QazaCard(qazaInfo, onItemClick = {
+                            coroutineScope.launch {
+                                if (sheetState.isVisible) sheetState.hide()
+                                else sheetState.show()
+                            }
+                        })
+                    }
                 }
             }
         }
@@ -78,7 +101,8 @@ class QazaProgressFragment : Fragment() {
 
     @Composable
     private fun QazaCard(
-        qazaViewData: QazaViewData
+        qazaViewData: QazaViewData,
+        onItemClick: () -> Unit
     ) {
         Card(
             shape = RoundedCornerShape(16.dp),
@@ -91,7 +115,8 @@ class QazaProgressFragment : Fragment() {
                 Spacer(modifier = Modifier.height(8.dp))
                 ChangeQazaButton(
                     solatCount = qazaViewData.count,
-                    saparSolatCount = qazaViewData.saparCount
+                    saparSolatCount = qazaViewData.saparCount,
+                    onItemClick = { onItemClick() }
                 )
             }
         }
@@ -127,7 +152,8 @@ class QazaProgressFragment : Fragment() {
     @Composable
     private fun ChangeQazaButton(
         solatCount: Int,
-        saparSolatCount: Int
+        saparSolatCount: Int,
+        onItemClick: () -> Unit
     ) {
         Row(
             modifier = Modifier
@@ -136,12 +162,8 @@ class QazaProgressFragment : Fragment() {
                 .background(color = colorResource(id = R.color.qaza_change_button_bg))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(
-                        color = Color.Black
-                    ),
-                    onClick = {
-
-                    }
+                    indication = rememberRipple(color = Color.Black),
+                    onClick = onItemClick
                 )
                 .padding(vertical = 16.dp, horizontal = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,

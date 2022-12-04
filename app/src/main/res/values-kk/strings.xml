@@ -61,5 +61,9 @@
     <string name="action_change">Өзгерту</string>
     <string name="sapar_qaza_remainder">Қалған сапар қазалар:</string>
     <string name="qaza_remainder">Қалған қазалар:</string>
-
+    <string name="all_remaining_qaza">Барлық қалған қазалар</string>
+    <string name="qazas">Қазалар</string>
+    <string name="sapar_qazas">Сапар қазалар</string>
+    <string name="decrease_one_qaza">-1 қаза</string>
+    <string name="increate_one_qaza">+1 қаза</string>
 </resources>
