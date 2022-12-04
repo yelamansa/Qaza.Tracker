@@ -1,5 +1,6 @@
 package kz.qazatracker.qazainfo.presentatation
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -129,7 +130,7 @@ fun QazaChangeContainerTitle(
                     .padding(top = 5.dp, start = 8.dp)
                     .size(16.dp)
                     .alpha(0.45f)
-                    .rotate(if (isExpended.value) 180f else 0f)
+                    .rotate(animateFloatAsState(if (isExpended.value) 180f else 0f).value)
             )
         }
         Column(
