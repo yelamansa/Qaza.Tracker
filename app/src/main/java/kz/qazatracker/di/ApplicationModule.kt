@@ -76,7 +76,10 @@ val applicationModule: Module = module {
         FirebaseRemoteConfig()
     }
     factory {
-        QazaViewDataMapper(androidContext())
+        QazaViewDataMapper(
+            context = androidContext(),
+            localeHelper = get()
+        )
     }
     factory {
         QazaInfoRepository(
