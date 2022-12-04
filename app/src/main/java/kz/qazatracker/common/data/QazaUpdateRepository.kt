@@ -1,6 +1,6 @@
 package kz.qazatracker.common.data
 
-const val SOLAT_KEY_FORMAT = "%s_solat"
+const val SOLAT_KEY_FORMAT = "%s_sapar"
 
 class QazaUpdateRepository(
     private val qazaUpdateDataSource: QazaUpdateDataSource

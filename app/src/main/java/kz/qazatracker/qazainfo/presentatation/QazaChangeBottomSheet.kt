@@ -81,7 +81,7 @@ fun QazaChangeBottomSheet(
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
             name = stringResource(id = R.string.sapar_qazas),
-            count = qazaViewData.count,
+            count = qazaViewData.saparCount,
             isExpended = changeSaparQazaIsExpended,
             onIncrementClick = { onQazaValueIncrement(true) },
             onDecrementClick = { onQazaValueDecrement(true) }

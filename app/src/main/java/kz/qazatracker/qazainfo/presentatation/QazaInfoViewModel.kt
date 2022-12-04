@@ -19,8 +19,7 @@ class QazaInfoViewModel(
     fun getQazaChangeLiveData(): LiveData<QazaViewData> = qazaChangeLiveData
 
     fun onCreate() {
-        val qazaInfo = qazaInfoRepository.getQazaInfoList()
-        qazaInfoListLiveData.value = qazaInfo
+        updateQazaInfo()
     }
 
     fun onQazaChangeClick(qazaViewData: QazaViewData) {
@@ -32,6 +31,7 @@ class QazaInfoViewModel(
         isSapar: Boolean
     ) {
         qazaUpdateRepository.increaseQazaValue(solatKey, isSapar)
+        updateQazaInfo(solatKey)
     }
 
     fun onQazaValueDecrement(
@@ -39,5 +39,18 @@ class QazaInfoViewModel(
         isSapar: Boolean
     ) {
         qazaUpdateRepository.decreaseQazaValue(solatKey, isSapar)
+        updateQazaInfo(solatKey)
+    }
+
+    private fun updateQazaInfo(solatKey: String? = null)  {
+        val qazaInfoList = qazaInfoRepository.getQazaInfoList()
+        qazaInfoListLiveData.value = qazaInfoList
+        if (solatKey == null) return
+
+        qazaInfoList.forEach {
+            if (it.key == solatKey) {
+                qazaChangeLiveData.value = it
+            }
+        }
     }
 }
