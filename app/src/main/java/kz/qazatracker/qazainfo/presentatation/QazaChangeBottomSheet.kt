@@ -122,9 +122,15 @@ fun QazaChangeContainerTitle(
 ) {
     Row {
         Row(
-            modifier = Modifier.clickable {
-                isExpended.value = !isExpended.value
-            }
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(2f)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {
+                    isExpended.value = !isExpended.value
+                }
         ) {
             Text(
                 text = name,
@@ -147,6 +153,7 @@ fun QazaChangeContainerTitle(
             horizontalAlignment = Alignment.End,
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(1f)
                 .clickable {
 
                 }
