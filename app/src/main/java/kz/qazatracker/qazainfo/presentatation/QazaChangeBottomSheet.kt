@@ -8,8 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -49,6 +48,8 @@ fun QazaChangeDialog() {
 fun QazaChangeBottomSheet(
     qazaViewData: QazaViewData
 ) {
+    val changeQazaIsExpended: MutableState<Boolean> =  remember { mutableStateOf(true) }
+    val changeSaparQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -57,7 +58,7 @@ fun QazaChangeBottomSheet(
         ChangeQazaContainer(
             name = stringResource(id = R.string.qazas),
             count = qazaViewData.count,
-            isExpended = true,
+            isExpended = changeQazaIsExpended,
             onIncrementClick = {},
             onDecrementClick = {}
         )
@@ -65,7 +66,7 @@ fun QazaChangeBottomSheet(
         ChangeQazaContainer(
             name = stringResource(id = R.string.sapar_qazas),
             count = qazaViewData.count,
-            isExpended = false,
+            isExpended = changeSaparQazaIsExpended,
             onIncrementClick = {},
             onDecrementClick = {}
         )
@@ -76,7 +77,7 @@ fun QazaChangeBottomSheet(
 fun ChangeQazaContainer(
     name: String,
     count: Int,
-    isExpended: Boolean,
+    isExpended: MutableState<Boolean>,
     onIncrementClick: () -> Unit,
     onDecrementClick: () -> Unit
 ) {
@@ -92,7 +93,7 @@ fun ChangeQazaContainer(
             count = count,
             isExpended = isExpended
         )
-        if (isExpended) {
+        if (isExpended.value) {
             Spacer(modifier = Modifier.height(8.dp))
             QazaButtons(
                 onIncrementClick = onIncrementClick,
@@ -106,28 +107,38 @@ fun ChangeQazaContainer(
 fun QazaChangeContainerTitle(
     name: String,
     count: Int,
-    isExpended: Boolean,
+    isExpended: MutableState<Boolean>,
 ) {
     Row {
-        Text(
-            text = name,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.alpha(0.45f)
-        )
-        Icon(
-            painter = painterResource(id = R.drawable.ic_arrow_bottom),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(top = 5.dp, start = 8.dp)
-                .size(16.dp)
-                .alpha(0.45f)
-                .rotate(if (isExpended) 180f else 0f)
-        )
+        Row(
+            modifier = Modifier.clickable {
+                isExpended.value = !isExpended.value
+            }
+        ) {
+            Text(
+                text = name,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.alpha(0.45f)
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrow_bottom),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 5.dp, start = 8.dp)
+                    .size(16.dp)
+                    .alpha(0.45f)
+                    .rotate(if (isExpended.value) 180f else 0f)
+            )
+        }
         Column(
             horizontalAlignment = Alignment.End,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+
+                }
         ) {
             Text(
                 text = "$count",
@@ -136,7 +147,7 @@ fun QazaChangeContainerTitle(
                 color = Color.Black,
                 modifier = Modifier.alpha(0.65f)
             )
-            if (isExpended) {
+            if (isExpended.value) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
