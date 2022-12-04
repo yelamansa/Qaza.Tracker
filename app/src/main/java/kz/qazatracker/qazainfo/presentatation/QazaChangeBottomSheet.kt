@@ -165,27 +165,6 @@ fun QazaChangeContainerTitle(
                 color = Color.Black,
                 modifier = Modifier.alpha(0.65f)
             )
-            if (isExpended.value) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.action_change),
-                        fontSize = 13.sp,
-                        color = Color.Black,
-                        modifier = Modifier.alpha(0.35f)
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_right),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(top = 2.dp)
-                            .width(10.dp)
-                            .height(24.dp)
-                            .alpha(0.55f)
-                    )
-                }
-            }
         }
     }
 }
