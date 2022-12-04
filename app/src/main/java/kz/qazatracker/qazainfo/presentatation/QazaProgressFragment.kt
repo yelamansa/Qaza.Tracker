@@ -17,10 +17,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -75,7 +73,14 @@ class QazaProgressFragment : Fragment() {
         val qazaList = qazaInfoViewModel.getQazaInfoListLiveData().observeAsState(emptyList())
         ModalBottomSheetLayout(
             sheetState = sheetState,
-            sheetContent = { QazaChangeBottomSheet(qazaViewData = qazaList.value.first()) },
+            sheetContent = {
+                val qazaViewData: QazaViewData? = qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
+                if (qazaViewData != null) {
+                    QazaChangeBottomSheet(qazaViewData)
+                } else {
+                    Text(text = stringResource(id = R.string.error_loading_qaza))
+                }
+            },
             modifier = Modifier.fillMaxSize()
         ) {
             Box(Modifier.background(Color.White)) {
@@ -85,9 +90,10 @@ class QazaProgressFragment : Fragment() {
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(qazaList.value) { qazaInfo ->
-                        QazaCard(qazaInfo, onItemClick = {
+                    items(qazaList.value) { qazaViewData ->
+                        QazaCard(qazaViewData, onItemClick = {
                             coroutineScope.launch {
+                                qazaInfoViewModel.onQazaChangeClick(qazaViewData)
                                 if (sheetState.isVisible) sheetState.hide()
                                 else sheetState.show()
                             }

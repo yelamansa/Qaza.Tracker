@@ -63,7 +63,7 @@ fun QazaChangeBottomSheet(
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
-            name = qazaViewData.name,
+            name = stringResource(id = R.string.sapar_qazas),
             count = qazaViewData.count,
             isExpended = false,
             onIncrementClick = {},
@@ -171,12 +171,14 @@ fun QazaButtons(
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         ChangeQazaButton(
+            text = stringResource(id = R.string.increate_one_qaza),
             weight = 1f,
             color = colorResource(id = R.color.qaza_decrees_button_bg),
             onClick = onDecrementClick
         )
         Spacer(modifier = Modifier.width(8.dp))
         ChangeQazaButton(
+            text = stringResource(id = R.string.decrease_one_qaza),
             weight = 2f,
             color = colorResource(id = R.color.qaza_change_button_bg),
             onClick = onIncrementClick
@@ -186,6 +188,7 @@ fun QazaButtons(
 
 @Composable
 fun RowScope.ChangeQazaButton(
+    text: String,
     weight: Float,
     color: Color,
     onClick: () -> Unit
@@ -205,7 +208,7 @@ fun RowScope.ChangeQazaButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = stringResource(id = R.string.decrease_one_qaza),
+            text = text,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,

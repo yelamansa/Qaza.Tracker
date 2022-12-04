@@ -65,4 +65,5 @@
     <string name="sapar_qazas">Сапар каза</string>
     <string name="decrease_one_qaza">-1 каза</string>
     <string name="increate_one_qaza">+1 каза</string>
+    <string name="error_loading_qaza">При загрузке каза произошла ошибка</string>
 </resources>
