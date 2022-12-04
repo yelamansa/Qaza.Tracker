@@ -1,6 +1,9 @@
 package kz.qazatracker.qazainfo.presentatation
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -49,10 +52,17 @@ fun QazaChangeDialog() {
 fun QazaChangeBottomSheet(
     qazaViewData: QazaViewData
 ) {
-    val changeQazaIsExpended: MutableState<Boolean> =  remember { mutableStateOf(true) }
+    val changeQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(true) }
     val changeSaparQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(false) }
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier
+            .padding(16.dp)
+            .animateContentSize(
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = LinearOutSlowInEasing
+                )
+            )
     ) {
         ChangeModalTitle(qazaViewData)
         Spacer(modifier = Modifier.height(8.dp))
