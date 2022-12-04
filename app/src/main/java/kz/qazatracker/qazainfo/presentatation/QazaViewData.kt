@@ -7,5 +7,6 @@ data class QazaViewData(
     val name: String,
     val count: Int,
     val saparCount: Int,
+    val hasSapar: Boolean,
     @DrawableRes val icon: Int
 )

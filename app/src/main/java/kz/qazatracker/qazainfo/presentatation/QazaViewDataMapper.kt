@@ -19,7 +19,8 @@ class QazaViewDataMapper(
         name = getLocaledName(qazaData.solatNameResId),
         count = qazaData.solatCount,
         saparCount = qazaData.saparSolatCount,
-        icon = getSolatQazaIcon(qazaData.solatKey)
+        icon = getSolatQazaIcon(qazaData.solatKey),
+        hasSapar = qazaData.hasSaparSolat
     )
 
 

@@ -43,7 +43,8 @@ fun QazaChangeDialog() {
                 name = "Таң",
                 count = 4445,
                 saparCount = 54,
-                icon = R.drawable.ic_fajr
+                icon = R.drawable.ic_fajr,
+                hasSapar = true
             ),
             {},
             {}
@@ -78,14 +79,16 @@ fun QazaChangeBottomSheet(
             onIncrementClick = { onQazaValueIncrement(false) },
             onDecrementClick = { onQazaValueDecrement(false) }
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        ChangeQazaContainer(
-            name = stringResource(id = R.string.sapar_qazas),
-            count = qazaViewData.saparCount,
-            isExpended = changeSaparQazaIsExpended,
-            onIncrementClick = { onQazaValueIncrement(true) },
-            onDecrementClick = { onQazaValueDecrement(true) }
-        )
+        if (qazaViewData.hasSapar) {
+            Spacer(modifier = Modifier.height(8.dp))
+            ChangeQazaContainer(
+                name = stringResource(id = R.string.sapar_qazas),
+                count = qazaViewData.saparCount,
+                isExpended = changeSaparQazaIsExpended,
+                onIncrementClick = { onQazaValueIncrement(true) },
+                onDecrementClick = { onQazaValueDecrement(true) }
+            )
+        }
     }
 }
 
