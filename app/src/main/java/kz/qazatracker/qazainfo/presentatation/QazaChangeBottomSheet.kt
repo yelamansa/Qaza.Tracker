@@ -249,12 +249,14 @@ fun RowScope.ChangeQazaButton(
 @Composable
 fun ChangeModalTitle(qazaViewData: QazaViewData) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = qazaViewData.name,
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
             modifier = Modifier.alpha(0.65f)
