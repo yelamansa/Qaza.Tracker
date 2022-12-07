@@ -61,12 +61,8 @@ class QazaInfoFragment : Fragment() {
     @Preview
     @Composable
     private fun QazaInfoScreen() {
-        val sheetState = rememberModalBottomSheetState(
-            initialValue = ModalBottomSheetValue.Hidden,
-            confirmStateChange = { it != ModalBottomSheetValue.HalfExpanded }
-        )
+        val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val coroutineScope = rememberCoroutineScope()
-
         BackHandler(sheetState.isVisible) {
             coroutineScope.launch { sheetState.hide() }
         }
@@ -93,7 +89,10 @@ class QazaInfoFragment : Fragment() {
             modifier = Modifier.fillMaxSize()
         ) {
             Box(
-                modifier = Modifier.background(Color.White).fillMaxHeight().fillMaxWidth(),
+                modifier = Modifier
+                    .background(Color.White)
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 LazyVerticalGrid(
@@ -103,13 +102,15 @@ class QazaInfoFragment : Fragment() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(qazaList.value) { qazaViewData ->
-                        QazaCard(qazaViewData, onItemClick = {
-                            coroutineScope.launch {
-                                qazaInfoViewModel.onQazaChangeClick(qazaViewData)
-                                if (sheetState.isVisible) sheetState.hide()
-                                else sheetState.show()
+                        QazaCard(
+                            qazaViewData,
+                            onItemClick = {
+                                coroutineScope.launch {
+                                    qazaInfoViewModel.onQazaChangeClick(qazaViewData)
+                                    sheetState.show()
+                                }
                             }
-                        })
+                        )
                     }
                 }
             }
