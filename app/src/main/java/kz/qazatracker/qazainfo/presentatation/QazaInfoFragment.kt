@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kz.qazatracker.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -69,54 +70,69 @@ class QazaInfoFragment : Fragment() {
         val qazaList = qazaInfoViewModel.getQazaInfoListLiveData().observeAsState(emptyList())
         ModalBottomSheetLayout(
             sheetState = sheetState,
-            sheetContent = {
-                val qazaViewData: QazaViewData? =
-                    qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
-                if (qazaViewData != null) {
-                    QazaChangeBottomSheet(
-                        qazaViewData = qazaViewData,
-                        onQazaValueIncrement = { isSapar ->
-                            qazaInfoViewModel.onQazaValueIncrement(qazaViewData.key, isSapar)
-                        },
-                        onQazaValueDecrement = { isSapar ->
-                            qazaInfoViewModel.onQazaValueDecrement(qazaViewData.key, isSapar)
+            sheetContent = { QazaChangeBottomSheetContent() },
+            sheetShape = RoundedCornerShape(16.dp)
+        ) {
+            QazaInfoContent(
+                qazaList = qazaList.value,
+                coroutineScope = coroutineScope,
+                sheetState = sheetState
+            )
+        }
+    }
+
+    @Composable
+    private fun QazaInfoContent(
+        qazaList: List<QazaViewData>,
+        coroutineScope: CoroutineScope,
+        sheetState: ModalBottomSheetState
+    ) {
+        Box(
+            modifier = Modifier
+                .background(Color.White)
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(qazaList) { qazaViewData ->
+                    QazaCard(
+                        qazaViewData,
+                        onItemClick = {
+                            coroutineScope.launch {
+                                qazaInfoViewModel.onQazaChangeClick(qazaViewData)
+                                sheetState.show()
+                            }
                         }
                     )
-                } else {
-                    Text(text = stringResource(id = R.string.error_loading_qaza))
-                }
-            },
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Box(
-                modifier = Modifier
-                    .background(Color.White)
-                    .fillMaxHeight()
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(qazaList.value) { qazaViewData ->
-                        QazaCard(
-                            qazaViewData,
-                            onItemClick = {
-                                coroutineScope.launch {
-                                    qazaInfoViewModel.onQazaChangeClick(qazaViewData)
-                                    sheetState.show()
-                                }
-                            }
-                        )
-                    }
                 }
             }
         }
     }
 
+    @Composable
+    private fun QazaChangeBottomSheetContent() {
+        val qazaViewData: QazaViewData? =
+            qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
+        if (qazaViewData != null) {
+            QazaChangeBottomSheet(
+                qazaViewData = qazaViewData,
+                onQazaValueIncrement = { isSapar ->
+                    qazaInfoViewModel.onQazaValueIncrement(qazaViewData.key, isSapar)
+                },
+                onQazaValueDecrement = { isSapar ->
+                    qazaInfoViewModel.onQazaValueDecrement(qazaViewData.key, isSapar)
+                }
+            )
+        } else {
+            Text(text = stringResource(id = R.string.error_loading_qaza))
+        }
+    }
 
     @Composable
     private fun QazaCard(
