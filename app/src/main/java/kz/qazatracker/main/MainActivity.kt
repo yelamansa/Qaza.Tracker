@@ -6,7 +6,7 @@ import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.qazatracker.R
 import kz.qazatracker.menu.MenuFragment
-import kz.qazatracker.qazainfo.presentatation.QazaProgressFragment
+import kz.qazatracker.qazainfo.presentatation.QazaInfoFragment
 import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.remoteconfig.RemoteConfig
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity() {
     private fun replaceToProgress() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace<QazaProgressFragment>(R.id.activity_main_fragment_container)
+            replace<QazaInfoFragment>(R.id.activity_main_fragment_container)
         }
     }
 

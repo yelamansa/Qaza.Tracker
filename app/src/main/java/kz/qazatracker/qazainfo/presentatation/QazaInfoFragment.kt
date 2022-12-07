@@ -39,7 +39,7 @@ import kz.qazatracker.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @OptIn(ExperimentalMaterialApi::class)
-class QazaProgressFragment : Fragment() {
+class QazaInfoFragment : Fragment() {
 
     private val qazaInfoViewModel: QazaInfoViewModel by viewModel()
 
