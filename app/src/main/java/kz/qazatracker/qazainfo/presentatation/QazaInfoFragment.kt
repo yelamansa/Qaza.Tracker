@@ -59,7 +59,6 @@ class QazaInfoFragment : Fragment() {
         qazaInfoViewModel.onCreate()
     }
 
-    @Preview
     @Composable
     private fun QazaInfoScreen() {
         val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -87,30 +86,48 @@ class QazaInfoFragment : Fragment() {
         coroutineScope: CoroutineScope,
         sheetState: ModalBottomSheetState
     ) {
-        Box(
-            modifier = Modifier
-                .background(Color.White)
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
             ) {
-                items(qazaList) { qazaViewData ->
-                    QazaCard(
-                        qazaViewData,
-                        onItemClick = {
-                            coroutineScope.launch {
-                                qazaInfoViewModel.onQazaChangeClick(qazaViewData)
-                                sheetState.show()
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(qazaList) { qazaViewData ->
+                        QazaCard(
+                            qazaViewData,
+                            onItemClick = {
+                                coroutineScope.launch {
+                                    qazaInfoViewModel.onQazaChangeClick(qazaViewData)
+                                    sheetState.show()
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
+            }
+            Box(
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_dots),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .alpha(0.55f)
+                        .background(Color(android.graphics.Color.parseColor("#F6F4F4")))
+                        .clickable {
+
+                        }
+                        .padding(12.dp)
+                )
             }
         }
     }
