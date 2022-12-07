@@ -32,9 +32,6 @@
     <string name="select_language">Выберите язык</string>
     <string name="gender">Ваш пол</string>
     <string name="calculate_qaza_count">Рассчитать каза намазы</string>
-    <string name="nav_add">Дополнить</string>
-    <string name="nav_progress">Прогресс</string>
-    <string name="nav_menu">Меню</string>
     <string name="completed_qaza_fmt">Завершено: %1$s %%</string>
     <string name="total_prayed_qaza">Все восполненные: %1$d</string>
     <string name="total_remain_qaza">Осталось: \n %1$d</string>

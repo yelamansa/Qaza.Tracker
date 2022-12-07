@@ -33,9 +33,6 @@
     <string name="select_language">Тілді таңдаңыз</string>
     <string name="calculate_qaza_count">Қаза намазды есептеу</string>
     <string name="gender">Жынысыңыз</string>
-    <string name="nav_add">Толықтыру</string>
-    <string name="nav_menu">Меню</string>
-    <string name="nav_progress">Прогресс</string>
     <string name="completed_qaza_fmt">Аяқталды: %1$s %%</string>
     <string name="total_prayed_qaza">Барлық оқылғандар: %1$d</string>
     <string name="total_remain_qaza">Қалды: \n %1$d</string>
