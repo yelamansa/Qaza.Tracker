@@ -92,7 +92,10 @@ class QazaInfoFragment : Fragment() {
             },
             modifier = Modifier.fillMaxSize()
         ) {
-            Box(Modifier.background(Color.White)) {
+            Box(
+                modifier = Modifier.background(Color.White).fillMaxHeight().fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     contentPadding = PaddingValues(16.dp),

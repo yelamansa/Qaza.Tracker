@@ -70,6 +70,15 @@ fun QazaChangeBottomSheet(
                 )
             )
     ) {
+        Spacer(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .width(50.dp)
+                .height(5.dp)
+                .align(Alignment.CenterHorizontally)
+                .background(colorResource(id = R.color.qaza_change_container_bg))
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         ChangeModalTitle(qazaViewData)
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
