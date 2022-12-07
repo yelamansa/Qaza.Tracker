@@ -203,9 +203,6 @@ fun QazaChangeContainerTitle(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .clickable {
-
-                }
         ) {
             Text(
                 text = "$count",
