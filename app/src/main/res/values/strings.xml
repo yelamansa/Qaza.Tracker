@@ -66,4 +66,5 @@
     <string name="decrease_one_qaza">-1 каза</string>
     <string name="increate_one_qaza">+1 каза</string>
     <string name="error_loading_qaza">При загрузке каза произошла ошибка</string>
+    <string name="solat_has_not_sapar">Во время сапар этот намаз не укарачивается</string>
 </resources>

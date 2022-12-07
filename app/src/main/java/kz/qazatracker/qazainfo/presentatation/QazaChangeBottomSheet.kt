@@ -44,7 +44,7 @@ fun QazaChangeDialog() {
                 count = 4445,
                 saparCount = 54,
                 icon = R.drawable.ic_fajr,
-                hasSapar = true
+                hasSapar = false
             ),
             {},
             {}
@@ -77,18 +77,17 @@ fun QazaChangeBottomSheet(
             count = qazaViewData.count,
             isExpended = changeQazaIsExpended,
             onIncrementClick = { onQazaValueIncrement(false) },
-            onDecrementClick = { onQazaValueDecrement(false) }
+            onDecrementClick = { onQazaValueDecrement(false) },
         )
-        if (qazaViewData.hasSapar) {
-            Spacer(modifier = Modifier.height(8.dp))
-            ChangeQazaContainer(
-                name = stringResource(id = R.string.sapar_qazas),
-                count = qazaViewData.saparCount,
-                isExpended = changeSaparQazaIsExpended,
-                onIncrementClick = { onQazaValueIncrement(true) },
-                onDecrementClick = { onQazaValueDecrement(true) }
-            )
-        }
+        Spacer(modifier = Modifier.height(8.dp))
+        ChangeQazaSaparContainer(
+            name = stringResource(id = R.string.sapar_qazas),
+            count = qazaViewData.saparCount,
+            isExpended = changeSaparQazaIsExpended,
+            onIncrementClick = { onQazaValueIncrement(true) },
+            onDecrementClick = { onQazaValueDecrement(true) },
+            hasSapar = qazaViewData.hasSapar
+        )
     }
 }
 
@@ -118,6 +117,48 @@ fun ChangeQazaContainer(
                 onIncrementClick = onIncrementClick,
                 onDecrementClick = onDecrementClick
             )
+        }
+    }
+}
+
+@Composable
+fun ChangeQazaSaparContainer(
+    name: String,
+    count: Int,
+    isExpended: MutableState<Boolean>,
+    onIncrementClick: () -> Unit,
+    onDecrementClick: () -> Unit,
+    hasSapar: Boolean
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(16.dp))
+            .background(colorResource(id = R.color.qaza_change_container_bg))
+            .padding(16.dp)
+    ) {
+        QazaChangeContainerTitle(
+            name = name,
+            count = count,
+            isExpended = isExpended
+        )
+        if (isExpended.value) {
+            if (hasSapar) {
+                Spacer(modifier = Modifier.height(8.dp))
+                QazaButtons(
+                    onIncrementClick = onIncrementClick,
+                    onDecrementClick = onDecrementClick
+                )
+            } else {
+                Text(
+                    text = stringResource(id = R.string.solat_has_not_sapar),
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .alpha(0.45f),
+                    fontSize = 16.sp,
+                )
+            }
         }
     }
 }
