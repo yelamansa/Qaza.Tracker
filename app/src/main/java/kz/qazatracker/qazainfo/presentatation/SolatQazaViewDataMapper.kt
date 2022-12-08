@@ -5,16 +5,17 @@ import androidx.annotation.StringRes
 import kz.qazatracker.R
 import kz.qazatracker.data.*
 import kz.qazatracker.qaza_hand_input.data.QazaData
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.utils.LocaleHelper
 
-class QazaViewDataMapper(
+class SolatQazaViewDataMapper(
     private val context: Context,
     private val localeHelper: LocaleHelper
 ) {
 
     fun map(
         qazaData: QazaData
-    ): QazaViewData = QazaViewData(
+    ): QazaInfoData.SolatQazaViewData = QazaInfoData.SolatQazaViewData(
         key = qazaData.solatKey,
         name = getLocaledName(qazaData.solatNameResId),
         count = qazaData.solatCount,

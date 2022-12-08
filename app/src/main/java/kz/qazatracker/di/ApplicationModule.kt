@@ -8,7 +8,7 @@ import kz.qazatracker.data.DefaultQazaDataSource
 import kz.qazatracker.data.QazaDataSource
 import kz.qazatracker.menu.MenuViewModel
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
-import kz.qazatracker.qazainfo.presentatation.QazaViewDataMapper
+import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
 import kz.qazatracker.qazainfo.data.QazaInfoRepository
@@ -79,7 +79,7 @@ val applicationModule: Module = module {
         FirebaseRemoteConfig()
     }
     factory {
-        QazaViewDataMapper(
+        SolatQazaViewDataMapper(
             context = androidContext(),
             localeHelper = get()
         )

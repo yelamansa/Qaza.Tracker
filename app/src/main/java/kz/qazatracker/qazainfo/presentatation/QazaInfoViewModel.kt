@@ -5,24 +5,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qazainfo.data.QazaInfoRepository
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 
 class QazaInfoViewModel(
     private val qazaInfoRepository: QazaInfoRepository,
     private val qazaUpdateRepository: QazaUpdateRepository
 ) : ViewModel() {
 
-    private val qazaInfoListLiveData = MutableLiveData<List<QazaViewData>>()
-    private val qazaChangeLiveData = MutableLiveData<QazaViewData>()
+    private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
+    private val qazaChangeLiveData = MutableLiveData<QazaInfoData.SolatQazaViewData>()
 
-    fun getQazaInfoListLiveData(): LiveData<List<QazaViewData>> = qazaInfoListLiveData
+    fun getQazaInfoListLiveData(): LiveData<List<QazaInfoData>> = qazaInfoListLiveData
 
-    fun getQazaChangeLiveData(): LiveData<QazaViewData> = qazaChangeLiveData
+    fun getQazaChangeLiveData(): LiveData<QazaInfoData.SolatQazaViewData> = qazaChangeLiveData
 
     fun onCreate() {
         updateQazaInfo()
     }
 
-    fun onQazaChangeClick(qazaViewData: QazaViewData) {
+    fun onQazaChangeClick(qazaViewData: QazaInfoData.SolatQazaViewData) {
         qazaChangeLiveData.value = qazaViewData
     }
 

@@ -3,6 +3,7 @@ package kz.qazatracker.main
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +37,7 @@ import kotlinx.coroutines.launch
 import kz.qazatracker.R
 import kz.qazatracker.qazainfo.presentatation.QazaChangeBottomSheet
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
-import kz.qazatracker.qazainfo.presentatation.QazaViewData
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.utils.BaseActivity
 import org.koin.android.ext.android.inject
@@ -71,7 +72,7 @@ class MainActivity : BaseActivity() {
             sheetShape = RoundedCornerShape(16.dp)
         ) {
             QazaInfoContent(
-                qazaList = qazaList.value,
+                qazaInfoList = qazaList.value,
                 coroutineScope = coroutineScope,
                 sheetState = sheetState
             )
@@ -81,7 +82,7 @@ class MainActivity : BaseActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     private fun QazaInfoContent(
-        qazaList: List<QazaViewData>,
+        qazaInfoList: List<QazaInfoData>,
         coroutineScope: CoroutineScope,
         sheetState: ModalBottomSheetState
     ) {
@@ -99,13 +100,19 @@ class MainActivity : BaseActivity() {
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(qazaList) { qazaViewData ->
+                    items(qazaInfoList) { qazaInfoData ->
                         QazaCard(
-                            qazaViewData,
+                            qazaInfoData,
                             onItemClick = {
                                 coroutineScope.launch {
-                                    qazaInfoViewModel.onQazaChangeClick(qazaViewData)
-                                    sheetState.show()
+                                    when(qazaInfoData) {
+                                        is QazaInfoData.SolatQazaViewData -> {
+                                            qazaInfoViewModel.onQazaChangeClick(qazaInfoData)
+                                            sheetState.show()
+                                        }
+                                        is QazaInfoData.FastingQazaViewData -> TODO()
+                                        is QazaInfoData.QazaReadingViewData -> TODO()
+                                    }
                                 }
                             }
                         )
@@ -134,7 +141,7 @@ class MainActivity : BaseActivity() {
 
     @Composable
     private fun QazaChangeBottomSheetContent() {
-        val qazaViewData: QazaViewData? =
+        val qazaViewData: QazaInfoData.SolatQazaViewData? =
             qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
         if (qazaViewData != null) {
             QazaChangeBottomSheet(
@@ -153,7 +160,7 @@ class MainActivity : BaseActivity() {
 
     @Composable
     private fun QazaCard(
-        qazaViewData: QazaViewData,
+        qazaViewData: QazaInfoData,
         onItemClick: () -> Unit
     ) {
         Card(
@@ -163,27 +170,37 @@ class MainActivity : BaseActivity() {
             Column(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
             ) {
-                QazaTitle(qazaViewData = qazaViewData)
-                Spacer(modifier = Modifier.height(8.dp))
-                ChangeQazaButton(
-                    solatCount = qazaViewData.count,
-                    saparSolatCount = qazaViewData.saparCount,
-                    onItemClick = { onItemClick() }
-                )
+                when(qazaViewData) {
+                    is QazaInfoData.SolatQazaViewData -> {
+                        QazaTitle(
+                            name = qazaViewData.name,
+                            icon = qazaViewData.icon
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        ChangeQazaButton(
+                            solatCount = qazaViewData.count,
+                            saparSolatCount = qazaViewData.saparCount,
+                            onItemClick = { onItemClick() }
+                        )
+                    }
+                    is QazaInfoData.FastingQazaViewData -> {}
+                    is QazaInfoData.QazaReadingViewData -> {}
+                }
             }
         }
     }
 
     @Composable
     private fun QazaTitle(
-        qazaViewData: QazaViewData
+        name: String,
+        @DrawableRes icon: Int,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                painter = painterResource(id = qazaViewData.icon),
+                painter = painterResource(id = icon),
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)
@@ -192,10 +209,10 @@ class MainActivity : BaseActivity() {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = qazaViewData.name,
+                text = name,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = androidx.compose.ui.graphics.Color.Black,
+                color = Color.Black,
                 modifier = Modifier.alpha(0.65f)
             )
         }

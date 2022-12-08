@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kz.qazatracker.R
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 
 @Preview
 @Composable
@@ -38,7 +39,7 @@ fun QazaChangeDialog() {
             .background(Color.White)
     ) {
         QazaChangeBottomSheet(
-            qazaViewData = QazaViewData(
+            qazaViewData = QazaInfoData.SolatQazaViewData(
                 key = "fajr",
                 name = "Таң",
                 count = 4445,
@@ -54,7 +55,7 @@ fun QazaChangeDialog() {
 
 @Composable
 fun QazaChangeBottomSheet(
-    qazaViewData: QazaViewData,
+    qazaViewData: QazaInfoData.SolatQazaViewData,
     onQazaValueIncrement: (isSapar: Boolean) -> Unit,
     onQazaValueDecrement: (isSapar: Boolean) -> Unit,
 ) {
@@ -281,7 +282,7 @@ fun RowScope.ChangeQazaButton(
 }
 
 @Composable
-fun ChangeModalTitle(qazaViewData: QazaViewData) {
+fun ChangeModalTitle(qazaViewData: QazaInfoData.SolatQazaViewData) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
