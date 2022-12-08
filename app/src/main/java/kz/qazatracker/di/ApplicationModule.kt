@@ -87,7 +87,7 @@ val applicationModule: Module = module {
     factory {
         QazaInfoRepository(
             qazaDataSource = get(),
-            qazaViewDataMapper = get()
+            solatQazaViewDataMapper = get()
         )
     }
     factory {
