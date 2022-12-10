@@ -3,15 +3,13 @@ package kz.qazatracker.qaza_auto_calculation.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.data.SolatQazaDataSource
 import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.QalqulationNavigation
 import kz.qazatracker.utils.Event
-import org.joda.time.DateTime
 import org.joda.time.Days
-import org.joda.time.Years
 import org.joda.time.chrono.IslamicChronology
 import kotlin.math.roundToInt
 
@@ -21,7 +19,7 @@ private const val MAX_BALIGAT_OLD = 17
 private const val MIN_QAZA_DAYS = 1
 
 class QazaAutoCalculationViewModel(
-    private val qazaDataSource: QazaDataSource
+    private val solatQazaDataSource: SolatQazaDataSource
 ) : ViewModel() {
 
     private var isValid = true
@@ -46,8 +44,8 @@ class QazaAutoCalculationViewModel(
         val qazaDaysIsValid: Boolean = validateQazaDays(qazaDays)
         if (qazaDaysIsValid.not()) return
 
-        qazaDataSource.saveQazaList(
-            qazaDataSource.getQazaList().map { it.also {
+        solatQazaDataSource.saveQazaList(
+            solatQazaDataSource.getQazaList().map { it.also {
                 if (it.hasSaparSolat) {
                     it.saparSolatCount = data.saparDays
                     val saparDaysDifference = qazaDays - data.saparDays

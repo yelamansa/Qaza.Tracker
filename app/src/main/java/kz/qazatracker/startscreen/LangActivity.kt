@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import kz.qazatracker.R
-import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.data.SolatQazaDataSource
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.utils.BaseActivity
 import kz.qazatracker.utils.LocaleDataSource
@@ -17,14 +17,14 @@ class LangActivity : BaseActivity() {
 
     private val localeHelper: LocaleHelper by inject()
     private val localDataSource: LocaleDataSource by inject()
-    private val qazaDataSource: QazaDataSource by inject()
+    private val solatQazaDataSource: SolatQazaDataSource by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lang_screen)
         initButtons()
         when {
-            qazaDataSource.isQazaSaved() -> {
+            solatQazaDataSource.isQazaSaved() -> {
                 val intent = MainRouter().createIntent(this)
                 startActivity(intent)
                 overridePendingTransition(0, 0)

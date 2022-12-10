@@ -15,9 +15,9 @@ private const val TOTAL_PREYED_QAZA_COUNT_KEY = "total_prayed_qaza_count"
 private const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 private const val QAZA_SAVED_KEY = "qaza_save"
 
-class DefaultQazaDataSource(
+class DefaultSolatQazaDataSource(
     private val sharedPreferences: SharedPreferences
-) : QazaDataSource {
+) : SolatQazaDataSource {
 
     override fun saveQazaList(qazaDataList: List<QazaData>) {
         for (qazaData: QazaData in qazaDataList) {

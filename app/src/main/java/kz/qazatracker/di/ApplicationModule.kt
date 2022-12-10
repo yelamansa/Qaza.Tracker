@@ -4,8 +4,8 @@ import android.app.Activity
 import kz.qazatracker.common.data.QazaUpdateDataSource
 import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
-import kz.qazatracker.data.DefaultQazaDataSource
-import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.data.DefaultSolatQazaDataSource
+import kz.qazatracker.data.SolatQazaDataSource
 import kz.qazatracker.menu.MenuViewModel
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
 import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper
@@ -29,14 +29,14 @@ val applicationModule: Module = module {
 
     viewModel {
         QazaAutoCalculationViewModel(
-            qazaDataSource = get()
+            solatQazaDataSource = get()
         )
     }
 
     viewModel { (qazaHandInputState: QazaHandInputState)->
         QazaHandInputViewModel(
             qazaHandInputState = qazaHandInputState,
-            qazaDataSource = get()
+            solatQazaDataSource = get()
         )
     }
 
@@ -49,7 +49,7 @@ val applicationModule: Module = module {
 
     viewModel {
         MenuViewModel(
-            qazaDataSource = get(),
+            solatQazaDataSource = get(),
             localeHelper = get()
         )
     }
@@ -58,8 +58,8 @@ val applicationModule: Module = module {
         androidApplication().getSharedPreferences(QAZA_PREFERENCES, Activity.MODE_PRIVATE)
     }
 
-    factory<QazaDataSource> {
-        DefaultQazaDataSource(
+    factory<SolatQazaDataSource> {
+        DefaultSolatQazaDataSource(
             sharedPreferences = get(named(QAZA_PREFERENCES))
         )
     }
@@ -86,7 +86,7 @@ val applicationModule: Module = module {
     }
     factory {
         QazaInfoRepository(
-            qazaDataSource = get(),
+            solatQazaDataSource = get(),
             solatQazaViewDataMapper = get()
         )
     }

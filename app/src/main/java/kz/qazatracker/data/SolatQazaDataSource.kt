@@ -2,7 +2,7 @@ package kz.qazatracker.data
 
 import kz.qazatracker.qaza_hand_input.data.QazaData
 
-interface QazaDataSource {
+interface SolatQazaDataSource {
 
     fun saveQazaList(qazaDataList: List<QazaData>)
 

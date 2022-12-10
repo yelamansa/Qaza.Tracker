@@ -3,13 +3,13 @@ package kz.qazatracker.menu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.data.SolatQazaDataSource
 import kz.qazatracker.utils.LocaleHelper
 import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_KZ
 import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_RU
 
 class MenuViewModel(
-    private val qazaDataSource: QazaDataSource,
+    private val solatQazaDataSource: SolatQazaDataSource,
     private val localeHelper: LocaleHelper
 ): ViewModel() {
 
@@ -17,7 +17,7 @@ class MenuViewModel(
     val navigationLiveData: LiveData<MenuNavigation> = _navigationLiveData
 
     fun onResetData() {
-        qazaDataSource.clearQazaList()
+        solatQazaDataSource.clearQazaList()
         _navigationLiveData.value = MenuNavigation.RestartApp
     }
 

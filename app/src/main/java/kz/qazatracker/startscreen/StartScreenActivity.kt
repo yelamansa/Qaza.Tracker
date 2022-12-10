@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import kz.qazatracker.R
-import kz.qazatracker.data.QazaDataSource
+import kz.qazatracker.data.SolatQazaDataSource
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
@@ -16,11 +16,11 @@ class StartScreenActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var calculateButton: Button
     private lateinit var qazaInputButton: Button
-    private val qazaDataSource: QazaDataSource by inject()
+    private val solatQazaDataSource: SolatQazaDataSource by inject()
 
     override fun onStart() {
         super.onStart()
-        if (qazaDataSource.isQazaSaved()) {
+        if (solatQazaDataSource.isQazaSaved()) {
             val intent = MainRouter().createIntent(this)
             startActivity(intent)
             overridePendingTransition(0, 0);
