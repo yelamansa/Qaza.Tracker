@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import kz.qazatracker.R
-import kz.qazatracker.data.SolatQazaDataSource
+import kz.qazatracker.common.data.SolatQazaDataSource
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationRouter
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState

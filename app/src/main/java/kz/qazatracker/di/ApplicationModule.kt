@@ -4,8 +4,8 @@ import android.app.Activity
 import kz.qazatracker.common.data.QazaUpdateDataSource
 import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
-import kz.qazatracker.data.DefaultSolatQazaDataSource
-import kz.qazatracker.data.SolatQazaDataSource
+import kz.qazatracker.common.data.DefaultSolatQazaDataSource
+import kz.qazatracker.common.data.SolatQazaDataSource
 import kz.qazatracker.menu.MenuViewModel
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
 import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper

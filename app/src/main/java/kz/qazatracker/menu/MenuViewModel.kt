@@ -3,7 +3,7 @@ package kz.qazatracker.menu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.data.SolatQazaDataSource
+import kz.qazatracker.common.data.SolatQazaDataSource
 import kz.qazatracker.utils.LocaleHelper
 import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_KZ
 import kz.qazatracker.utils.LocaleHelper.Companion.LOCALE_RU

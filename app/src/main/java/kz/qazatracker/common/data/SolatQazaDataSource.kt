@@ -1,4 +1,4 @@
-package kz.qazatracker.data
+package kz.qazatracker.common.data
 
 import kz.qazatracker.qaza_hand_input.data.QazaData
 

@@ -1,4 +1,4 @@
-package kz.qazatracker.data
+package kz.qazatracker.common.data
 
 import android.content.SharedPreferences
 import kz.qazatracker.R

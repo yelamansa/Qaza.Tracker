@@ -3,7 +3,7 @@ package kz.qazatracker.qazainfo.presentatation
 import android.content.Context
 import androidx.annotation.StringRes
 import kz.qazatracker.R
-import kz.qazatracker.data.*
+import kz.qazatracker.common.data.*
 import kz.qazatracker.qaza_hand_input.data.QazaData
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.utils.LocaleHelper
