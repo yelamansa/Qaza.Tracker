@@ -12,8 +12,9 @@
     <color name="sapar_container_border_stroke_color">#E0E0E0</color>
     <color name="inactive_tab_layout_bg">#F6F7F9</color>
 
-    <color name="qaza_icon_bg_color">#ECECEC</color>>
-    <color name="qaza_change_button_bg">#D9E5D3</color>
+    <color name="qaza_info_bg">#80ECEBF0</color>
+    <color name="qaza_icon_bg_color">#80ECEBF0</color>>
+    <color name="qaza_change_button_bg">#4DA1D147</color>
     <color name="qaza_change_container_bg">#F6F4F4</color>
     <color name="qaza_decrees_button_bg">#E7DED9</color>
 </resources>

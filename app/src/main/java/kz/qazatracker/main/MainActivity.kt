@@ -88,7 +88,9 @@ class MainActivity : BaseActivity() {
         sheetState: ModalBottomSheetState
     ) {
         Column(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(colorResource(id = R.color.qaza_info_bg)),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box(
@@ -168,7 +170,7 @@ class MainActivity : BaseActivity() {
     ) {
         Card(
             shape = RoundedCornerShape(16.dp),
-            backgroundColor = Color(android.graphics.Color.parseColor("#F6F4F4"))
+            backgroundColor = Color.White
         ) {
             Column(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
