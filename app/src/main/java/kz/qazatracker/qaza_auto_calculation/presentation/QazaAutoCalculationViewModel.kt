@@ -3,7 +3,7 @@ package kz.qazatracker.qaza_auto_calculation.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.common.data.SolatQazaDataSource
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 import kz.qazatracker.qaza_auto_calculation.presentation.model.AutoCalculationData
 import kz.qazatracker.qaza_auto_calculation.presentation.model.BaligatAgeNotValid
 import kz.qazatracker.qaza_auto_calculation.presentation.model.ExceptionData

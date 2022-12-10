@@ -1,8 +1,10 @@
-package kz.qazatracker.common.data
+package kz.qazatracker.common.data.solat
+
+import kz.qazatracker.common.data.QazaUpdateDataSource
 
 const val SOLAT_KEY_FORMAT = "%s_sapar"
 
-class QazaUpdateRepository(
+class SolatQazaUpdateRepository(
     private val qazaUpdateDataSource: QazaUpdateDataSource
 ) {
 

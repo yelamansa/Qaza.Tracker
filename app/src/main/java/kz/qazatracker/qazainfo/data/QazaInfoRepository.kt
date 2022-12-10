@@ -1,6 +1,6 @@
 package kz.qazatracker.qazainfo.data
 
-import kz.qazatracker.common.data.SolatQazaDataSource
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 import kz.qazatracker.qaza_hand_input.data.QazaData
 import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData

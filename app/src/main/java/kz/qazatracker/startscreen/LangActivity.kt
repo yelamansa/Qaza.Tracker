@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import kz.qazatracker.R
-import kz.qazatracker.common.data.SolatQazaDataSource
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 import kz.qazatracker.main.MainRouter
 import kz.qazatracker.utils.BaseActivity
 import kz.qazatracker.utils.LocaleDataSource

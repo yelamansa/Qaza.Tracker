@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.R
-import kz.qazatracker.common.data.SolatQazaDataSource
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 import kz.qazatracker.qaza_hand_input.data.QazaData
 
 class QazaHandInputViewModel(

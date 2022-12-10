@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kz.qazatracker.R
-import kz.qazatracker.common.data.QazaUpdateRepository
+import kz.qazatracker.common.data.solat.SolatQazaUpdateRepository
 import kz.qazatracker.qazainfo.data.QazaInfoRepository
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 
 class QazaInfoViewModel(
     private val qazaInfoRepository: QazaInfoRepository,
-    private val qazaUpdateRepository: QazaUpdateRepository
+    private val solatQazaUpdateRepository: SolatQazaUpdateRepository
 ) : ViewModel() {
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
@@ -32,7 +32,7 @@ class QazaInfoViewModel(
         solatKey: String,
         isSapar: Boolean
     ) {
-        qazaUpdateRepository.increaseQazaValue(solatKey, isSapar)
+        solatQazaUpdateRepository.increaseQazaValue(solatKey, isSapar)
         updateQazaInfo(solatKey)
     }
 
@@ -40,7 +40,7 @@ class QazaInfoViewModel(
         solatKey: String,
         isSapar: Boolean
     ) {
-        qazaUpdateRepository.decreaseQazaValue(solatKey, isSapar)
+        solatQazaUpdateRepository.decreaseQazaValue(solatKey, isSapar)
         updateQazaInfo(solatKey)
     }
 

@@ -7,10 +7,10 @@ class QazaUpdateDataSource(
 ) {
 
     fun increaseQazaValue(
-        solatKey: String
+        qazaKeyKey: String
     ) {
-        var currentSolatCount = sharedPreferences.getInt(solatKey, 0)
-        sharedPreferences.edit().putInt(solatKey, ++currentSolatCount).apply()
+        var currentSolatCount = sharedPreferences.getInt(qazaKeyKey, 0)
+        sharedPreferences.edit().putInt(qazaKeyKey, ++currentSolatCount).apply()
     }
 
     fun decreaseQazaValue(solatKey: String) {

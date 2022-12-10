@@ -2,10 +2,10 @@ package kz.qazatracker.di
 
 import android.app.Activity
 import kz.qazatracker.common.data.QazaUpdateDataSource
-import kz.qazatracker.common.data.QazaUpdateRepository
+import kz.qazatracker.common.data.solat.SolatQazaUpdateRepository
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
-import kz.qazatracker.common.data.DefaultSolatQazaDataSource
-import kz.qazatracker.common.data.SolatQazaDataSource
+import kz.qazatracker.common.data.solat.DefaultSolatQazaDataSource
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 import kz.qazatracker.menu.MenuViewModel
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
 import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper
@@ -43,7 +43,7 @@ val applicationModule: Module = module {
     viewModel {
         QazaInfoViewModel(
             qazaInfoRepository = get(),
-            qazaUpdateRepository = get()
+            solatQazaUpdateRepository = get()
         )
     }
 
@@ -96,7 +96,7 @@ val applicationModule: Module = module {
         )
     }
     factory {
-        QazaUpdateRepository(
+        SolatQazaUpdateRepository(
             qazaUpdateDataSource = get()
         )
     }
