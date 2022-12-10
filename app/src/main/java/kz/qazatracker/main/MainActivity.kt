@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -110,7 +111,9 @@ class MainActivity : BaseActivity() {
                                             qazaInfoViewModel.onQazaChangeClick(qazaInfoData)
                                             sheetState.show()
                                         }
-                                        is QazaInfoData.FastingQazaViewData -> TODO()
+                                        is QazaInfoData.FastingQazaViewData -> {
+                                            qazaInfoViewModel.onFastingQazaClick(qazaInfoData)
+                                        }
                                         is QazaInfoData.QazaReadingViewData -> TODO()
                                     }
                                 }
@@ -172,18 +175,21 @@ class MainActivity : BaseActivity() {
             ) {
                 when(qazaViewData) {
                     is QazaInfoData.SolatQazaViewData -> {
-                        QazaTitle(
+                        QazaCardContent(
                             name = qazaViewData.name,
-                            icon = qazaViewData.icon
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        ChangeQazaButton(
-                            solatCount = qazaViewData.count,
-                            saparSolatCount = qazaViewData.saparCount,
-                            onItemClick = { onItemClick() }
+                            icon = painterResource(id = qazaViewData.icon),
+                            qazaCount = qazaViewData.getTotalSolatCount(),
+                            onItemClick = onItemClick
                         )
                     }
-                    is QazaInfoData.FastingQazaViewData -> {}
+                    is QazaInfoData.FastingQazaViewData -> {
+                        QazaCardContent(
+                            name = qazaViewData.name,
+                            icon = painterResource(id = qazaViewData.icon),
+                            qazaCount = qazaViewData.сount,
+                            onItemClick = onItemClick
+                        )
+                    }
                     is QazaInfoData.QazaReadingViewData -> {}
                 }
             }
@@ -191,16 +197,34 @@ class MainActivity : BaseActivity() {
     }
 
     @Composable
+    private fun QazaCardContent(
+        name: String,
+        icon: Painter,
+        qazaCount: Int,
+        onItemClick: () -> Unit
+    ) {
+        QazaTitle(
+            name = name,
+            icon = icon
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ChangeQazaButton(
+            qazaCount = qazaCount,
+            onItemClick = { onItemClick() }
+        )
+    }
+
+    @Composable
     private fun QazaTitle(
         name: String,
-        @DrawableRes icon: Int,
+        icon: Painter,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                painter = painterResource(id = icon),
+                painter = icon,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)
@@ -220,8 +244,7 @@ class MainActivity : BaseActivity() {
 
     @Composable
     private fun ChangeQazaButton(
-        solatCount: Int,
-        saparSolatCount: Int,
+        qazaCount: Int,
         onItemClick: () -> Unit
     ) {
         Row(
@@ -231,7 +254,7 @@ class MainActivity : BaseActivity() {
                 .background(color = colorResource(id = R.color.qaza_change_button_bg))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(color = androidx.compose.ui.graphics.Color.Black),
+                    indication = rememberRipple(color = Color.Black),
                     onClick = onItemClick
                 )
                 .padding(vertical = 16.dp, horizontal = 10.dp),
@@ -242,16 +265,16 @@ class MainActivity : BaseActivity() {
                 Text(
                     text = stringResource(id = R.string.qaza_remainder),
                     fontSize = 12.sp,
-                    color = androidx.compose.ui.graphics.Color.Black,
+                    color = Color.Black,
                     modifier = Modifier.alpha(0.35f),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
                 Text(
-                    text = "${solatCount + saparSolatCount}",
+                    text = "$qazaCount",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = androidx.compose.ui.graphics.Color.Black,
+                    color = Color.Black,
                     modifier = Modifier.alpha(0.75f),
                 )
             }

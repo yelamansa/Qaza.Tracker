@@ -3,6 +3,7 @@ package kz.qazatracker.qazainfo.presentatation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kz.qazatracker.R
 import kz.qazatracker.common.data.QazaUpdateRepository
 import kz.qazatracker.qazainfo.data.QazaInfoRepository
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
@@ -43,9 +44,18 @@ class QazaInfoViewModel(
         updateQazaInfo(solatKey)
     }
 
+    fun onFastingQazaClick(qazaInfoData: QazaInfoData.FastingQazaViewData) {
+// TODO:  логика клика
+    }
+
+    // TODO: Поменять, чтобы не зависеть от solatKey
     private fun updateQazaInfo(solatKey: String? = null)  {
         val qazaInfoList = qazaInfoRepository.getQazaInfoList()
-        qazaInfoListLiveData.value = qazaInfoList
+        qazaInfoListLiveData.value = qazaInfoList + QazaInfoData.FastingQazaViewData(
+            "Ораза",
+            34,
+            R.drawable.ic_fajr
+        )
         if (solatKey == null) return
 
         qazaInfoList.forEach {

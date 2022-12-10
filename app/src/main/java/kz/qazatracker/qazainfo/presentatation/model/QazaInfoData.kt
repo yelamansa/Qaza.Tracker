@@ -11,10 +11,15 @@ sealed class QazaInfoData {
         val saparCount: Int,
         val hasSapar: Boolean,
         @DrawableRes val icon: Int
-    ): QazaInfoData()
+    ): QazaInfoData() {
+
+        fun getTotalSolatCount(): Int = count + saparCount
+    }
 
     data class FastingQazaViewData(
-        val qazaCount: Int
+        val name: String,
+        val сount: Int,
+        @DrawableRes val icon: Int
     ): QazaInfoData()
 
     data class QazaReadingViewData(
