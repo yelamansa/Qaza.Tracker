@@ -19,10 +19,13 @@ class QazaInfoViewModel(
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
     private val qazaChangeLiveData = MutableLiveData<QazaInfoData>()
+    private val onMenuClickLiveData = MutableLiveData<Boolean>()
 
     fun getQazaInfoListLiveData(): LiveData<List<QazaInfoData>> = qazaInfoListLiveData
 
     fun getQazaChangeLiveData(): LiveData<QazaInfoData> = qazaChangeLiveData
+
+    fun getMenuClickLiveData(): LiveData<Boolean> = onMenuClickLiveData
 
     fun onCreate() {
         updateQazaInfo()
@@ -65,5 +68,9 @@ class QazaInfoViewModel(
                 }
             }
         }
+    }
+
+    fun onMenuClick() {
+        onMenuClickLiveData.value = true
     }
 }

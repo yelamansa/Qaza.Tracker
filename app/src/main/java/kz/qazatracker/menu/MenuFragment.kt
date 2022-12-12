@@ -28,6 +28,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         view.findViewById<TextView>(R.id.language_text_view).setOnClickListener {
             showSelectLanguageDialog()
         }
+        view.findViewById<TextView>(R.id.title_text_view).setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         view.findViewById<TextView>(R.id.reset_text_view).setOnClickListener {
             showResetDialog()
         }
