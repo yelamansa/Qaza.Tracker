@@ -2,6 +2,8 @@ package kz.qazatracker.di
 
 import android.app.Activity
 import kz.qazatracker.common.data.QazaUpdateDataSource
+import kz.qazatracker.common.data.fasting.FastingQazaDataSource
+import kz.qazatracker.common.data.fasting.FastingQazaRepository
 import kz.qazatracker.common.data.solat.SolatQazaUpdateRepository
 import kz.qazatracker.qaza_auto_calculation.presentation.QazaAutoCalculationViewModel
 import kz.qazatracker.common.data.solat.DefaultSolatQazaDataSource
@@ -11,7 +13,8 @@ import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
 import kz.qazatracker.qazainfo.presentatation.SolatQazaViewDataMapper
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
 import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputViewModel
-import kz.qazatracker.qazainfo.data.QazaInfoRepository
+import kz.qazatracker.common.data.solat.SolatQazaRepository
+import kz.qazatracker.common.presentation.FastingQazaViewDataMapper
 import kz.qazatracker.remoteconfig.FirebaseRemoteConfig
 import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.utils.LocaleDataSource
@@ -42,8 +45,11 @@ val applicationModule: Module = module {
 
     viewModel {
         QazaInfoViewModel(
-            qazaInfoRepository = get(),
-            solatQazaUpdateRepository = get()
+            solatQazaRepository = get(),
+            fastingQazaRepository = get(),
+            solatQazaUpdateRepository = get(),
+            solatQazaViewDataMapper = get(),
+            fastingQazaViewDataMapper = get()
         )
     }
 
@@ -85,9 +91,8 @@ val applicationModule: Module = module {
         )
     }
     factory {
-        QazaInfoRepository(
+        SolatQazaRepository(
             solatQazaDataSource = get(),
-            solatQazaViewDataMapper = get()
         )
     }
     factory {
@@ -98,6 +103,22 @@ val applicationModule: Module = module {
     factory {
         SolatQazaUpdateRepository(
             qazaUpdateDataSource = get()
+        )
+    }
+    factory {
+        FastingQazaDataSource(
+            sharedPreferences = get(named(QAZA_PREFERENCES))
+        )
+    }
+    factory {
+        FastingQazaRepository(
+            fastingQazaDataSource = get()
+        )
+    }
+    factory {
+        FastingQazaViewDataMapper(
+            context = androidContext(),
+            localeHelper = get()
         )
     }
 }

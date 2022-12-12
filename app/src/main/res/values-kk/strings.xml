@@ -65,4 +65,5 @@
     <string name="increate_one_qaza">+1 қаза</string>
     <string name="error_loading_qaza">Қазаларды жүктеу барысында қате орын алды</string>
     <string name="solat_has_not_sapar">Сапар кезінде бұл намаз қысқармайды</string>
+    <string name="fasting">Ораза</string>
 </resources>

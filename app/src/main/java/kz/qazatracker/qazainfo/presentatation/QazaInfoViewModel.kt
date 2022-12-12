@@ -3,14 +3,18 @@ package kz.qazatracker.qazainfo.presentatation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kz.qazatracker.R
+import kz.qazatracker.common.data.fasting.FastingQazaRepository
 import kz.qazatracker.common.data.solat.SolatQazaUpdateRepository
-import kz.qazatracker.qazainfo.data.QazaInfoRepository
+import kz.qazatracker.common.data.solat.SolatQazaRepository
+import kz.qazatracker.common.presentation.FastingQazaViewDataMapper
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 
 class QazaInfoViewModel(
-    private val qazaInfoRepository: QazaInfoRepository,
-    private val solatQazaUpdateRepository: SolatQazaUpdateRepository
+    private val solatQazaRepository: SolatQazaRepository,
+    private val fastingQazaRepository: FastingQazaRepository,
+    private val solatQazaUpdateRepository: SolatQazaUpdateRepository,
+    private val solatQazaViewDataMapper: SolatQazaViewDataMapper,
+    private val fastingQazaViewDataMapper: FastingQazaViewDataMapper
 ) : ViewModel() {
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
@@ -50,17 +54,16 @@ class QazaInfoViewModel(
 
     // TODO: Поменять, чтобы не зависеть от solatKey
     private fun updateQazaInfo(solatKey: String? = null)  {
-        val qazaInfoList = qazaInfoRepository.getQazaInfoList()
-        qazaInfoListLiveData.value = qazaInfoList + QazaInfoData.FastingQazaViewData(
-            "Ораза",
-            34,
-            R.drawable.ic_fajr
-        )
-        if (solatKey == null) return
+        val solatQazaList = solatQazaRepository.getSolatQazaList()
+        qazaInfoListLiveData.value = solatQazaRepository.getSolatQazaList().map { solatQazaViewDataMapper.map(it) } +
+                fastingQazaViewDataMapper.map(fastingQazaRepository.getFastingQazaCount())
+        if (solatKey == null) {
 
-        qazaInfoList.forEach {
-            if (it.key == solatKey) {
-                qazaChangeLiveData.value = it
+            return
+        }
+        solatQazaList.forEach {
+            if (it.solatKey == solatKey) {
+                qazaChangeLiveData.value = solatQazaViewDataMapper.map(it)
             }
         }
     }
