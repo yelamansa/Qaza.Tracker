@@ -8,6 +8,6 @@
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="fontFamily">@font/open_sans</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/color_white</item>
+        <item name="android:statusBarColor">@color/qaza_info_bg</item>
     </style>
 </resources>
