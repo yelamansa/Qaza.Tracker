@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import kz.qazatracker.R
+import kz.qazatracker.qaza_hand_input.presentation.QazaHandInputState
+import kz.qazatracker.qaza_hand_input.presentation.QazaInputRouter
 import kz.qazatracker.remoteconfig.CONTACT_LINK_REMOTE_CONFIG
 import kz.qazatracker.remoteconfig.RemoteConfig
 import kz.qazatracker.remoteconfig.SOCIAL_NETWORK_REMOTE_CONFIG
@@ -30,6 +32,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         }
         view.findViewById<TextView>(R.id.title_text_view).setOnClickListener {
             requireActivity().onBackPressed()
+        }
+        view.findViewById<TextView>(R.id.change_qaza_text_view).setOnClickListener {
+            startActivity(QazaInputRouter().createIntent(requireContext(), QazaHandInputState.QazaEdit))
         }
         view.findViewById<TextView>(R.id.reset_text_view).setOnClickListener {
             showResetDialog()
