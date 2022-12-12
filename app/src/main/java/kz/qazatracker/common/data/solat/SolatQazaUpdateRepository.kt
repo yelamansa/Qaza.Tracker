@@ -31,4 +31,11 @@ class SolatQazaUpdateRepository(
         }
         qazaUpdateDataSource.decreaseQazaValue(properSolatKey)
     }
+
+    fun updateQazaValue(
+        qazaKey: String,
+        value: Int
+    ) {
+        qazaUpdateDataSource.updateQazaValue(qazaKey, value)
+    }
 }

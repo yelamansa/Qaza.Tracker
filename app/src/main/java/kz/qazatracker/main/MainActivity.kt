@@ -3,7 +3,6 @@ package kz.qazatracker.main
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +35,8 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kz.qazatracker.R
-import kz.qazatracker.qazainfo.presentatation.QazaChangeBottomSheet
+import kz.qazatracker.qazainfo.presentatation.FastingQazaChangeBottomSheet
+import kz.qazatracker.qazainfo.presentatation.SolatQazaChangeBottomSheet
 import kz.qazatracker.qazainfo.presentatation.QazaInfoViewModel
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.remoteconfig.RemoteConfig
@@ -108,15 +108,16 @@ class MainActivity : BaseActivity() {
                             qazaInfoData,
                             onItemClick = {
                                 coroutineScope.launch {
-                                    when(qazaInfoData) {
+                                    when (qazaInfoData) {
                                         is QazaInfoData.SolatQazaViewData -> {
                                             qazaInfoViewModel.onQazaChangeClick(qazaInfoData)
                                             sheetState.show()
                                         }
                                         is QazaInfoData.FastingQazaViewData -> {
-                                            qazaInfoViewModel.onFastingQazaClick(qazaInfoData)
+                                            qazaInfoViewModel.onQazaChangeClick(qazaInfoData)
+                                            sheetState.show()
                                         }
-                                        is QazaInfoData.QazaReadingViewData -> TODO()
+                                        is QazaInfoData.QazaReadingViewData -> {}
                                     }
                                 }
                             }
@@ -146,20 +147,27 @@ class MainActivity : BaseActivity() {
 
     @Composable
     private fun QazaChangeBottomSheetContent() {
-        val qazaViewData: QazaInfoData.SolatQazaViewData? =
+        val qazaViewData: QazaInfoData? =
             qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
-        if (qazaViewData != null) {
-            QazaChangeBottomSheet(
-                qazaViewData = qazaViewData,
-                onQazaValueIncrement = { isSapar ->
-                    qazaInfoViewModel.onQazaValueIncrement(qazaViewData.key, isSapar)
-                },
-                onQazaValueDecrement = { isSapar ->
-                    qazaInfoViewModel.onQazaValueDecrement(qazaViewData.key, isSapar)
+        when (qazaViewData) {
+            is QazaInfoData.FastingQazaViewData -> {
+                FastingQazaChangeBottomSheet(
+                    qazaViewData,
+                ) { qazaKey, value ->
+                    qazaInfoViewModel.onUpdateQazaValue(qazaKey, value)
                 }
-            )
-        } else {
-            Text(text = stringResource(id = R.string.error_loading_qaza))
+            }
+            is QazaInfoData.QazaReadingViewData -> {
+
+            }
+            is QazaInfoData.SolatQazaViewData -> {
+                SolatQazaChangeBottomSheet(
+                    qazaViewData
+                ) { qazaKey, value ->
+                    qazaInfoViewModel.onUpdateQazaValue(qazaKey, value)
+                }
+            }
+            null -> Text(text = stringResource(id = R.string.error_loading_qaza))
         }
     }
 
@@ -175,7 +183,7 @@ class MainActivity : BaseActivity() {
             Column(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
             ) {
-                when(qazaViewData) {
+                when (qazaViewData) {
                     is QazaInfoData.SolatQazaViewData -> {
                         QazaCardContent(
                             name = qazaViewData.name,

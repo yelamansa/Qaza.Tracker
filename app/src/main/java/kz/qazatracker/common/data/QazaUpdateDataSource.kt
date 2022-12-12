@@ -19,4 +19,15 @@ class QazaUpdateDataSource(
 
         sharedPreferences.edit().putInt(solatKey, --currentSolatCount).apply()
     }
+
+    fun updateQazaValue(
+        qazaKey: String,
+        value: Int
+    ) {
+        val currentQazaCount = sharedPreferences.getInt(qazaKey, 0)
+        val updatedQazaCount = currentQazaCount + value
+        if (updatedQazaCount < 0) return
+
+        sharedPreferences.edit().putInt(qazaKey, updatedQazaCount).apply()
+    }
 }

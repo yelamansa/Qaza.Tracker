@@ -9,13 +9,4 @@ data class QazaData(
     var minSaparSolatCount: Int,
     val totalPrayedCount: Int,
     val hasSaparSolat: Boolean
-) {
-
-    fun getTotalCompletedQazaPercent(): Float{
-        val totalCount = totalPrayedCount + solatCount + saparSolatCount
-
-        if (totalCount == 0) return 0f
-
-        return totalPrayedCount.toFloat() * 100 / totalCount
-    }
-}
+)

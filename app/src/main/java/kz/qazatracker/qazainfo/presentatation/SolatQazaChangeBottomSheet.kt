@@ -29,35 +29,10 @@ import androidx.compose.ui.unit.sp
 import kz.qazatracker.R
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 
-@Preview
 @Composable
-fun QazaChangeDialog() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(Color.White)
-    ) {
-        QazaChangeBottomSheet(
-            qazaViewData = QazaInfoData.SolatQazaViewData(
-                key = "fajr",
-                name = "Таң",
-                count = 4445,
-                saparCount = 54,
-                icon = R.drawable.ic_fajr,
-                hasSapar = false
-            ),
-            {},
-            {}
-        )
-    }
-}
-
-@Composable
-fun QazaChangeBottomSheet(
+fun SolatQazaChangeBottomSheet(
     qazaViewData: QazaInfoData.SolatQazaViewData,
-    onQazaValueIncrement: (isSapar: Boolean) -> Unit,
-    onQazaValueDecrement: (isSapar: Boolean) -> Unit,
+    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit
 ) {
     val changeQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(true) }
     val changeSaparQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(false) }
@@ -80,65 +55,69 @@ fun QazaChangeBottomSheet(
                 .background(colorResource(id = R.color.qaza_change_container_bg))
         )
         Spacer(modifier = Modifier.height(16.dp))
-        ChangeModalTitle(qazaViewData)
+        ChangeModalTitle(
+            name = qazaViewData.name,
+            count = qazaViewData.count + qazaViewData.saparCount
+        )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
+            qazaKey = qazaViewData.key,
             name = stringResource(id = R.string.qazas),
             count = qazaViewData.count,
-            isExpended = changeQazaIsExpended,
-            onIncrementClick = { onQazaValueIncrement(false) },
-            onDecrementClick = { onQazaValueDecrement(false) },
+            isExpended = if (qazaViewData.hasSapar) changeQazaIsExpended else null,
+            onQazaValueUpdate = onQazaValueUpdate
         )
         Spacer(modifier = Modifier.height(8.dp))
-        ChangeQazaSaparContainer(
-            name = stringResource(id = R.string.sapar_qazas),
-            count = qazaViewData.saparCount,
-            isExpended = changeSaparQazaIsExpended,
-            onIncrementClick = { onQazaValueIncrement(true) },
-            onDecrementClick = { onQazaValueDecrement(true) },
-            hasSapar = qazaViewData.hasSapar
-        )
-    }
-}
-
-@Composable
-fun ChangeQazaContainer(
-    name: String,
-    count: Int,
-    isExpended: MutableState<Boolean>,
-    onIncrementClick: () -> Unit,
-    onDecrementClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(colorResource(id = R.color.qaza_change_container_bg))
-            .padding(16.dp)
-    ) {
-        QazaChangeContainerTitle(
-            name = name,
-            count = count,
-            isExpended = isExpended
-        )
-        if (isExpended.value) {
-            Spacer(modifier = Modifier.height(8.dp))
-            QazaButtons(
-                onIncrementClick = onIncrementClick,
-                onDecrementClick = onDecrementClick
+        if(qazaViewData.hasSapar) {
+            ChangeQazaContainer(
+                qazaKey = qazaViewData.getSaparKey(),
+                name = stringResource(id = R.string.sapar_qazas),
+                count = qazaViewData.saparCount,
+                isExpended = changeSaparQazaIsExpended,
+                onQazaValueUpdate = onQazaValueUpdate
             )
         }
     }
 }
 
 @Composable
-fun ChangeQazaSaparContainer(
+fun FastingQazaChangeBottomSheet(
+    qazaViewData: QazaInfoData.FastingQazaViewData,
+    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
+) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Spacer(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .width(50.dp)
+                .height(5.dp)
+                .align(Alignment.CenterHorizontally)
+                .background(colorResource(id = R.color.qaza_change_container_bg))
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        ChangeModalTitle(
+            name = qazaViewData.name,
+            count = qazaViewData.сount
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ChangeQazaContainer(
+            qazaKey = qazaViewData.key,
+            name = stringResource(id = R.string.qazas),
+            count = qazaViewData.сount,
+            onQazaValueUpdate = onQazaValueUpdate
+        )
+    }
+}
+
+@Composable
+fun ChangeQazaContainer(
+    qazaKey: String,
     name: String,
     count: Int,
-    isExpended: MutableState<Boolean>,
-    onIncrementClick: () -> Unit,
-    onDecrementClick: () -> Unit,
-    hasSapar: Boolean
+    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
+    isExpended: MutableState<Boolean>? = null,
 ) {
     Column(
         modifier = Modifier
@@ -147,28 +126,19 @@ fun ChangeQazaSaparContainer(
             .background(colorResource(id = R.color.qaza_change_container_bg))
             .padding(16.dp)
     ) {
-        QazaChangeContainerTitle(
-            name = name,
-            count = count,
-            isExpended = isExpended
-        )
-        if (isExpended.value) {
-            if (hasSapar) {
-                Spacer(modifier = Modifier.height(8.dp))
-                QazaButtons(
-                    onIncrementClick = onIncrementClick,
-                    onDecrementClick = onDecrementClick
-                )
-            } else {
-                Text(
-                    text = stringResource(id = R.string.solat_has_not_sapar),
-                    color = Color.Black,
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .alpha(0.45f),
-                    fontSize = 16.sp,
-                )
-            }
+        if (isExpended != null) {
+            QazaChangeContainerTitle(
+                name = name,
+                count = count,
+                isExpended = isExpended
+            )
+        }
+        if (isExpended?.value != false) {
+            Spacer(modifier = Modifier.height(8.dp))
+            QazaButtons(
+                qazaKey = qazaKey,
+                onQazaValueUpdate = onQazaValueUpdate,
+            )
         }
     }
 }
@@ -177,7 +147,7 @@ fun ChangeQazaSaparContainer(
 fun QazaChangeContainerTitle(
     name: String,
     count: Int,
-    isExpended: MutableState<Boolean>,
+    isExpended: MutableState<Boolean>? = null,
 ) {
     Row {
         Row(
@@ -188,6 +158,8 @@ fun QazaChangeContainerTitle(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null,
                 ) {
+                    if (isExpended == null) return@clickable
+
                     isExpended.value = !isExpended.value
                 }
         ) {
@@ -198,15 +170,17 @@ fun QazaChangeContainerTitle(
                 color = Color.Black,
                 modifier = Modifier.alpha(0.45f)
             )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_bottom),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(top = 5.dp, start = 8.dp)
-                    .size(16.dp)
-                    .alpha(0.45f)
-                    .rotate(animateFloatAsState(if (isExpended.value) 180f else 0f).value)
-            )
+            if (isExpended != null) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_bottom),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(top = 5.dp, start = 8.dp)
+                        .size(16.dp)
+                        .alpha(0.45f)
+                        .rotate(animateFloatAsState(if (isExpended.value) 180f else 0f).value)
+                )
+            }
         }
         Column(
             horizontalAlignment = Alignment.End,
@@ -227,8 +201,8 @@ fun QazaChangeContainerTitle(
 
 @Composable
 fun QazaButtons(
-    onIncrementClick: () -> Unit,
-    onDecrementClick: () -> Unit
+    qazaKey: String,
+    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -238,14 +212,14 @@ fun QazaButtons(
             text = stringResource(id = R.string.increate_one_qaza),
             weight = 1f,
             color = colorResource(id = R.color.qaza_decrees_button_bg),
-            onClick = onIncrementClick
+            onClick = { onQazaValueUpdate(qazaKey, +1) }
         )
         Spacer(modifier = Modifier.width(8.dp))
         ChangeQazaButton(
             text = stringResource(id = R.string.decrease_one_qaza),
             weight = 2f,
             color = colorResource(id = R.color.qaza_change_button_bg),
-            onClick = onDecrementClick
+            onClick = { onQazaValueUpdate(qazaKey, -1) }
         )
     }
 }
@@ -282,7 +256,10 @@ fun RowScope.ChangeQazaButton(
 }
 
 @Composable
-fun ChangeModalTitle(qazaViewData: QazaInfoData.SolatQazaViewData) {
+fun ChangeModalTitle(
+    name: String,
+    count: Int
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -290,7 +267,7 @@ fun ChangeModalTitle(qazaViewData: QazaInfoData.SolatQazaViewData) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = qazaViewData.name,
+            text = name,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
@@ -300,7 +277,7 @@ fun ChangeModalTitle(qazaViewData: QazaInfoData.SolatQazaViewData) {
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = "${qazaViewData.count + qazaViewData.saparCount}",
+                text = "$count",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,

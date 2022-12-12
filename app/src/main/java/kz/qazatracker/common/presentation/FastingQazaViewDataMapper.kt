@@ -3,6 +3,7 @@ package kz.qazatracker.common.presentation
 import android.content.Context
 import androidx.annotation.StringRes
 import kz.qazatracker.R
+import kz.qazatracker.common.data.fasting.FASTING_QAZA
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.utils.LocaleHelper
 
@@ -14,6 +15,7 @@ class FastingQazaViewDataMapper(
     fun map(
         fastingQazaCount: Int
     ): QazaInfoData.FastingQazaViewData = QazaInfoData.FastingQazaViewData(
+        FASTING_QAZA,
         getLocaledName(R.string.fasting),
         fastingQazaCount,
         R.drawable.ic_lantern

@@ -18,52 +18,51 @@ class QazaInfoViewModel(
 ) : ViewModel() {
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
-    private val qazaChangeLiveData = MutableLiveData<QazaInfoData.SolatQazaViewData>()
+    private val qazaChangeLiveData = MutableLiveData<QazaInfoData>()
 
     fun getQazaInfoListLiveData(): LiveData<List<QazaInfoData>> = qazaInfoListLiveData
 
-    fun getQazaChangeLiveData(): LiveData<QazaInfoData.SolatQazaViewData> = qazaChangeLiveData
+    fun getQazaChangeLiveData(): LiveData<QazaInfoData> = qazaChangeLiveData
 
     fun onCreate() {
         updateQazaInfo()
     }
 
-    fun onQazaChangeClick(qazaViewData: QazaInfoData.SolatQazaViewData) {
+    fun onQazaChangeClick(qazaViewData: QazaInfoData) {
         qazaChangeLiveData.value = qazaViewData
     }
 
-    fun onQazaValueIncrement(
-        solatKey: String,
-        isSapar: Boolean
+    fun onUpdateQazaValue(
+        qazaKey: String,
+        value: Int
     ) {
-        solatQazaUpdateRepository.increaseQazaValue(solatKey, isSapar)
-        updateQazaInfo(solatKey)
+        solatQazaUpdateRepository.updateQazaValue(qazaKey, value)
+        updateQazaInfo(qazaKey)
     }
 
-    fun onQazaValueDecrement(
-        solatKey: String,
-        isSapar: Boolean
-    ) {
-        solatQazaUpdateRepository.decreaseQazaValue(solatKey, isSapar)
-        updateQazaInfo(solatKey)
-    }
-
-    fun onFastingQazaClick(qazaInfoData: QazaInfoData.FastingQazaViewData) {
-// TODO:  логика клика
-    }
-
-    // TODO: Поменять, чтобы не зависеть от solatKey
-    private fun updateQazaInfo(solatKey: String? = null)  {
-        val solatQazaList = solatQazaRepository.getSolatQazaList()
-        qazaInfoListLiveData.value = solatQazaRepository.getSolatQazaList().map { solatQazaViewDataMapper.map(it) } +
+    private fun updateQazaInfo(qazaKey: String? = null)  {
+        val qazaList: List<QazaInfoData> = solatQazaRepository.getSolatQazaList().map { solatQazaViewDataMapper.map(it) } +
                 fastingQazaViewDataMapper.map(fastingQazaRepository.getFastingQazaCount())
-        if (solatKey == null) {
+        qazaInfoListLiveData.value = qazaList
+        if (qazaKey == null) {
 
             return
         }
-        solatQazaList.forEach {
-            if (it.solatKey == solatKey) {
-                qazaChangeLiveData.value = solatQazaViewDataMapper.map(it)
+        qazaList.forEach {
+            when(it) {
+                is QazaInfoData.FastingQazaViewData -> {
+                    if (it.key == qazaKey) {
+                        qazaChangeLiveData.value = it
+                    }
+                }
+                is QazaInfoData.QazaReadingViewData -> {
+
+                }
+                is QazaInfoData.SolatQazaViewData -> {
+                    if (it.key == qazaKey || it.getSaparKey() == qazaKey) {
+                        qazaChangeLiveData.value = it
+                    }
+                }
             }
         }
     }

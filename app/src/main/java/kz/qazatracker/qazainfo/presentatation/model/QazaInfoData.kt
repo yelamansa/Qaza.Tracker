@@ -2,6 +2,8 @@ package kz.qazatracker.qazainfo.presentatation.model
 
 import androidx.annotation.DrawableRes
 
+private const val SOLAT_KEY_FORMAT = "%s_sapar"
+
 sealed class QazaInfoData {
 
     data class SolatQazaViewData(
@@ -14,9 +16,16 @@ sealed class QazaInfoData {
     ): QazaInfoData() {
 
         fun getTotalSolatCount(): Int = count + saparCount
+
+        fun getSaparKey(): String = if (hasSapar) {
+            SOLAT_KEY_FORMAT.format(key)
+        } else {
+            key
+        }
     }
 
     data class FastingQazaViewData(
+        val key: String,
         val name: String,
         val сount: Int,
         @DrawableRes val icon: Int

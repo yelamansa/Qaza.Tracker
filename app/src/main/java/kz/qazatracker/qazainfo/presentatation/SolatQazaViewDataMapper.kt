@@ -24,10 +24,9 @@ class SolatQazaViewDataMapper(
         hasSapar = qazaData.hasSaparSolat
     )
 
-
     private fun getSolatQazaIcon(
         qazaKey: String
-    ): Int = when(qazaKey) {
+    ): Int = when (qazaKey) {
         FAJR_KEY -> R.drawable.ic_fajr
         ZUHR_KEY -> R.drawable.ic_zuhr
         ASR_KEY -> R.drawable.ic_asr
