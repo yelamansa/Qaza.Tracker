@@ -9,23 +9,24 @@ import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.utils.LocaleHelper
 
 class SolatQazaViewDataMapper(
-    private val context: Context,
-    private val localeHelper: LocaleHelper
+        private val context: Context,
+        private val localeHelper: LocaleHelper
 ) {
 
     fun map(
-        qazaData: QazaData
+            qazaData: QazaData
     ): QazaInfoData.SolatQazaViewData = QazaInfoData.SolatQazaViewData(
-        key = qazaData.solatKey,
-        name = getLocaledName(qazaData.solatNameResId),
-        count = qazaData.solatCount,
-        saparCount = qazaData.saparSolatCount,
-        icon = getSolatQazaIcon(qazaData.solatKey),
-        hasSapar = qazaData.hasSaparSolat
+            key = qazaData.solatKey,
+            name = getLocaledName(qazaData.solatNameResId),
+            remainCount = qazaData.solatCount,
+            remainSaparCount = qazaData.saparSolatCount,
+            completedCount = qazaData.completedCount,
+            icon = getSolatQazaIcon(qazaData.solatKey),
+            hasSapar = qazaData.hasSaparSolat
     )
 
     private fun getSolatQazaIcon(
-        qazaKey: String
+            qazaKey: String
     ): Int = when (qazaKey) {
         FAJR_KEY -> R.drawable.ic_fajr
         ZUHR_KEY -> R.drawable.ic_zuhr
@@ -37,7 +38,7 @@ class SolatQazaViewDataMapper(
     }
 
     private fun getLocaledName(
-        @StringRes nameResId: Int
+            @StringRes nameResId: Int
     ): String {
         val updatedContext = localeHelper.updateContext(context)
 

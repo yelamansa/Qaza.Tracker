@@ -8,21 +8,23 @@ import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.utils.LocaleHelper
 
 class FastingQazaViewDataMapper(
-    private val context: Context,
-    private val localeHelper: LocaleHelper
+        private val context: Context,
+        private val localeHelper: LocaleHelper
 ) {
 
     fun map(
-        fastingQazaCount: Int
+            remainCount: Int,
+            completedCount: Int,
     ): QazaInfoData.FastingQazaViewData = QazaInfoData.FastingQazaViewData(
-        FASTING_QAZA,
-        getLocaledName(R.string.fasting),
-        fastingQazaCount,
-        R.drawable.ic_lantern
+            key = FASTING_QAZA,
+            name = getLocaledName(R.string.fasting),
+            remainCount = remainCount,
+            completedCount = completedCount,
+            icon = R.drawable.ic_lantern
     )
 
     private fun getLocaledName(
-        @StringRes nameResId: Int
+            @StringRes nameResId: Int
     ): String {
         val updatedContext = localeHelper.updateContext(context)
 

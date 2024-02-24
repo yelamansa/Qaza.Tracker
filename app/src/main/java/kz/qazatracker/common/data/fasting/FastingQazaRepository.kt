@@ -5,4 +5,6 @@ class FastingQazaRepository(
 ) {
 
     fun getFastingQazaCount(): Int = fastingQazaDataSource.getFastingQazaData()
+
+    fun getCompletedQazaCount(): Int = fastingQazaDataSource.getFastingQazaCompletedCount()
 }

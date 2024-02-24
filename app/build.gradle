@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
 
     //Compose
+    implementation "androidx.core:core-ktx:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation 'androidx.activity:activity-compose:1.4.0'

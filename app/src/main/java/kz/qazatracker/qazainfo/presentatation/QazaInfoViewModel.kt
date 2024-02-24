@@ -15,11 +15,21 @@ class QazaInfoViewModel(
     private val solatQazaUpdateRepository: SolatQazaUpdateRepository,
     private val solatQazaViewDataMapper: SolatQazaViewDataMapper,
     private val fastingQazaViewDataMapper: FastingQazaViewDataMapper
-) : ViewModel() {
+) : ViewModel(), QazaChangeListener {
 
     private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
     private val qazaChangeLiveData = MutableLiveData<QazaInfoData>()
     private val onMenuClickLiveData = MutableLiveData<Boolean>()
+
+    override fun onQazaDecrease(qazaKey: String) {
+        solatQazaUpdateRepository.decreaseQazaValue(qazaKey)
+        updateQazaInfo(qazaKey)
+    }
+
+    override fun onQazaIncrease(qazaKey: String) {
+        solatQazaUpdateRepository.increaseQazaValue(qazaKey)
+        updateQazaInfo(qazaKey)
+    }
 
     fun getQazaInfoListLiveData(): LiveData<List<QazaInfoData>> = qazaInfoListLiveData
 
@@ -35,17 +45,12 @@ class QazaInfoViewModel(
         qazaChangeLiveData.value = qazaViewData
     }
 
-    fun onUpdateQazaValue(
-        qazaKey: String,
-        value: Int
-    ) {
-        solatQazaUpdateRepository.updateQazaValue(qazaKey, value)
-        updateQazaInfo(qazaKey)
-    }
-
     private fun updateQazaInfo(qazaKey: String? = null)  {
         val qazaList: List<QazaInfoData> = solatQazaRepository.getSolatQazaList().map { solatQazaViewDataMapper.map(it) } +
-                fastingQazaViewDataMapper.map(fastingQazaRepository.getFastingQazaCount())
+                fastingQazaViewDataMapper.map(
+                        remainCount = fastingQazaRepository.getFastingQazaCount(),
+                        completedCount = fastingQazaRepository.getCompletedQazaCount()
+                )
         qazaInfoListLiveData.value = qazaList
         if (qazaKey == null) {
 
@@ -57,9 +62,6 @@ class QazaInfoViewModel(
                     if (it.key == qazaKey) {
                         qazaChangeLiveData.value = it
                     }
-                }
-                is QazaInfoData.QazaReadingViewData -> {
-
                 }
                 is QazaInfoData.SolatQazaViewData -> {
                     if (it.key == qazaKey || it.getSaparKey() == qazaKey) {

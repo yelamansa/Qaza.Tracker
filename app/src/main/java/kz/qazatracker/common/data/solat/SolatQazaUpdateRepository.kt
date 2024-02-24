@@ -10,32 +10,13 @@ class SolatQazaUpdateRepository(
 
     fun increaseQazaValue(
         solatKey: String,
-        isSapar: Boolean
     ) {
-        val properSolatKey = if (isSapar) {
-            SOLAT_KEY_FORMAT.format(solatKey)
-        } else {
-            solatKey
-        }
-        qazaUpdateDataSource.increaseQazaValue(properSolatKey)
+        qazaUpdateDataSource.increaseQazaValue(solatKey)
     }
 
     fun decreaseQazaValue(
         solatKey: String,
-        isSapar: Boolean
     ) {
-        val properSolatKey = if (isSapar) {
-            SOLAT_KEY_FORMAT.format(solatKey)
-        } else {
-            solatKey
-        }
-        qazaUpdateDataSource.decreaseQazaValue(properSolatKey)
-    }
-
-    fun updateQazaValue(
-        qazaKey: String,
-        value: Int
-    ) {
-        qazaUpdateDataSource.updateQazaValue(qazaKey, value)
+        qazaUpdateDataSource.decreaseQazaValue(solatKey)
     }
 }

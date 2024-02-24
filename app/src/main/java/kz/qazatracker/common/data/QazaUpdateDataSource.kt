@@ -1,23 +1,26 @@
 package kz.qazatracker.common.data
 
 import android.content.SharedPreferences
+import kz.qazatracker.common.data.solat.SolatQazaDataSource
 
 class QazaUpdateDataSource(
-    private val sharedPreferences: SharedPreferences
+        private val sharedPreferences: SharedPreferences,
+        private val solatQazaDataSource: SolatQazaDataSource,
 ) {
 
     fun increaseQazaValue(
-        qazaKeyKey: String
+            qazaKey: String
     ) {
-        var currentSolatCount = sharedPreferences.getInt(qazaKeyKey, 0)
-        sharedPreferences.edit().putInt(qazaKeyKey, ++currentSolatCount).apply()
+        var currentSolatCount = sharedPreferences.getInt(qazaKey, 0)
+        sharedPreferences.edit().putInt(qazaKey, ++currentSolatCount).apply()
     }
 
-    fun decreaseQazaValue(solatKey: String) {
-        var currentSolatCount = sharedPreferences.getInt(solatKey, 0)
+    fun decreaseQazaValue(qazaKey: String) {
+        var currentSolatCount = sharedPreferences.getInt(qazaKey, 0)
         if (currentSolatCount == 0) return
 
-        sharedPreferences.edit().putInt(solatKey, --currentSolatCount).apply()
+        sharedPreferences.edit().putInt(qazaKey, --currentSolatCount).apply()
+        solatQazaDataSource.addAndSavePrayedCount(qazaKey, 1)
     }
 
     fun updateQazaValue(

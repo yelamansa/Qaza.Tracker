@@ -14,11 +14,12 @@ interface SolatQazaDataSource {
 
     fun getTotalPrayedCount(): Int
 
-    fun getTotalPrayedCount(solatKey: String): Int
+    fun getPrayedCount(solatKey: String): Int
 
-    fun saveTotalPreyedCount(count: Int)
-
-    fun saveTotalPrayedCount(solatKey: String, count: Int)
+    fun addAndSavePrayedCount(
+            solatKey: String,
+            count: Int
+    )
 
     fun getTotalRemainCount(): Int
 

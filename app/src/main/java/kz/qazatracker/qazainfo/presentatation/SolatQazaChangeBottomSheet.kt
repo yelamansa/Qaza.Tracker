@@ -31,49 +31,49 @@ import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 @Composable
 fun SolatQazaChangeBottomSheet(
     qazaViewData: QazaInfoData.SolatQazaViewData,
-    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit
+    qazaChangeListener: QazaChangeListener,
 ) {
     val changeQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(true) }
     val changeSaparQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
-            .padding(16.dp)
-            .animateContentSize(
-                animationSpec = tween(
-                    durationMillis = 300,
-                    easing = LinearOutSlowInEasing
+                .padding(16.dp)
+                .animateContentSize(
+                        animationSpec = tween(
+                                durationMillis = 300,
+                                easing = LinearOutSlowInEasing
+                        )
                 )
-            )
     ) {
         Spacer(
             modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .width(50.dp)
-                .height(5.dp)
-                .align(Alignment.CenterHorizontally)
-                .background(colorResource(id = R.color.qaza_change_container_bg))
+                    .clip(RoundedCornerShape(10.dp))
+                    .width(50.dp)
+                    .height(5.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .background(colorResource(id = R.color.qaza_change_container_bg))
         )
         Spacer(modifier = Modifier.height(16.dp))
         ChangeModalTitle(
             name = qazaViewData.name,
-            count = qazaViewData.count + qazaViewData.saparCount
+            count = qazaViewData.remainCount + qazaViewData.remainSaparCount
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
             qazaKey = qazaViewData.key,
             name = stringResource(id = R.string.qazas),
-            count = qazaViewData.count,
+            count = qazaViewData.remainCount,
             isExpended = if (qazaViewData.hasSapar) changeQazaIsExpended else null,
-            onQazaValueUpdate = onQazaValueUpdate
+                qazaChangeListener = qazaChangeListener
         )
         Spacer(modifier = Modifier.height(8.dp))
         if(qazaViewData.hasSapar) {
             ChangeQazaContainer(
-                qazaKey = qazaViewData.getSaparKey(),
-                name = stringResource(id = R.string.sapar_qazas),
-                count = qazaViewData.saparCount,
-                isExpended = changeSaparQazaIsExpended,
-                onQazaValueUpdate = onQazaValueUpdate
+                    qazaKey = qazaViewData.getSaparKey(),
+                    name = stringResource(id = R.string.sapar_qazas),
+                    count = qazaViewData.remainSaparCount,
+                    isExpended = changeSaparQazaIsExpended,
+                    qazaChangeListener = qazaChangeListener
             )
         }
     }
@@ -82,30 +82,30 @@ fun SolatQazaChangeBottomSheet(
 @Composable
 fun FastingQazaChangeBottomSheet(
     qazaViewData: QazaInfoData.FastingQazaViewData,
-    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
+    qazaChangeListener: QazaChangeListener,
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
         Spacer(
             modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .width(50.dp)
-                .height(5.dp)
-                .align(Alignment.CenterHorizontally)
-                .background(colorResource(id = R.color.qaza_change_container_bg))
+                    .clip(RoundedCornerShape(10.dp))
+                    .width(50.dp)
+                    .height(5.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .background(colorResource(id = R.color.qaza_change_container_bg))
         )
         Spacer(modifier = Modifier.height(16.dp))
         ChangeModalTitle(
             name = qazaViewData.name,
-            count = qazaViewData.сount
+            count = qazaViewData.remainCount
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
-            qazaKey = qazaViewData.key,
-            name = stringResource(id = R.string.qazas),
-            count = qazaViewData.сount,
-            onQazaValueUpdate = onQazaValueUpdate
+                qazaKey = qazaViewData.key,
+                name = stringResource(id = R.string.qazas),
+                count = qazaViewData.remainCount,
+                qazaChangeListener = qazaChangeListener
         )
     }
 }
@@ -115,15 +115,15 @@ fun ChangeQazaContainer(
     qazaKey: String,
     name: String,
     count: Int,
-    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
+    qazaChangeListener: QazaChangeListener,
     isExpended: MutableState<Boolean>? = null,
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(16.dp))
-            .background(colorResource(id = R.color.qaza_change_container_bg))
-            .padding(16.dp)
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(16.dp))
+                .background(colorResource(id = R.color.qaza_change_container_bg))
+                .padding(16.dp)
     ) {
         if (isExpended != null) {
             QazaChangeContainerTitle(
@@ -135,8 +135,8 @@ fun ChangeQazaContainer(
         if (isExpended?.value != false) {
             Spacer(modifier = Modifier.height(8.dp))
             QazaButtons(
-                qazaKey = qazaKey,
-                onQazaValueUpdate = onQazaValueUpdate,
+                    qazaKey = qazaKey,
+                    qazaChangeListener = qazaChangeListener
             )
         }
     }
@@ -151,16 +151,16 @@ fun QazaChangeContainerTitle(
     Row {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(2f)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                ) {
-                    if (isExpended == null) return@clickable
+                    .fillMaxWidth()
+                    .weight(2f)
+                    .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                    ) {
+                        if (isExpended == null) return@clickable
 
-                    isExpended.value = !isExpended.value
-                }
+                        isExpended.value = !isExpended.value
+                    }
         ) {
             Text(
                 text = name,
@@ -174,18 +174,18 @@ fun QazaChangeContainerTitle(
                     painter = painterResource(id = R.drawable.ic_arrow_bottom),
                     contentDescription = null,
                     modifier = Modifier
-                        .padding(top = 5.dp, start = 8.dp)
-                        .size(16.dp)
-                        .alpha(0.45f)
-                        .rotate(animateFloatAsState(if (isExpended.value) 180f else 0f).value)
+                            .padding(top = 5.dp, start = 8.dp)
+                            .size(16.dp)
+                            .alpha(0.45f)
+                            .rotate(animateFloatAsState(if (isExpended.value) 180f else 0f).value)
                 )
             }
         }
         Column(
             horizontalAlignment = Alignment.End,
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+                    .fillMaxWidth()
+                    .weight(1f)
         ) {
             Text(
                 text = "$count",
@@ -201,7 +201,7 @@ fun QazaChangeContainerTitle(
 @Composable
 fun QazaButtons(
     qazaKey: String,
-    onQazaValueUpdate: (qazaKey: String, value: Int) -> Unit,
+    qazaChangeListener: QazaChangeListener,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -211,14 +211,14 @@ fun QazaButtons(
             text = stringResource(id = R.string.increate_one_qaza),
             weight = 1f,
             color = colorResource(id = R.color.qaza_decrees_button_bg),
-            onClick = { onQazaValueUpdate(qazaKey, +1) }
+            onClick = { qazaChangeListener.onQazaIncrease(qazaKey) }
         )
         Spacer(modifier = Modifier.width(8.dp))
         ChangeQazaButton(
             text = stringResource(id = R.string.decrease_one_qaza),
             weight = 2f,
             color = colorResource(id = R.color.qaza_change_button_bg),
-            onClick = { onQazaValueUpdate(qazaKey, -1) }
+            onClick = { qazaChangeListener.onQazaDecrease(qazaKey) }
         )
     }
 }
@@ -232,16 +232,16 @@ fun RowScope.ChangeQazaButton(
 ) {
     Box(
         modifier = Modifier
-            .weight(weight)
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(20.dp))
-            .background(color)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(color = Color.Black),
-                onClick = onClick
-            )
-            .padding(16.dp),
+                .weight(weight)
+                .fillMaxWidth()
+                .clip(shape = RoundedCornerShape(20.dp))
+                .background(color)
+                .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(color = Color.Black),
+                        onClick = onClick
+                )
+                .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -261,8 +261,8 @@ fun ChangeModalTitle(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(

@@ -69,28 +69,27 @@ class QazaHandInputViewModel(
         val saparSolatDiff = actualQazaData.saparSolatCount - updatedQazaData.saparSolatCount
         if (solatDiff > 0) {
             totalPreyedCount += solatDiff
-            updateSolatTotalPrayedCount(updatedQazaData, solatDiff)
+            updateSolatPrayedCount(updatedQazaData, solatDiff)
         }
         if (saparSolatDiff > 0) {
             totalPreyedCount += saparSolatDiff
-            updateSaparSolatTotalPrayedCount(updatedQazaData, saparSolatDiff)
+            updateSaparSolatPrayedCount(updatedQazaData, saparSolatDiff)
         }
-        solatQazaDataSource.saveTotalPreyedCount(totalPreyedCount)
     }
 
-    private fun updateSolatTotalPrayedCount(qazaData: QazaData, solatCount: Int) {
-        val actualPrayedCount = solatQazaDataSource.getTotalPrayedCount(qazaData.solatKey)
-        solatQazaDataSource.saveTotalPrayedCount(
+    private fun updateSolatPrayedCount(qazaData: QazaData, solatCount: Int) {
+        val actualPrayedCount = solatQazaDataSource.getPrayedCount(qazaData.solatKey)
+        solatQazaDataSource.addAndSavePrayedCount(
             solatKey = qazaData.solatKey,
             count = actualPrayedCount + solatCount
         )
     }
 
-    private fun updateSaparSolatTotalPrayedCount(qazaData: QazaData, saparSolatCount: Int) {
-        val actualPrayedCount: Int = solatQazaDataSource.getTotalPrayedCount(
+    private fun updateSaparSolatPrayedCount(qazaData: QazaData, saparSolatCount: Int) {
+        val actualPrayedCount: Int = solatQazaDataSource.getPrayedCount(
             getSaparSolatName(qazaData.solatKey)
         )
-        solatQazaDataSource.saveTotalPrayedCount(
+        solatQazaDataSource.addAndSavePrayedCount(
             solatKey = getSaparSolatName(qazaData.solatKey),
             count = actualPrayedCount + saparSolatCount
         )

@@ -17,4 +17,6 @@
     <color name="qaza_change_button_bg">#4DA1D147</color>
     <color name="qaza_change_container_bg">#F6F4F4</color>
     <color name="qaza_decrees_button_bg">#E7DED9</color>
+    <color name="red_plus">#FCA6A0</color>
+    <color name="color_yellow">#FFE669</color>
 </resources>

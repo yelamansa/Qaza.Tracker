@@ -97,7 +97,8 @@ val applicationModule: Module = module {
     }
     factory {
         QazaUpdateDataSource(
-            sharedPreferences = get(named(QAZA_PREFERENCES))
+                sharedPreferences = get(named(QAZA_PREFERENCES)),
+                solatQazaDataSource = get(),
         )
     }
     factory {
