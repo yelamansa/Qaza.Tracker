@@ -57,7 +57,8 @@
     <string name="activity_lang_select">Қосымша тілін таңдаңыз</string>
     <string name="action_change">Өзгерту</string>
     <string name="sapar_qaza_remainder">Қалған сапар қазалар:</string>
-    <string name="qaza_remainder">Қалған қазалар:</string>
+    <string name="qaza_remainder">Қалғаны:</string>
+    <string name="qaza_completed">Өтелді:</string>
     <string name="all_remaining_qaza">Барлық қалған қазалар</string>
     <string name="qazas">Қазалар</string>
     <string name="sapar_qazas">Сапар қазалар</string>
