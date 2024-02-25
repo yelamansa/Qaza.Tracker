@@ -78,20 +78,16 @@ class QazaHandInputViewModel(
     }
 
     private fun updateSolatPrayedCount(qazaData: QazaData, solatCount: Int) {
-        val actualPrayedCount = solatQazaDataSource.getPrayedCount(qazaData.solatKey)
         solatQazaDataSource.addAndSavePrayedCount(
             solatKey = qazaData.solatKey,
-            count = actualPrayedCount + solatCount
+            count = solatCount
         )
     }
 
     private fun updateSaparSolatPrayedCount(qazaData: QazaData, saparSolatCount: Int) {
-        val actualPrayedCount: Int = solatQazaDataSource.getPrayedCount(
-            getSaparSolatName(qazaData.solatKey)
-        )
         solatQazaDataSource.addAndSavePrayedCount(
             solatKey = getSaparSolatName(qazaData.solatKey),
-            count = actualPrayedCount + saparSolatCount
+            count = saparSolatCount
         )
     }
 
