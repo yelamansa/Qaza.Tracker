@@ -69,9 +69,8 @@ class QazaInfoViewModel(
                 ),
                 qazaList = qazaList
         )
-        if (qazaKey == null) { return }
         qazaList.forEach {
-            if (it.key == qazaKey) {
+            if (it.key == qazaKey || it.saparQazaState?.key == qazaKey) {
                 qazaChangeLiveData.value = it
             }
         }
