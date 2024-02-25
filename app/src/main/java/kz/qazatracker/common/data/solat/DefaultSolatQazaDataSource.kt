@@ -11,6 +11,7 @@ const val ASR_KEY = "asr"
 const val MAGRIB_KEY = "magrib"
 const val ISHA_KEY = "isha"
 const val UTIR_KEY = "utir"
+const val FASTING_KEY = "fasting"
 
 const val PRAYED_QAZA_COUNT_COUNT_FORMAT = "%s_prayed_qaza_count"
 private const val QAZA_SAVED_KEY = "qaza_save"
@@ -34,7 +35,8 @@ class DefaultSolatQazaDataSource(
         getQaza(ASR_KEY, R.string.asr, true),
         getQaza(MAGRIB_KEY, R.string.magrib, false),
         getQaza(ISHA_KEY, R.string.isha, true),
-        getQaza(UTIR_KEY, R.string.utir, false)
+        getQaza(UTIR_KEY, R.string.utir, false),
+            getQaza(FASTING_KEY, R.string.fasting, false)
     )
 
     override fun clearQazaList() {
@@ -44,6 +46,7 @@ class DefaultSolatQazaDataSource(
         clearQaza(MAGRIB_KEY)
         clearQaza(ISHA_KEY)
         clearQaza(UTIR_KEY)
+        clearQaza(FASTING_KEY)
         sharedPreferences.edit().putBoolean(QAZA_SAVED_KEY, false).apply()
     }
 
@@ -65,24 +68,21 @@ class DefaultSolatQazaDataSource(
                 minSaparSolatCount = -saparSolatCount,
                 completedCount = getPrayedCount(solatKey) + getPrayedCount(getSaparSolatKey(solatKey)),
                 hasSaparSolat = hasSaparSolat,
-                saparSolatData = getSaparQazaData(solatKey)
+                saparSolatData = getSaparQazaData(solatKey, hasSaparSolat)
         )
     }
 
     private fun getSaparQazaData(
             key: String,
-    ) = SaparQazaData(
-            key = getSaparSolatKey(key),
-            count = sharedPreferences.getInt(getSaparSolatKey(key), 0),
-            minCount = -sharedPreferences.getInt(getSaparSolatKey(key), 0),
-    )
-
-    override fun getTotalCompletedQazaPercent(): Float {
-        val totalCount = getTotalPrayedCount() + getTotalRemainCount()
-
-        if (totalCount == 0) return 0f
-
-        return (getTotalPrayedCount().toFloat() * 100) / totalCount
+            hasSaparSolat: Boolean,
+    ) = if (hasSaparSolat) {
+        SaparQazaData(
+                key = getSaparSolatKey(key),
+                count = sharedPreferences.getInt(getSaparSolatKey(key), 0),
+                minCount = -sharedPreferences.getInt(getSaparSolatKey(key), 0),
+        )
+    } else {
+        null
     }
 
     override fun getTotalPrayedCount(): Int {
@@ -127,5 +127,6 @@ class DefaultSolatQazaDataSource(
         sharedPreferences.edit().remove(key).apply()
         sharedPreferences.edit().remove(getSaparSolatKey(key)).apply()
         sharedPreferences.edit().putInt(PRAYED_QAZA_COUNT_COUNT_FORMAT.format(key), 0).apply()
+        sharedPreferences.edit().putInt(PRAYED_QAZA_COUNT_COUNT_FORMAT.format(getSaparSolatKey(key)), 0).apply()
     }
 }

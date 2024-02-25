@@ -10,8 +10,6 @@ interface SolatQazaDataSource {
 
     fun clearQazaList()
 
-    fun getTotalCompletedQazaPercent(): Float
-
     fun getTotalPrayedCount(): Int
 
     fun getPrayedCount(solatKey: String): Int
