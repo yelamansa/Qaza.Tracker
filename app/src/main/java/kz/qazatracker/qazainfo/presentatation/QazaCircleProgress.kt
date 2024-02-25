@@ -8,6 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -103,38 +105,36 @@ fun QazaCircleProgress(
                         modifier = Modifier.align(Alignment.Center),
                         horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text(
-                            text = "+$completedCount",
-                            textAlign = TextAlign.Center,
-                            fontSize = titleTextSize,
-                            color = Color.Gray
-                    )
-                    Text(
-                            text = "-$remainCount",
-                            textAlign = TextAlign.Center,
-                            fontSize = subTitleTextSize,
-                            color = Color.TextPrimary
-                    )
+                    Row(
+                            verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val color = colorResource(id = R.color.qaza_change_button_bg)
+                        Canvas(modifier = Modifier.size(6.dp), onDraw = {
+                            drawCircle(color = color)
+                        })
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                                text = "$completedCount",
+                                textAlign = TextAlign.Center,
+                                fontSize = titleTextSize,
+                                color = Color.Gray
+                        )
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Canvas(modifier = Modifier.size(6.dp), onDraw = {
+                            drawCircle(color = Color.Red)
+                        })
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                                text = "$remainCount",
+                                textAlign = TextAlign.Center,
+                                fontSize = subTitleTextSize,
+                                color = Color.TextPrimary
+                        )
+                    }
                 }
             }
-            IconButton(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(60))
-                    .background(Color.Test)
-                    .width(50.dp)
-                    .height(32.dp)
-                    .align(Alignment.BottomCenter)
-                    .padding(4.dp),
-                onClick = editAction
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_plus_qaza),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(24.dp)
-                        .height(24.dp)
-                )
-            }
+
         }
     }
 }

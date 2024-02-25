@@ -66,4 +66,6 @@
     <string name="increate_one_qaza">+1 қаза</string>
     <string name="error_loading_qaza">Қазаларды жүктеу барысында қате орын алды</string>
     <string name="fasting">Ораза</string>
+    <string name="total_completed_qaza">Барлық өтелген қаза:</string>
+    <string name="total_remaining_qaza">Барлық қалған қаза:</string>
 </resources>
