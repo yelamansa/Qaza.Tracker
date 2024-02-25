@@ -177,14 +177,16 @@ fun QazaButtons(
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         ChangeQazaButton(
-            text = stringResource(id = R.string.increate_one_qaza),
+            title = stringResource(id = R.string.increate_one_qaza),
+                subTitle = stringResource(id = R.string.one_qaza_added),
             weight = 1f,
             color = colorResource(id = R.color.qaza_decrees_button_bg),
             onClick = { qazaChangeListener.onQazaIncrease(qazaKey) }
         )
         Spacer(modifier = Modifier.width(8.dp))
         ChangeQazaButton(
-            text = stringResource(id = R.string.decrease_one_qaza),
+            title = stringResource(id = R.string.increate_one_qaza),
+                subTitle = stringResource(id = R.string.one_qaza_completed),
             weight = 2f,
             color = colorResource(id = R.color.qaza_change_button_bg),
             onClick = { qazaChangeListener.onQazaDecrease(qazaKey) }
@@ -194,12 +196,13 @@ fun QazaButtons(
 
 @Composable
 fun RowScope.ChangeQazaButton(
-    text: String,
-    weight: Float,
-    color: Color,
-    onClick: () -> Unit
+        title: String,
+        subTitle: String,
+        weight: Float,
+        color: Color,
+        onClick: () -> Unit
 ) {
-    Box(
+    Column(
         modifier = Modifier
                 .weight(weight)
                 .fillMaxWidth()
@@ -211,14 +214,21 @@ fun RowScope.ChangeQazaButton(
                         onClick = onClick
                 )
                 .padding(16.dp),
-        contentAlignment = Alignment.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = text,
+            text = title,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
             modifier = Modifier.alpha(0.65f)
+        )
+        Text(
+                text = subTitle,
+                fontSize = 14.sp,
+                color = Color.Black,
+                modifier = Modifier.alpha(0.45f)
         )
     }
 }

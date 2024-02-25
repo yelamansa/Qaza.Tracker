@@ -67,4 +67,6 @@
     <string name="fasting">Пост</string>
     <string name="total_completed_qaza">восполненные каза</string>
     <string name="total_remaining_qaza">оставшиеся каза</string>
+    <string name="one_qaza_added">добавлен</string>
+    <string name="one_qaza_completed">восполнен</string>
 </resources>

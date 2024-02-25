@@ -68,4 +68,6 @@
     <string name="fasting">Ораза</string>
     <string name="total_completed_qaza">өтелген қазалар</string>
     <string name="total_remaining_qaza">қалған қазалар</string>
+    <string name="one_qaza_added">қосылды</string>
+    <string name="one_qaza_completed">өтелді</string>
 </resources>
