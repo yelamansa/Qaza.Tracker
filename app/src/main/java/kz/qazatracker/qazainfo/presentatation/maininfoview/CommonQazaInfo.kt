@@ -50,8 +50,10 @@ fun CommonQazaInfo(
         ) {
             CommonQazaInfoItem(
                     count = totalQazaState.totalCompletedCount,
+                    title = stringResource(id = R.string.total_completed_qaza),
                     color = colorResource(id = R.color.qaza_change_button_bg),
                     modifier = Modifier.weight(1f),
+
             )
             Spacer(modifier = Modifier
                     .width(1.dp)
@@ -60,6 +62,7 @@ fun CommonQazaInfo(
 
             CommonQazaInfoItem(
                     count = totalQazaState.totalRemainCount,
+                    title = stringResource(id = R.string.total_remaining_qaza),
                     color = Color.Red,
                     modifier = Modifier.weight(1f)
             )
@@ -70,6 +73,7 @@ fun CommonQazaInfo(
 @Composable
 fun CommonQazaInfoItem(
         count: Int,
+        title: String,
         color: Color,
         modifier: Modifier,
 ) {
@@ -94,7 +98,7 @@ fun CommonQazaInfoItem(
             )
         }
         Text(
-                text = stringResource(id = R.string.total_remaining_qaza),
+                text = title,
                 fontSize = 14.sp,
                 color = Color.Black,
                 modifier = Modifier

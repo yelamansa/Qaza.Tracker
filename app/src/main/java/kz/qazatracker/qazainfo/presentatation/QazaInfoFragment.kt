@@ -108,7 +108,7 @@ class QazaInfoFragment : Fragment() {
                     verticalArrangement = Arrangement.Center
             ) {
                 CommonQazaInfo(totalQazaState = qazaState.totalQazaState)
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
