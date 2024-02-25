@@ -16,7 +16,9 @@ data class QazaState(
         val remainCount: Int,
         val completedCount: Int,
         val saparQazaState: SaparQazaState? = null,
-)
+) {
+    fun getTotalRemainCount(): Int = remainCount + (saparQazaState?.remainCount ?: 0)
+}
 
 data class SaparQazaState(
         val key: String,

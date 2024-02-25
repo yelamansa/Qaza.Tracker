@@ -52,7 +52,7 @@ class QazaInfoViewModel(
         var totalCompletedQazaCount = 0
         val qazaList: List<QazaState> = solatQazaRepository.getSolatQazaList().map {
             totalCompletedQazaCount += it.completedCount
-            totalRemainQazaCount += it.solatCount + it.saparSolatCount
+            totalRemainQazaCount += it.solatCount + (it.saparSolatData?.count ?:0)
 
             solatQazaViewDataMapper.map(it)
         } + fastingQazaViewDataMapper.map(

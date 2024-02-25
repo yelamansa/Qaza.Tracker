@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.StringRes
 import kz.qazatracker.R
 import kz.qazatracker.common.data.fasting.FASTING_QAZA
-import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
 import kz.qazatracker.qazainfo.presentatation.model.QazaState
 import kz.qazatracker.utils.LocaleHelper
 

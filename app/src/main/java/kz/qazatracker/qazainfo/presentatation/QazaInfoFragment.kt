@@ -180,7 +180,7 @@ class QazaInfoFragment : Fragment() {
                 QazaCircleProgress(
                         title = qazaInfoData.name,
                         completedCount = qazaInfoData.completedCount,
-                        remainCount = qazaInfoData.remainCount,
+                        remainCount = qazaInfoData.getTotalRemainCount(),
                         editAction = { onItemClick() }
                 )
                 Spacer(modifier = Modifier.height(8.dp))

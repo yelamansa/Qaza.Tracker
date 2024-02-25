@@ -56,7 +56,7 @@ fun QazaChangeBottomSheet(
         Spacer(modifier = Modifier.height(16.dp))
         ChangeModalTitle(
             name = qazaViewData.name,
-            count = qazaViewData.remainCount + (qazaViewData.saparQazaState?.remainCount?:0)
+            count = qazaViewData.getTotalRemainCount()
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
