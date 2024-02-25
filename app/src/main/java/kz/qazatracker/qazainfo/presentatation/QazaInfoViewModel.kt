@@ -7,7 +7,9 @@ import kz.qazatracker.common.data.fasting.FastingQazaRepository
 import kz.qazatracker.common.data.solat.SolatQazaUpdateRepository
 import kz.qazatracker.common.data.solat.SolatQazaRepository
 import kz.qazatracker.common.presentation.FastingQazaViewDataMapper
-import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoStateData
+import kz.qazatracker.qazainfo.presentatation.model.QazaState
+import kz.qazatracker.qazainfo.presentatation.model.TotalQazaState
 
 class QazaInfoViewModel(
     private val solatQazaRepository: SolatQazaRepository,
@@ -17,8 +19,8 @@ class QazaInfoViewModel(
     private val fastingQazaViewDataMapper: FastingQazaViewDataMapper
 ) : ViewModel(), QazaChangeListener {
 
-    private val qazaInfoListLiveData = MutableLiveData<List<QazaInfoData>>()
-    private val qazaChangeLiveData = MutableLiveData<QazaInfoData>()
+    private val qazaInfoStateLiveData = MutableLiveData<QazaInfoStateData>()
+    private val qazaChangeLiveData = MutableLiveData<QazaState>()
     private val onMenuClickLiveData = MutableLiveData<Boolean>()
 
     override fun onQazaDecrease(qazaKey: String) {
@@ -31,9 +33,9 @@ class QazaInfoViewModel(
         updateQazaInfo(qazaKey)
     }
 
-    fun getQazaInfoListLiveData(): LiveData<List<QazaInfoData>> = qazaInfoListLiveData
+    fun getQazaInfoStateLiveData(): LiveData<QazaInfoStateData> = qazaInfoStateLiveData
 
-    fun getQazaChangeLiveData(): LiveData<QazaInfoData> = qazaChangeLiveData
+    fun getQazaChangeLiveData(): LiveData<QazaState> = qazaChangeLiveData
 
     fun getMenuClickLiveData(): LiveData<Boolean> = onMenuClickLiveData
 
@@ -41,33 +43,36 @@ class QazaInfoViewModel(
         updateQazaInfo()
     }
 
-    fun onQazaChangeClick(qazaViewData: QazaInfoData) {
+    fun onQazaChangeClick(qazaViewData: QazaState) {
         qazaChangeLiveData.value = qazaViewData
     }
 
     private fun updateQazaInfo(qazaKey: String? = null)  {
-        val qazaList: List<QazaInfoData> = solatQazaRepository.getSolatQazaList().map { solatQazaViewDataMapper.map(it) } +
-                fastingQazaViewDataMapper.map(
+        var totalRemainQazaCount = 0
+        var totalCompletedQazaCount = 0
+        val qazaList: List<QazaState> = solatQazaRepository.getSolatQazaList().map {
+            totalCompletedQazaCount += it.completedCount
+            totalRemainQazaCount += it.solatCount + it.saparSolatCount
+
+            solatQazaViewDataMapper.map(it)
+        } + fastingQazaViewDataMapper.map(
                         remainCount = fastingQazaRepository.getFastingQazaCount(),
                         completedCount = fastingQazaRepository.getCompletedQazaCount()
-                )
-        qazaInfoListLiveData.value = qazaList
-        if (qazaKey == null) {
+        )
+        totalCompletedQazaCount += fastingQazaRepository.getCompletedQazaCount()
+        totalRemainQazaCount += fastingQazaRepository.getFastingQazaCount()
 
-            return
-        }
+        qazaInfoStateLiveData.value = QazaInfoStateData(
+                totalQazaState = TotalQazaState(
+                        totalCompletedCount = totalCompletedQazaCount,
+                        totalRemainCount = totalRemainQazaCount
+                ),
+                qazaList = qazaList
+        )
+        if (qazaKey == null) { return }
         qazaList.forEach {
-            when(it) {
-                is QazaInfoData.FastingQazaViewData -> {
-                    if (it.key == qazaKey) {
-                        qazaChangeLiveData.value = it
-                    }
-                }
-                is QazaInfoData.SolatQazaViewData -> {
-                    if (it.key == qazaKey || it.getSaparKey() == qazaKey) {
-                        qazaChangeLiveData.value = it
-                    }
-                }
+            if (it.key == qazaKey) {
+                qazaChangeLiveData.value = it
             }
         }
     }

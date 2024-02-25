@@ -26,11 +26,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kz.qazatracker.R
-import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
+import kz.qazatracker.qazainfo.presentatation.model.QazaState
 
 @Composable
-fun SolatQazaChangeBottomSheet(
-    qazaViewData: QazaInfoData.SolatQazaViewData,
+fun QazaChangeBottomSheet(
+    qazaViewData: QazaState,
     qazaChangeListener: QazaChangeListener,
 ) {
     val changeQazaIsExpended: MutableState<Boolean> = remember { mutableStateOf(true) }
@@ -56,57 +56,26 @@ fun SolatQazaChangeBottomSheet(
         Spacer(modifier = Modifier.height(16.dp))
         ChangeModalTitle(
             name = qazaViewData.name,
-            count = qazaViewData.remainCount + qazaViewData.remainSaparCount
+            count = qazaViewData.remainCount + (qazaViewData.saparQazaState?.remainCount?:0)
         )
         Spacer(modifier = Modifier.height(8.dp))
         ChangeQazaContainer(
             qazaKey = qazaViewData.key,
             name = stringResource(id = R.string.qazas),
             count = qazaViewData.remainCount,
-            isExpended = if (qazaViewData.hasSapar) changeQazaIsExpended else null,
+            isExpended = if (qazaViewData.saparQazaState != null) changeQazaIsExpended else null,
                 qazaChangeListener = qazaChangeListener
         )
         Spacer(modifier = Modifier.height(8.dp))
-        if(qazaViewData.hasSapar) {
+        if(qazaViewData.saparQazaState != null) {
             ChangeQazaContainer(
-                    qazaKey = qazaViewData.getSaparKey(),
+                    qazaKey = qazaViewData.saparQazaState.key,
                     name = stringResource(id = R.string.sapar_qazas),
-                    count = qazaViewData.remainSaparCount,
+                    count = qazaViewData.saparQazaState.remainCount,
                     isExpended = changeSaparQazaIsExpended,
                     qazaChangeListener = qazaChangeListener
             )
         }
-    }
-}
-
-@Composable
-fun FastingQazaChangeBottomSheet(
-    qazaViewData: QazaInfoData.FastingQazaViewData,
-    qazaChangeListener: QazaChangeListener,
-) {
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Spacer(
-            modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .width(50.dp)
-                    .height(5.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .background(colorResource(id = R.color.qaza_change_container_bg))
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        ChangeModalTitle(
-            name = qazaViewData.name,
-            count = qazaViewData.remainCount
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        ChangeQazaContainer(
-                qazaKey = qazaViewData.key,
-                name = stringResource(id = R.string.qazas),
-                count = qazaViewData.remainCount,
-                qazaChangeListener = qazaChangeListener
-        )
     }
 }
 

@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import kz.qazatracker.R
 import kz.qazatracker.common.data.fasting.FASTING_QAZA
 import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
+import kz.qazatracker.qazainfo.presentatation.model.QazaState
 import kz.qazatracker.utils.LocaleHelper
 
 class FastingQazaViewDataMapper(
@@ -15,12 +16,11 @@ class FastingQazaViewDataMapper(
     fun map(
             remainCount: Int,
             completedCount: Int,
-    ): QazaInfoData.FastingQazaViewData = QazaInfoData.FastingQazaViewData(
+    ): QazaState = QazaState(
             key = FASTING_QAZA,
             name = getLocaledName(R.string.fasting),
             remainCount = remainCount,
             completedCount = completedCount,
-            icon = R.drawable.ic_lantern
     )
 
     private fun getLocaledName(

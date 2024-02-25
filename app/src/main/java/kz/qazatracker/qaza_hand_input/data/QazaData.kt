@@ -8,5 +8,12 @@ data class QazaData(
         var minSolatCount: Int,
         var minSaparSolatCount: Int,
         val completedCount: Int,
-        val hasSaparSolat: Boolean
+        val hasSaparSolat: Boolean,
+        val saparSolatData: SaparQazaData? = null,
+)
+
+data class SaparQazaData(
+        val key: String,
+        val count: Int,
+        val minCount: Int,
 )

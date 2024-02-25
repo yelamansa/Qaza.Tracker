@@ -13,7 +13,6 @@ sealed class QazaInfoData {
             val remainSaparCount: Int,
             val hasSapar: Boolean,
             val completedCount: Int,
-            @DrawableRes val icon: Int
     ): QazaInfoData() {
 
         fun getTotalRemainCount(): Int = remainCount + remainSaparCount

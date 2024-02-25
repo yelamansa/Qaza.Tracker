@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -25,13 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +35,9 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kz.qazatracker.R
-import kz.qazatracker.qazainfo.presentatation.model.QazaInfoData
+import kz.qazatracker.qazainfo.presentatation.maininfoview.CommonQazaInfo
+import kz.qazatracker.qazainfo.presentatation.model.QazaInfoStateData
+import kz.qazatracker.qazainfo.presentatation.model.QazaState
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class QazaInfoFragment : Fragment() {
@@ -75,14 +73,16 @@ class QazaInfoFragment : Fragment() {
         BackHandler(sheetState.isVisible) {
             coroutineScope.launch { sheetState.hide() }
         }
-        val qazaList = qazaInfoViewModel.getQazaInfoListLiveData().observeAsState(emptyList())
+        val qazaState = qazaInfoViewModel.getQazaInfoStateLiveData().observeAsState()
         ModalBottomSheetLayout(
                 sheetState = sheetState,
                 sheetContent = { QazaChangeBottomSheetContent() },
                 sheetShape = RoundedCornerShape(16.dp)
         ) {
+            val state = qazaState.value ?: return@ModalBottomSheetLayout
+
             QazaInfoContent(
-                    qazaInfoList = qazaList.value,
+                    qazaState = state,
                     coroutineScope = coroutineScope,
                     sheetState = sheetState
             )
@@ -92,7 +92,7 @@ class QazaInfoFragment : Fragment() {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     private fun QazaInfoContent(
-            qazaInfoList: List<QazaInfoData>,
+            qazaState: QazaInfoStateData,
             coroutineScope: CoroutineScope,
             sheetState: ModalBottomSheetState
     ) {
@@ -102,19 +102,21 @@ class QazaInfoFragment : Fragment() {
                         .background(colorResource(id = R.color.qaza_info_bg)),
                 horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(
-                    modifier = Modifier.weight(1f),
-                    contentAlignment = Alignment.Center
+
+            Column(
+                    modifier = Modifier.weight(1f).padding(16.dp),
+                    verticalArrangement = Arrangement.Center
             ) {
+                CommonQazaInfo(totalQazaState = qazaState.totalQazaState)
+                Spacer(modifier = Modifier.height(8.dp))
                 LazyRow(
-                        contentPadding = PaddingValues(16.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    items(items = qazaInfoList, itemContent = { qazaInfoData: QazaInfoData ->
+                    items(items = qazaState.qazaList, itemContent = { qazaState: QazaState ->
                         QazaCardCircular(
-                                qazaInfoData = qazaInfoData, ) {
+                                qazaInfoData = qazaState) {
                             coroutineScope.launch {
-                                qazaInfoViewModel.onQazaChangeClick(qazaInfoData)
+                                qazaInfoViewModel.onQazaChangeClick(qazaState)
                                 sheetState.show()
                             }
                         }
@@ -144,30 +146,22 @@ class QazaInfoFragment : Fragment() {
 
     @Composable
     private fun QazaChangeBottomSheetContent() {
-        val qazaViewData: QazaInfoData? =
+        val qazaViewData: QazaState? =
                 qazaInfoViewModel.getQazaChangeLiveData().observeAsState(null).value
-        when (qazaViewData) {
-            is QazaInfoData.FastingQazaViewData -> {
-                FastingQazaChangeBottomSheet(
-                        qazaViewData,
-                        qazaInfoViewModel
-                )
-            }
-
-            is QazaInfoData.SolatQazaViewData -> {
-                SolatQazaChangeBottomSheet(
-                        qazaViewData,
-                        qazaInfoViewModel
-                )
-            }
-
-            null -> Text(text = stringResource(id = R.string.error_loading_qaza))
+        if (qazaViewData != null) {
+            QazaChangeBottomSheet(
+                    qazaViewData,
+                    qazaInfoViewModel
+            )
+        } else {
+            Text(text = stringResource(id = R.string.error_loading_qaza))
         }
     }
+}
 
     @Composable
     private fun QazaCardCircular(
-            qazaInfoData: QazaInfoData,
+            qazaInfoData: QazaState,
             onItemClick: () -> Unit
     ) {
         Card(
@@ -183,140 +177,16 @@ class QazaInfoFragment : Fragment() {
                             ),
                             horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                when (qazaInfoData) {
-                    is QazaInfoData.FastingQazaViewData -> {
-                        QazaCircleProgress(
-                                title = qazaInfoData.name,
-                                completedCount = qazaInfoData.completedCount,
-                                remainCount = qazaInfoData.remainCount,
-                                editAction = { onItemClick() }
-                        )
-                    }
-
-                    is QazaInfoData.SolatQazaViewData -> {
-                        QazaCircleProgress(
-                                title = qazaInfoData.name,
-                                completedCount = qazaInfoData.completedCount,
-                                remainCount = qazaInfoData.remainCount,
-                                editAction = { onItemClick() }
-                        )
-                    }
-                }
+                QazaCircleProgress(
+                        title = qazaInfoData.name,
+                        completedCount = qazaInfoData.completedCount,
+                        remainCount = qazaInfoData.remainCount,
+                        editAction = { onItemClick() }
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 ChangeQazaButton(onItemClick)
             }
         }
-    }
-
-
-    @Composable
-    private fun QazaCard(
-            qazaViewData: QazaInfoData,
-            onItemClick: () -> Unit
-    ) {
-        Card(
-                shape = RoundedCornerShape(16.dp),
-                backgroundColor = Color.White,
-                modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                    top = 12.dp, bottom = 8.dp, start = 8.dp, end = 8.dp
-                            )
-            ) {
-                when (qazaViewData) {
-                    is QazaInfoData.SolatQazaViewData -> {
-                        QazaCardContent(
-                                name = qazaViewData.name,
-                                qazaRemainCount = qazaViewData.remainCount,
-                                qazaCompletedCount = qazaViewData.completedCount,
-                                onItemClick = onItemClick
-                        )
-                    }
-
-                    is QazaInfoData.FastingQazaViewData -> {
-                        QazaCardContent(
-                                name = qazaViewData.name,
-                                qazaRemainCount = qazaViewData.remainCount,
-                                qazaCompletedCount = qazaViewData.completedCount,
-                                onItemClick = onItemClick
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun QazaCardContent(
-            name: String,
-            qazaRemainCount: Int,
-            qazaCompletedCount: Int,
-            onItemClick: () -> Unit
-    ) {
-        QazaTitle(
-                name = name,
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Column() {
-            Text(
-                    text = "${stringResource(id = R.string.qaza_remainder)} | ${stringResource(id = R.string.qaza_completed)}",
-                    fontSize = 11.sp,
-                    color = Color.Black,
-                    modifier = Modifier
-                            .alpha(0.35f),
-                    maxLines = 1
-            )
-            Row(
-                    verticalAlignment = Alignment.CenterVertically
-            ) {
-                Canvas(modifier = Modifier.size(6.dp), onDraw = {
-                    drawCircle(color = Color.Red)
-                })
-                Text(
-                        text = "$qazaRemainCount",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        modifier = Modifier
-                                .alpha(0.75f)
-                                .padding(start = 4.dp),
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                val color = colorResource(id = R.color.qaza_change_button_bg)
-                Canvas(modifier = Modifier.size(6.dp), onDraw = {
-                    drawCircle(color = color)
-                })
-                Text(
-                        text = "$qazaCompletedCount",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        modifier = Modifier
-                                .alpha(0.75f)
-                                .padding(start = 4.dp),
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        ChangeQazaButton(
-                onItemClick = { onItemClick() }
-        )
-    }
-
-    @Composable
-    private fun QazaTitle(
-            name: String,
-    ) {
-        Text(
-                text = name,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = androidx.compose.ui.graphics.Color.Black,
-                modifier = Modifier.alpha(0.65f)
-        )
     }
 
     @Composable
@@ -345,4 +215,3 @@ class QazaInfoFragment : Fragment() {
             )
         }
     }
-}

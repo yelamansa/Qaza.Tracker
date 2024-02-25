@@ -3,6 +3,7 @@ package kz.qazatracker.common.data.solat
 import android.content.SharedPreferences
 import kz.qazatracker.R
 import kz.qazatracker.qaza_hand_input.data.QazaData
+import kz.qazatracker.qaza_hand_input.data.SaparQazaData
 
 const val FAJR_KEY = "fajr"
 const val ZUHR_KEY = "zuhr"
@@ -56,16 +57,25 @@ class DefaultSolatQazaDataSource(
             if (!hasSaparSolat) 0 else sharedPreferences.getInt(getSaparSolatKey(solatKey), 0)
 
         return QazaData(
-            solatKey = solatKey,
-            solatNameResId = solatNameResId,
-            solatCount = solatCount,
-            saparSolatCount = saparSolatCount,
-            minSolatCount = -solatCount,
-            minSaparSolatCount = -saparSolatCount,
-            completedCount = getPrayedCount(solatKey) + getPrayedCount(getSaparSolatKey(solatKey)),
-            hasSaparSolat = hasSaparSolat
+                solatKey = solatKey,
+                solatNameResId = solatNameResId,
+                solatCount = solatCount,
+                saparSolatCount = saparSolatCount,
+                minSolatCount = -solatCount,
+                minSaparSolatCount = -saparSolatCount,
+                completedCount = getPrayedCount(solatKey) + getPrayedCount(getSaparSolatKey(solatKey)),
+                hasSaparSolat = hasSaparSolat,
+                saparSolatData = getSaparQazaData(solatKey)
         )
     }
+
+    private fun getSaparQazaData(
+            key: String,
+    ) = SaparQazaData(
+            key = getSaparSolatKey(key),
+            count = sharedPreferences.getInt(getSaparSolatKey(key), 0),
+            minCount = -sharedPreferences.getInt(getSaparSolatKey(key), 0),
+    )
 
     override fun getTotalCompletedQazaPercent(): Float {
         val totalCount = getTotalPrayedCount() + getTotalRemainCount()

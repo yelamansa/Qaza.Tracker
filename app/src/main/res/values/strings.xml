@@ -65,6 +65,6 @@
     <string name="increate_one_qaza">+1 каза</string>
     <string name="error_loading_qaza">При загрузке каза произошла ошибка</string>
     <string name="fasting">Пост</string>
-    <string name="total_completed_qaza">Все восполненные каза:</string>
-    <string name="total_remaining_qaza">Все оставшиеся каза:</string>
+    <string name="total_completed_qaza">восполненные каза</string>
+    <string name="total_remaining_qaza">оставшиеся каза</string>
 </resources>
